@@ -12,11 +12,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<String> _list;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public TextView name;
 
         public MyViewHolder(View v) {
             super(v);
-            title = (TextView) v.findViewById(R.id.hero_name);
+            name = (TextView) v.findViewById(R.id.hero_name);
         }
     }
 
@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         String item = _list.get(position);
-        holder.title.setText(item);
+        holder.name.setText(item);
     }
 
     public int getItemCount() {
