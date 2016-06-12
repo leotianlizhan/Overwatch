@@ -31,6 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public void onClick(View v) {
             int position = getAdapterPosition();
             Intent intent = new Intent(this.ctx, HeroInfoActivity.class);
+            intent.putExtra("position", position);
             this.ctx.startActivity(intent);
         }
     }

@@ -1,0 +1,13 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="something.overwatch.OverviewFragment">
+
+    <TextView
+        android:id="@+id/lbl_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="For future use if we decide to add tabs" />
+
+</RelativeLayout>

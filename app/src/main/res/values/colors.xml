@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- Default theme. -->
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
+    <!-- Black theme. -->
+    <color name="colorPrimary">#333132</color>
+    <color name="colorPrimaryDark">#282728</color>
+    <color name="colorAccent">#1a1a1a</color>
+    <color name="colorRect">#262626</color>
+
+    <!-- Dark green theme. -->
+    <!--<color name="colorPrimary">#112d31</color>-->
+    <!--<color name="colorPrimaryDark">#071e21</color>-->
+    <!--<color name="colorAccent">#000000</color>-->
+    <!--<color name="colorRect">#0e1617</color>-->
+
+    <!-- text colors. -->
+    <color name="primary_text">#ffffff</color>
+    <color name="title_text">#fd9926</color>
 </resources>
