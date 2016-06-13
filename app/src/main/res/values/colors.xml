@@ -20,4 +20,7 @@
     <!-- text colors. -->
     <color name="primary_text">#ffffff</color>
     <color name="title_text">#fd9926</color>
+    <color name="hp_armor">#dac183</color>
+    <color name="hp_normal">#d7dcfd</color>
+    <color name="hp_shield">#8dcdd6</color>
 </resources>
