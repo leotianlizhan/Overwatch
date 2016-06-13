@@ -26,39 +26,18 @@ public class HeroInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero_info);
-
+        //get position
         position = getIntent().getIntExtra("position", -1);
         TextView lblHeroName = (TextView)findViewById(R.id.lbl_hero_name);
-        if(position==0){
-            lblHeroName.setText("Hanzo");
-        }else if(position==1){
-            lblHeroName.setText("Genji");
-        }else {
-            lblHeroName.setText("ERROR");
-        }
-
+        //set hero name
+        if(position != -1)lblHeroName.setText(MainActivity.heroNames.get(position));
+        else lblHeroName.setText("Error");
+        //some toolbar stuff
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        setupViewPager(viewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.hero_info_toolbar);
-//        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                handleOnBackPress();
-//            }
-//        });
     }
     private void handleOnBackPress()
     {
