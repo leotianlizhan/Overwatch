@@ -18,7 +18,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static List<String> heroNames = Arrays.asList("Hanzo", "Genji");
+    public static List<String> heroNames = Arrays.asList("Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Reinhardt",
+            "Roadhog", "Winston", "Zarya", "Lucio", "Mercy", "Symmetra", "Zenyatta");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
 
