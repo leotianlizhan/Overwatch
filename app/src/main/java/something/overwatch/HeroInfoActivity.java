@@ -50,8 +50,6 @@ public class HeroInfoActivity extends AppCompatActivity {
         TextView hpNormal = (TextView)findViewById(R.id.lbl_hp_normal_value);
         TextView hpArmor = (TextView)findViewById(R.id.lbl_hp_armor_value);
         TextView hpShield = (TextView)findViewById(R.id.lbl_hp_shield_value);
-        System.out.println(getInfo(position,"Total HP"));
-        System.out.println("hello");
         hpTotal.setText(getInfo(position,"Total HP"));
         hpNormal.setText(getInfo(position,"Normal HP"));
         hpArmor.setText(getInfo(position, "Armor HP"));
@@ -77,10 +75,12 @@ public class HeroInfoActivity extends AppCompatActivity {
             int row = s.getRows(), col = s.getColumns();
             for (int i = 0; i < col; i++)
             {
-                Cell tmp = s.getCell(0, i);
-                if(tmp.getContents() == info)
+                Cell tmp = s.getCell(i, 0);
+                if(tmp.getContents().equals(info))
                 {
-                    return s.getCell(position, i).getContents();
+                    String str = s.getCell(i, position+1).getContents();
+                    if(str.equals(""))return "0";
+                    else return str;
                 }
             }
         }
