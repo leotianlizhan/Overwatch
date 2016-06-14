@@ -2,6 +2,7 @@ package something.overwatch;
 
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
@@ -14,6 +15,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.io.InputStream;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 
 public class HeroInfoActivity extends AppCompatActivity {
 
@@ -48,7 +55,28 @@ public class HeroInfoActivity extends AppCompatActivity {
         adapter.addFragment(new OverviewFragment(), "OVERVIEW");
         viewPager.setAdapter(adapter);
     }
-
+    private String getInfo(int position, String info)
+    {
+        try {
+            //excel stuff
+            AssetManager am = getAssets();
+            InputStream is = am.open("data.xls");
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet s = wb.getSheet(0);
+            int row = s.getRows(), col = s.getColumns();
+            for (int i = 0; i < col; i++)
+            {
+                Cell tmp = s.getCell(0, i);
+                if(tmp.getContents() == info)
+                {
+                    return s.getCell(position, i).getContents();
+                }
+            }
+        }
+        catch(Exception e)
+        {}
+        return "";
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
