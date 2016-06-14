@@ -45,6 +45,17 @@ public class HeroInfoActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        //set hero hp
+        TextView hpTotal = (TextView)findViewById(R.id.lbl_hp_total_value);
+        TextView hpNormal = (TextView)findViewById(R.id.lbl_hp_normal_value);
+        TextView hpArmor = (TextView)findViewById(R.id.lbl_hp_armor_value);
+        TextView hpShield = (TextView)findViewById(R.id.lbl_hp_shield_value);
+        System.out.println(getInfo(position,"Total HP"));
+        System.out.println("hello");
+        hpTotal.setText(getInfo(position,"Total HP"));
+        hpNormal.setText(getInfo(position,"Normal HP"));
+        hpArmor.setText(getInfo(position, "Armor HP"));
+        hpShield.setText(getInfo(position, "Shield HP"));
     }
     private void handleOnBackPress()
     {

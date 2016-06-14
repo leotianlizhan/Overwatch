@@ -37,6 +37,7 @@ public class Ability extends TableLayout {
     public void setName(String name){
         this.name.setText(name);
     }
+
     //set description of the ability
     public void setDescription(String description){
         this.description.setText(description);
