@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 //A compound view for each hero ability
@@ -20,9 +21,10 @@ public class Ability extends TableLayout {
         super(context, attrs);
         initializeViews(context);
     }
+
     private void initializeViews(Context context){
         LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(R.layout.row_ability, this);
+        inflater.inflate(R.layout.ability, this);
     }
 
     @Override
@@ -35,16 +37,33 @@ public class Ability extends TableLayout {
 
     //set name of the ability
     public void setName(String name){
-        this.name.setText(name);
+        TextView abilityName = (TextView)this.findViewById(R.id.ability_name);
+        abilityName.setText(name);
+    }
+
+    //set the default key of the ability (1, 2, LMB, RMB, Shift, E, Q)
+    public void setKey(String key){
+        TextView abilityKey = (TextView)this.findViewById(R.id.ability_key);
+        abilityKey.setText(key);
     }
 
     //set description of the ability
     public void setDescription(String description){
-        this.description.setText(description);
+        TextView abilityDescription = (TextView)this.findViewById(R.id.ability_description);
+        abilityDescription.setText(description);
     }
 
     //set image view??? i'm not sure how
     public void setIcon(int resId){
+        icon = (ImageView)this.findViewById(R.id.ability_icon);
         this.icon.setImageResource(resId);
+    }
+
+    //add a set of stats
+    public void addStat(AbilityStat stat){
+        TableRow abilityStatRow=(TableRow)this.findViewById(R.id.row_ability_stats);
+        abilityStatRow.addView(stat);
+        TableLayout abilityStatSection = (TableLayout)this.findViewById(R.id.tbl_ability_stats);
+        abilityStatSection.setStretchAllColumns(true);
     }
 }

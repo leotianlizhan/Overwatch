@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorRect">
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:layout_marginBottom="5dp"
+    android:padding="10dp"
+    android:paddingTop="0dp">
     <!-- Ability title section -->
     <GridLayout
         android:layout_width="wrap_content"
@@ -12,8 +15,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:minWidth="48dp"
             android:id="@+id/ability_icon"
             android:layout_column="0"
             android:layout_row="0"
@@ -31,32 +32,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/primary_text"
-            android:id="@+id/ability_cd"
-            android:text="COOLDOWN s"
+            android:id="@+id/ability_key"
+            android:text="Key: "
             android:layout_row="1"
             android:layout_column="1"/>
     </GridLayout>
     <!-- Ability detail section -->
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Description of ability-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
+        android:id="@+id/ability_description"
+        android:text="ABILITY DESCRIPTION"
+        android:layout_below="@id/ability_title_section"/>
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorRect"
-        android:layout_below="@id/ability_title_section">
-        <!-- Description of ability-->
+        android:id="@+id/tbl_ability_stats"
+        android:layout_below="@id/ability_description"
+        >
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text"
-                android:id="@+id/ability_description"
-                android:text="ABILITY DESCRIPTION"/>
-        </TableRow>
-        <!-- Stats -->
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/row_ability_stats">
 
         </TableRow>
     </TableLayout>
