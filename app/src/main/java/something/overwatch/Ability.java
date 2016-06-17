@@ -1,5 +1,9 @@
 package something.overwatch;
 
+//IMPORTANT
+//make unique ability, stat, etc every time. AKA don't reuse any objects, make new ones
+//if you don't, you're adding 2 things, with the same reference which crashes
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -8,11 +12,17 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.List;
+
 //A compound view for each hero ability
 public class Ability extends TableLayout {
-    private TextView name;
-    private TextView description;
-    private ImageView icon;
+    public Ability(Context context, String name, String key, String description) {
+        super(context);
+        initializeViews(context);
+        this.setName(name);
+        this.setKey(key);
+        this.setDescription(description);
+    }
     public Ability(Context context) {
         super(context);
         initializeViews(context);
@@ -27,14 +37,6 @@ public class Ability extends TableLayout {
         inflater.inflate(R.layout.ability, this);
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        name = (TextView)this.findViewById(R.id.ability_name);
-        description = (TextView)this.findViewById(R.id.ability_description);
-        icon = (ImageView)this.findViewById(R.id.ability_icon);
-    }
-
     //set name of the ability
     public void setName(String name){
         TextView abilityName = (TextView)this.findViewById(R.id.ability_name);
@@ -44,7 +46,9 @@ public class Ability extends TableLayout {
     //set the default key of the ability (1, 2, LMB, RMB, Shift, E, Q)
     public void setKey(String key){
         TextView abilityKey = (TextView)this.findViewById(R.id.ability_key);
-        abilityKey.setText(key);
+        String text = "Key: " + key;
+        if(!key.equals("")) abilityKey.setText(text);
+        else abilityKey.setText("");
     }
 
     //set description of the ability
@@ -55,8 +59,8 @@ public class Ability extends TableLayout {
 
     //set image view??? i'm not sure how
     public void setIcon(int resId){
-        icon = (ImageView)this.findViewById(R.id.ability_icon);
-        this.icon.setImageResource(resId);
+        ImageView icon = (ImageView)this.findViewById(R.id.ability_icon);
+        icon.setImageResource(resId);
     }
 
     //add a set of stats

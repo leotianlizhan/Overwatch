@@ -15,175 +15,182 @@
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@color/primary_text"
+        app:titleTextColor="@color/text_primary"
         android:theme="@style/ToolbarColoredBackArrow"/>
-
-    <!-- Hero Name Section -->
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/rectangle">
-        <!-- Name -->
-        <TextView
-            android:id="@+id/lbl_hero_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SOME THING"
-            android:textSize="30sp"
-            android:textColor="@color/title_text"
-            />
-
-        <!-- Role (Offense, Defence, Tank, Support) -->
-        <TextView
-            android:id="@+id/lbl_hero_role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_hero_name"
-            android:text="Offense/Defence/Tank/Support"
-            android:textColor="@color/primary_text"/>
-
-    </RelativeLayout>
-
-    <!-- Hero Basic Stats Section-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/rectangle">
-        <!-- Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_basic_stats"
-            android:id="@+id/lbl_basic_stats"
-            android:textColor="@color/title_text"
-            android:textSize="20sp"/>
-        <!-- Content -->
-        <TableLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_basic_stats">
-
-            <!-- Total HP -->
-            <TableRow
+            android:orientation="vertical">
+            <!-- Hero Name Section -->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rectangle">
+                <!-- Name -->
                 <TextView
+                    android:id="@+id/lbl_hero_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="@string/lbl_hp_total"
-                    android:id="@+id/lbl_hp_total"
-                    android:textColor="@color/primary_text" />
+                    android:text="SOME THING"
+                    android:textSize="30sp"
+                    android:textColor="@color/text_title"
+                    />
 
+                <!-- Role (Offense, Defence, Tank, Support) -->
                 <TextView
+                    android:id="@+id/lbl_hero_role"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/lbl_hp_total_value"
-                    android:textColor="@color/primary_text"
-                    android:layout_marginStart="40dp"/>
+                    android:layout_below="@id/lbl_hero_name"
+                    android:text="Offense/Defence/Tank/Support"
+                    android:textColor="@color/text_primary"/>
 
-            </TableRow>
+            </RelativeLayout>
 
-            <!-- Normal HP -->
-            <TableRow
+            <!-- Hero Basic Stats Section-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rectangle">
+                <!-- Title -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_hp_normal"
-                    android:id="@+id/lbl_hp_normal"
-                    android:textColor="@color/primary_text"
-                    android:layout_gravity="end"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:text="@string/lbl_basic_stats"
+                    android:id="@+id/lbl_basic_stats"
+                    android:textColor="@color/text_title"
+                    android:textSize="20sp"/>
+                <!-- Content -->
+                <TableLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/lbl_hp_normal_value"
-                    android:textColor="@color/hp_normal"
-                    android:layout_marginStart="40dp"/>
+                    android:layout_below="@id/lbl_basic_stats">
 
-            </TableRow>
+                    <!-- Total HP -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="@string/lbl_hp_total"
+                            android:id="@+id/lbl_hp_total"
+                            android:textColor="@color/text_primary" />
 
-            <!-- Armor HP -->
-            <TableRow
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:id="@+id/lbl_hp_total_value"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginStart="40dp"/>
+
+                    </TableRow>
+
+                    <!-- Normal HP -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_hp_normal"
+                            android:id="@+id/lbl_hp_normal"
+                            android:textColor="@color/text_primary"
+                            android:layout_gravity="end"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:id="@+id/lbl_hp_normal_value"
+                            android:textColor="@color/hp_normal"
+                            android:layout_marginStart="40dp"/>
+
+                    </TableRow>
+
+                    <!-- Armor HP -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_hp_armor"
+                            android:id="@+id/lbl_hp_armor"
+                            android:textColor="@color/text_primary"
+                            android:layout_gravity="end"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:id="@+id/lbl_hp_armor_value"
+                            android:textColor="@color/hp_armor"
+                            android:layout_marginStart="40dp"/>
+
+                    </TableRow>
+
+                    <!-- Shield HP -->
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_hp_shield"
+                            android:id="@+id/lbl_hp_shield"
+                            android:textColor="@color/text_primary"
+                            android:layout_gravity="end"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:id="@+id/lbl_hp_shield_value"
+                            android:textColor="@color/hp_shield"
+                            android:layout_marginStart="40dp"/>
+
+                    </TableRow>
+                </TableLayout>
+
+
+
+            </RelativeLayout>
+
+            <!-- Abilities Section -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/rectangle"
+                android:id="@+id/ability_section"
+                android:orientation="vertical">
+                <!-- Title -->
                 <TextView
+                    android:id="@+id/lbl_hero_abilities"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_hp_armor"
-                    android:id="@+id/lbl_hp_armor"
-                    android:textColor="@color/primary_text"
-                    android:layout_gravity="end"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/lbl_hp_armor_value"
-                    android:textColor="@color/hp_armor"
-                    android:layout_marginStart="40dp"/>
-
-            </TableRow>
-
-            <!-- Shield HP -->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_hp_shield"
-                    android:id="@+id/lbl_hp_shield"
-                    android:textColor="@color/primary_text"
-                    android:layout_gravity="end"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:id="@+id/lbl_hp_shield_value"
-                    android:textColor="@color/hp_shield"
-                    android:layout_marginStart="40dp"/>
-
-            </TableRow>
-        </TableLayout>
-
-
-
-    </RelativeLayout>
-
-    <!-- Abilities Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/rectangle"
-        android:id="@+id/ability_section"
-        android:orientation="vertical">
-        <!-- Title -->
-        <TextView
-            android:id="@+id/lbl_hero_abilities"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="Abilities"
-            android:textColor="@color/title_text"
-            android:textSize="20sp"/>
-        <!-- add ability here -->
-    </LinearLayout>
-
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Abilities"
+                    android:textColor="@color/text_title"
+                    android:textSize="20sp"/>
+                <!-- add ability here -->
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

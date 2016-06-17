@@ -9,9 +9,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textColor="@color/primary_text"
+        android:textColor="@color/text_primary"
         android:id="@+id/lbl_ability_stat_name"
         android:layout_gravity="center_horizontal"
+        android:textSize="12sp"
         android:layout_row="0"
         android:layout_column="0"/>
 
@@ -20,8 +21,9 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/lbl_ability_stat_value"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/text_primary"
         android:layout_gravity="center_horizontal"
+        android:textSize="12sp"
         android:layout_row="1"
         android:layout_column="0"/>
 </GridLayout>

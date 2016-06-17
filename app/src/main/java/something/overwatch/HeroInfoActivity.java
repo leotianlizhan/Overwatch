@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -63,50 +64,23 @@ public class HeroInfoActivity extends AppCompatActivity {
         /****************abilities stats testing****************/
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
-        //set stats
-        AbilityStat damage = new AbilityStat(this);
-        damage.setStatName("Damage");
-        damage.setStatValue("420");
-        AbilityStat fireRate = new AbilityStat(this);
-        fireRate.setStatName("Fire Rate");
-        fireRate.setStatValue("20 rps");
-        AbilityStat ammo = new AbilityStat(this);
-        ammo.setStatName("Ammo");
-        ammo.setStatValue("20");
         //set ability
-        Ability ability1 = new Ability(this);
-        ability1.setName("Pulse Bomb");
-        ability1.setDescription("Tracer throws a bomb");
-        ability1.setKey("Key: Q");
-        ability1.addStat(damage);
-        ability1.addStat(fireRate);
-        ability1.addStat(ammo);
-        ammo = new AbilityStat(this);
-        ammo.setStatName("Reload");
-        ammo.setStatValue("3s");
-        ability1.addStat(ammo);
-        abilitySection.addView(ability1);
-        //IMPORTANT
-        //make unique ability, stat, etc every time. AKA don't reuse any objects, make new ones
-        //if you don't, you're adding 2 things, with the same reference which crashes
-        ability1 = new Ability(this);
-        ability1.setName("Butt Clench");
-        ability1.setKey("Key: 69");
-        ability1.setDescription("Clench butt.");
-        ammo = new AbilityStat(this);
-        ammo.setStatName("Damage");
-        ammo.setStatValue("70");
-        ability1.addStat(ammo);
-        ammo = new AbilityStat(this);
-        ammo.setStatName("Fire Rate");
-        ammo.setStatValue("10 rps");
-        ability1.addStat(ammo);
-        abilitySection.addView(ability1);
-        ability1 = new Ability(this);
-        ability1.setName("Fan The Hammer");
-        ability1.setKey("Key: E");
-        ability1.setDescription("Nerfed.");
-        abilitySection.addView(ability1);
+        Ability ability = new Ability(this, "Pulse Bomb", "Q", "Tracer throws a bomb. A sticky one. Hmmmm");
+        ability.addStat(new AbilityStat(this, "Damage", "420"));
+        ability.addStat(new AbilityStat(this, "Fire Rate", "20 rps"));
+        ability.addStat(new AbilityStat(this, "Ammo", "200"));
+        ability.addStat(new AbilityStat(this, "Reload", "3s"));
+        abilitySection.addView(ability);
+
+        //another one
+        ability = new Ability(this, "Butt Clench", "E", "Clenches butt.");
+        ability.addStat(new AbilityStat(this, "Damage", "70"));
+        ability.addStat(new AbilityStat(this, "Fire Rate", "10rps"));
+        abilitySection.addView(ability);
+
+        //another one
+        ability = new Ability(this, "Fan The Hammer", "E", "McCree furiously fans his hammer.");
+        abilitySection.addView(ability);
         /****************abilities stats testing****************/
     }
     private void handleOnBackPress()
@@ -139,7 +113,11 @@ public class HeroInfoActivity extends AppCompatActivity {
             }
         }
         catch(Exception e)
-        {}
+        {
+            //show error message on screen
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
         return "";
     }
     @Override

@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/title_text"
+            android:textColor="@color/text_title"
             android:id="@+id/ability_name"
             android:text="ABILITY NAME"
             android:layout_row="0"
@@ -31,18 +31,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/text_primary"
             android:id="@+id/ability_key"
+            android:layout_marginTop="-2dp"
             android:text="Key: "
             android:layout_row="1"
-            android:layout_column="1"/>
+            android:layout_column="1"
+            android:textSize="11sp"/>
     </GridLayout>
     <!-- Ability detail section -->
     <!-- Description of ability-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/primary_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/text_secondary"
         android:id="@+id/ability_description"
         android:text="ABILITY DESCRIPTION"
         android:layout_below="@id/ability_title_section"/>

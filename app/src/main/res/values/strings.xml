@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="lbl_temporary">This app is currently under development.\nAlso we might be too lazy to finish all these other extra features :p</string>
+    <string name="lbl_temporary">This app is currently under development. Future features to come.</string>
     <string name="lbl_hp_total">Total HP:</string>
     <string name="lbl_hp_normal">Normal HP:</string>
     <string name="lbl_hp_armor">Armor HP:</string>

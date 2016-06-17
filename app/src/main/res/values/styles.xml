@@ -18,7 +18,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
-        <item name="android:textColorSecondary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/text_primary</item>
     </style>
 
 </resources>

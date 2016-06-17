@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/lbl_temporary"
-        android:id="@+id/textView2"
+        android:id="@+id/lbl_temporary"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
