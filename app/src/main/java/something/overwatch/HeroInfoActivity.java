@@ -56,10 +56,10 @@ public class HeroInfoActivity extends AppCompatActivity {
         TextView hpNormal = (TextView)findViewById(R.id.lbl_hp_normal_value);
         TextView hpArmor = (TextView)findViewById(R.id.lbl_hp_armor_value);
         TextView hpShield = (TextView)findViewById(R.id.lbl_hp_shield_value);
-        hpTotal.setText(getInfo(position,"Total HP"));
-        hpNormal.setText(getInfo(position,"Normal HP"));
-        hpArmor.setText(getInfo(position, "Armor HP"));
-        hpShield.setText(getInfo(position, "Shield HP"));
+        hpTotal.setText(getHpInfo(position,"Total HP"));
+        hpNormal.setText(getHpInfo(position,"Normal HP"));
+        hpArmor.setText(getHpInfo(position, "Armor HP"));
+        hpShield.setText(getHpInfo(position, "Shield HP"));
 
         /****************abilities stats testing****************/
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
@@ -92,9 +92,10 @@ public class HeroInfoActivity extends AppCompatActivity {
         adapter.addFragment(new OverviewFragment(), "OVERVIEW");
         viewPager.setAdapter(adapter);
     }
-    private String getInfo(int position, String info)
+    private String getHpInfo(int position, String info)
     {
-        try {
+        try
+        {
             //excel stuff
             AssetManager am = getAssets();
             InputStream is = am.open("data.xls");
@@ -114,11 +115,44 @@ public class HeroInfoActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            //show error message on screen
-            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
-            toast.show();
         }
         return "";
+    }
+    private Ability[] getAbilityInfo(int position, String info)
+    {
+        //read each hero stat and add to the class
+        try
+        {
+            //excel setup
+            AssetManager am = getAssets();
+            InputStream is = am.open("heroes.xls");
+            Workbook wb = Workbook.getWorkbook(is);
+            Sheet s = wb.getSheet(0);
+            int idx = 0, row = s.getRows(), col = s.getColumns();
+            //skip to hero row
+            for (int i = 0; i < position; i++)
+            {
+                String str = s.getCell(0, idx).getContents();
+                int tmp = str.charAt(str.length() - 1) - '0';
+                i += tmp + 2;
+            }
+            //number of abilities
+            String str = s.getCell(idx, 0).getContents();
+            int abilities = str.charAt(str.length() - 1) - '0', cur = 0;
+            //return array
+            Ability[] ret = new Ability[abilities];
+            for(int i = idx+1; i <= idx + abilities; i++)
+            {
+                ret[cur] = new Ability(this, s.getCell(0, idx).getContents(), s.getCell(8, idx).getContents(), s.getCell(10, idx).getContents());
+                for(int j = 1; j < 10; j++)if(j != 8)ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
+            }
+            return ret;
+        }
+        catch(Exception e)
+        {
+
+        }
+        return null;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
