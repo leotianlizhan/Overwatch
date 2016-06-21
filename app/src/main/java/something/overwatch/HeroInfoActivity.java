@@ -65,8 +65,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         /****************abilities stats testing****************/
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
-
-        Ability[] abilities = getAbilityInfo(position, "what is this bill");
+        Ability[] abilities = getAbilityInfo(position);
         for(int i=0; i<abilities.length; i++){
             abilitySection.addView(abilities[i]);
         }
@@ -107,7 +106,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         }
         return "";
     }
-    private Ability[] getAbilityInfo(int position, String info)
+    private Ability[] getAbilityInfo(int position)
     {
         //read each hero stat and add to the class
         try
@@ -117,30 +116,32 @@ public class HeroInfoActivity extends AppCompatActivity {
             InputStream is = am.open("heroes.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
-            int idx = 0, row = s.getRows(), col = s.getColumns();
+            int idx = 1, row = s.getRows(), col = s.getColumns();
             //skip to hero row
             for (int i = 0; i < position; i++)
             {
                 String str = s.getCell(0, idx).getContents();
                 int tmp = str.charAt(str.length() - 1) - '0';
-                i += tmp + 2;
+                System.out.println(tmp);
+                idx += tmp + 2;
             }
             //number of abilities
-            String str = s.getCell(idx, 0).getContents();
+            String str = s.getCell(0, idx).getContents();
             int abilities = str.charAt(str.length() - 1) - '0', cur = 0;
             //return array
             Ability[] ret = new Ability[abilities];
+            System.out.println("current index " + idx);
             for(int i = idx+1; i <= idx + abilities; i++)
             {
-                ret[cur] = new Ability(this, s.getCell(0, idx).getContents(), s.getCell(8, idx).getContents(), s.getCell(10, idx).getContents());
+                ret[cur] = new Ability(this, s.getCell(0, i).getContents(), s.getCell(8, i).getContents(), s.getCell(10, i).getContents());
                 for(int j = 1; j < 10; j++)if(j != 8)
                 {
-                    String tmp = s.getCell(j, idx).getContents();
-                    if(!tmp.equals(""))ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
+                    String tmp = s.getCell(j, i).getContents();
+                    if(!tmp.equals(""))ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, i).getContents()));
                 }
+                cur++;
             }
-            return ret;
-        }
+            return ret;        }
         catch(Exception e)
         {
 
