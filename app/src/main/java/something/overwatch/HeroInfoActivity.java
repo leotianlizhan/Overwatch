@@ -23,6 +23,7 @@ import android.widget.Toast;
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.util.List;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -64,23 +65,11 @@ public class HeroInfoActivity extends AppCompatActivity {
         /****************abilities stats testing****************/
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
-        //set ability
-        Ability ability = new Ability(this, "Pulse Bomb", "Q", "Tracer throws a bomb. A sticky one. Hmmmm");
-        ability.addStat(new AbilityStat(this, "Damage", "420"));
-        ability.addStat(new AbilityStat(this, "Fire Rate", "20 rps"));
-        ability.addStat(new AbilityStat(this, "Ammo", "200"));
-        ability.addStat(new AbilityStat(this, "Reload", "3s"));
-        abilitySection.addView(ability);
 
-        //another one
-        ability = new Ability(this, "Butt Clench", "E", "Clenches butt.");
-        ability.addStat(new AbilityStat(this, "Damage", "70"));
-        ability.addStat(new AbilityStat(this, "Fire Rate", "10rps"));
-        abilitySection.addView(ability);
-
-        //another one
-        ability = new Ability(this, "Fan The Hammer", "E", "McCree furiously fans his hammer.");
-        abilitySection.addView(ability);
+        Ability[] abilities = getAbilityInfo(position, "what is this bill");
+        for(int i=0; i<abilities.length; i++){
+            abilitySection.addView(abilities[i]);
+        }
         /****************abilities stats testing****************/
     }
     private void handleOnBackPress()
@@ -146,8 +135,8 @@ public class HeroInfoActivity extends AppCompatActivity {
                 ret[cur] = new Ability(this, s.getCell(0, idx).getContents(), s.getCell(8, idx).getContents(), s.getCell(10, idx).getContents());
                 for(int j = 1; j < 10; j++)if(j != 8)
                 {
-                    string tmp = s.getCell(j, idx).getContents();
-                    if(tmp != "")ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
+                    String tmp = s.getCell(j, idx).getContents();
+                    if(!tmp.equals(""))ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
                 }
             }
             return ret;
