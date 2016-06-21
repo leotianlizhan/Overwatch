@@ -144,7 +144,11 @@ public class HeroInfoActivity extends AppCompatActivity {
             for(int i = idx+1; i <= idx + abilities; i++)
             {
                 ret[cur] = new Ability(this, s.getCell(0, idx).getContents(), s.getCell(8, idx).getContents(), s.getCell(10, idx).getContents());
-                for(int j = 1; j < 10; j++)if(j != 8)ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
+                for(int j = 1; j < 10; j++)if(j != 8)
+                {
+                    string tmp = s.getCell(j, idx).getContents();
+                    if(tmp != "")ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, idx).getContents()));
+                }
             }
             return ret;
         }
