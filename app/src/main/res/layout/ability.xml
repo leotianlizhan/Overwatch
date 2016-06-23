@@ -49,6 +49,7 @@
         android:textColor="@color/text_secondary"
         android:id="@+id/ability_description"
         android:text="ABILITY DESCRIPTION"
+        android:textSize="12sp"
         android:layout_below="@id/ability_title_section"/>
     <TableLayout
         android:layout_width="match_parent"

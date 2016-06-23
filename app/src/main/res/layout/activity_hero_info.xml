@@ -15,7 +15,7 @@
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@color/text_primary"
+        app:titleTextColor="@color/text_white"
         android:theme="@style/ToolbarColoredBackArrow"/>
     <ScrollView
         android:layout_width="match_parent"
@@ -29,9 +29,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:paddingStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rectangle">
+                <!-- Picture -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pic_hero_info"
+                    android:minHeight="70dp"
+                    android:minWidth="70dp" />
+
                 <!-- Name -->
                 <TextView
                     android:id="@+id/lbl_hero_name"
@@ -39,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="SOME THING"
                     android:textSize="30sp"
+                    android:layout_toEndOf="@id/pic_hero_info"
                     android:textColor="@color/text_title"
                     />
 
@@ -48,7 +58,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/lbl_hero_name"
-                    android:text="Offense/Defence/Tank/Support"
+                    android:layout_alignStart="@id/lbl_hero_name"
+                    android:layout_marginTop="-1dp"
                     android:textColor="@color/text_primary"/>
 
             </RelativeLayout>
@@ -84,6 +95,7 @@
                             android:layout_gravity="end"
                             android:text="@string/lbl_hp_total"
                             android:id="@+id/lbl_hp_total"
+                            android:textSize="12sp"
                             android:textColor="@color/text_primary" />
 
                         <TextView
@@ -92,6 +104,7 @@
                             android:text="0"
                             android:id="@+id/lbl_hp_total_value"
                             android:textColor="@color/text_primary"
+                            android:textSize="12sp"
                             android:layout_marginStart="40dp"/>
 
                     </TableRow>
@@ -105,6 +118,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/lbl_hp_normal"
                             android:id="@+id/lbl_hp_normal"
+                            android:textSize="12sp"
                             android:textColor="@color/text_primary"
                             android:layout_gravity="end"/>
 
@@ -112,6 +126,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:textSize="12sp"
                             android:id="@+id/lbl_hp_normal_value"
                             android:textColor="@color/hp_normal"
                             android:layout_marginStart="40dp"/>
@@ -128,7 +143,8 @@
                             android:text="@string/lbl_hp_armor"
                             android:id="@+id/lbl_hp_armor"
                             android:textColor="@color/text_primary"
-                            android:layout_gravity="end"/>
+                            android:layout_gravity="end"
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -136,7 +152,8 @@
                             android:text="0"
                             android:id="@+id/lbl_hp_armor_value"
                             android:textColor="@color/hp_armor"
-                            android:layout_marginStart="40dp"/>
+                            android:layout_marginStart="40dp"
+                            android:textSize="12sp"/>
 
                     </TableRow>
 
@@ -150,7 +167,8 @@
                             android:text="@string/lbl_hp_shield"
                             android:id="@+id/lbl_hp_shield"
                             android:textColor="@color/text_primary"
-                            android:layout_gravity="end"/>
+                            android:layout_gravity="end"
+                            android:textSize="12sp"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -158,7 +176,8 @@
                             android:text="0"
                             android:id="@+id/lbl_hp_shield_value"
                             android:textColor="@color/hp_shield"
-                            android:layout_marginStart="40dp"/>
+                            android:layout_marginStart="40dp"
+                            android:textSize="12sp"/>
 
                     </TableRow>
                 </TableLayout>

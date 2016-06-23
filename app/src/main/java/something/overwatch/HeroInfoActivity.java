@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -43,15 +44,25 @@ public class HeroInfoActivity extends AppCompatActivity {
         //get position
         position = getIntent().getIntExtra("position", -1);
         TextView lblHeroName = (TextView)findViewById(R.id.lbl_hero_name);
+        TextView lblHeroClass = (TextView)findViewById(R.id.lbl_hero_role);
         //set hero name
-        if(position != -1)lblHeroName.setText(MainActivity.heroNames.get(position));
-        else lblHeroName.setText("Error");
+        if(position != -1) {
+            lblHeroName.setText(MainActivity.heroNames.get(position));
+            lblHeroClass.setText(MainActivity.heroClasses.get(position));
+        } else lblHeroName.setText("Error");
         //some toolbar stuff
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        //set hero picture
+        ImageView pic = (ImageView)findViewById(R.id.pic_hero_info);
+        String heroName = MainActivity.heroNames.get(position);
+        heroName = heroName.toLowerCase().replace(".", "").replace(" ", "");
+        int resId = getResources().getIdentifier("pic_" + heroName, "mipmap", MainActivity.PACKAGE_NAME);
+        pic.setImageResource(resId);
+
         //set hero hp
         TextView hpTotal = (TextView)findViewById(R.id.lbl_hp_total_value);
         TextView hpNormal = (TextView)findViewById(R.id.lbl_hp_normal_value);
@@ -62,14 +73,14 @@ public class HeroInfoActivity extends AppCompatActivity {
         hpArmor.setText(getHpInfo(position, "Armor HP"));
         hpShield.setText(getHpInfo(position, "Shield HP"));
 
-        /****************abilities stats testing****************/
+        /****************abilities stats****************/
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
         Ability[] abilities = getAbilityInfo(position);
         for(int i=0; i<abilities.length; i++){
             abilitySection.addView(abilities[i]);
         }
-        /****************abilities stats testing****************/
+        /****************abilities stats****************/
     }
     private void handleOnBackPress()
     {

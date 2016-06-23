@@ -33,7 +33,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_main,container,false);
         recyclerView=(RecyclerView)v.findViewById(R.id.hero_list_recycler_view);
-
+        recyclerView.setHasFixedSize(true);
         return v;
     }
 

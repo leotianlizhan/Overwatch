@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +19,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
+        public ImageView icon;
+        public ImageView heroClass;
         Context ctx;
 
         public MyViewHolder(View v, Context ctx) {
             super(v);
             this.ctx = ctx;
             v.setOnClickListener(this);
-            name = (TextView) v.findViewById(R.id.hero_name);
+            name = (TextView) v.findViewById(R.id.lbl_hero_name_card);
+            icon = (ImageView) v.findViewById(R.id.pic_hero_card);
+            heroClass = (ImageView)v.findViewById(R.id.pic_hero_class_card);
         }
 
         @Override
@@ -43,14 +48,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View heroNameView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.hero_name, parent, false);
-        return new MyViewHolder(heroNameView, ctx);
+        View heroCardView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_hero, parent, false);
+        return new MyViewHolder(heroCardView, ctx);
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String item = _list.get(position);
-        holder.name.setText(item);
+        String str = _list.get(position);
+        holder.name.setText(str);
+        str = str.toLowerCase().replace(".", "").replace(" ", "");
+        holder.icon.setImageResource(ctx.getResources().getIdentifier("pic_" + str, "mipmap", MainActivity.PACKAGE_NAME));
+        str = MainActivity.heroClasses.get(position).toLowerCase();
+        holder.heroClass.setImageResource(ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", MainActivity.PACKAGE_NAME));
     }
 
     public int getItemCount() {

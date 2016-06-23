@@ -18,9 +18,11 @@
     <!--<color name="colorRect">#0e1617</color>-->
 
     <!-- text colors. -->
-    <color name="text_primary">#ffffff</color>
+    <color name="text_white">#f8f8f8</color>
+    <color name="text_primary">#cdced0</color>
     <color name="text_title">#fd9926</color>
-    <color name="text_secondary">#d9d9d9</color>
+    <color name="text_secondary">#b9babc</color>
+    <color name="text_card">#f0edf2</color>
     <color name="hp_armor">#dac183</color>
     <color name="hp_normal">#d7dcfd</color>
     <color name="hp_shield">#8dcdd6</color>
