@@ -142,9 +142,8 @@ public class HeroInfoActivity extends AppCompatActivity {
             System.out.println("current index " + idx);
             for(int i = idx+1; i <= idx + abilities; i++)
             {
-                ret[cur] = new Ability(this, s.getCell(0, i).getContents(), s.getCell(8, i).getContents(), s.getCell(10, i).getContents());
-                boolean de = s.getCell(0, i).getContents().equals("Shadow Step");
-                for(int j = 1; j < 10; j++)if(j != 8)
+                ret[cur] = new Ability(this, s.getCell(0, i).getContents(), s.getCell(8, i).getContents(), s.getCell(11, i).getContents());
+                for(int j = 1; j < 11; j++)if(j != 8)
                 {
                     String tmp = s.getCell(j, i).getContents();
                     if(!tmp.equals(""))ret[cur].addStat(new AbilityStat(this, s.getCell(j, 0).getContents(), s.getCell(j, i).getContents()));
