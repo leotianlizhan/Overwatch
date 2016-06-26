@@ -59,13 +59,20 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    private static final String LIST_STATE_KEY = "muhammad";
     @Override
     public void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
 
         // Save list state
         mState = recyclerView.getLayoutManager().onSaveInstanceState();
-        state.putParcelable(LIST_STATE_KEY, mState);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mState = recyclerView.getLayoutManager().onSaveInstanceState();
+    }
+
+
+
 }
