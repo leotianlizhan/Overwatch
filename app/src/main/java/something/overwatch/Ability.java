@@ -46,9 +46,8 @@ public class Ability extends TableLayout {
     //set the default key of the ability (1, 2, LMB, RMB, Shift, E, Q)
     public void setKey(String key){
         TextView abilityKey = (TextView)this.findViewById(R.id.ability_key);
-        String text = "Key: " + key;
-        if(!key.equals("")) abilityKey.setText(text);
-        else abilityKey.setText("");
+        if(!key.equals("")) abilityKey.setText(key);
+        else abilityKey.setText("Passive");
     }
 
     //set description of the ability
@@ -57,11 +56,6 @@ public class Ability extends TableLayout {
         abilityDescription.setText(description);
     }
 
-    //set image view??? i'm not sure how
-    public void setIcon(int resId){
-        ImageView icon = (ImageView)this.findViewById(R.id.ability_icon);
-        icon.setImageResource(resId);
-    }
 
     //add a set of stats
     public void addStat(AbilityStat stat){
