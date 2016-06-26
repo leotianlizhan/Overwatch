@@ -77,9 +77,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
         Ability[] abilities = getAbilityInfo(position);
-        for(int i=0; i<abilities.length; i++){
-            abilitySection.addView(abilities[i]);
-        }
+        for(int i=0; i<abilities.length; i++) abilitySection.addView(abilities[i]);
         /****************abilities stats****************/
     }
     private void handleOnBackPress()

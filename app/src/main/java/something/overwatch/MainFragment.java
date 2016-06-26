@@ -3,6 +3,7 @@ package something.overwatch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,16 +26,26 @@ public class MainFragment extends Fragment {
     private List<String> heroNames = MainActivity.heroNames;
     private RecyclerViewAdapter recyclerAdapter;
     private RecyclerView recyclerView;
+    private static Parcelable mState;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =inflater.inflate(R.layout.fragment_main,container,false);
+        View v =inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView=(RecyclerView)v.findViewById(R.id.hero_list_recycler_view);
         recyclerView.setHasFixedSize(true);
         return v;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(mState!=null){
+            recyclerView.getLayoutManager().onRestoreInstanceState(mState);
+        }
     }
 
     @Override
@@ -46,5 +57,15 @@ public class MainFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    private static final String LIST_STATE_KEY = "muhammad";
+    @Override
+    public void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+
+        // Save list state
+        mState = recyclerView.getLayoutManager().onSaveInstanceState();
+        state.putParcelable(LIST_STATE_KEY, mState);
     }
 }
