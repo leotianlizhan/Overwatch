@@ -12,4 +12,4 @@ However, the primary motive for this app is that there wasn't a good hero stats 
 We're just 2 grade 12 students who like to play Overwatch.  
 
 #Play Store Download
-Soon TM
+https://play.google.com/store/apps/details?id=something.overwatch
