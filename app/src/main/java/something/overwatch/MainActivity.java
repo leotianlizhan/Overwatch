@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
             "Roadhog", "Winston", "Zarya", "Lucio", "Mercy", "Symmetra", "Zenyatta");
     public static List<String> heroClasses = Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support");
+    public static List<String> mapNames = Arrays.asList("Dorado", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
 
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             setTitle("Heroes");
         } else if (id == R.id.nav_maps) {
-            TemporaryFragment fragment = new TemporaryFragment();
+            MapsFragment fragment = new MapsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -126,13 +127,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Players");
-        } else if (id == R.id.nav_share) {
-            TemporaryFragment fragment = new TemporaryFragment();
+        } else if (id == R.id.nav_about) {
+            AboutFragment fragment = new AboutFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-            setTitle("Overwatch");
+            setTitle("About");
         } else if (id == R.id.nav_send) {
             TemporaryFragment fragment = new TemporaryFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =

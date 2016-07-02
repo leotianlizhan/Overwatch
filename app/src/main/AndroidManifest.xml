@@ -11,8 +11,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +22,11 @@
         <activity
             android:name=".HeroInfoActivity"
             android:label="Hero Information"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MapInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

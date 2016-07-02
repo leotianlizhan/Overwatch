@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="something.overwatch.AboutFragment"
+    android:background="@color/colorAccent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_primary"
+        android:layout_margin="10dp"
+        android:text="We are just 2 grade 12 (now going into UWaterloo :)) students who like to play OW.\nAlso, all the maps are made by Joe at https://joeizgaming.blogspot.ca/. All credit goes to him. " />
+
+</RelativeLayout>

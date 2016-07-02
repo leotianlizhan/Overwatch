@@ -26,4 +26,6 @@
     <color name="hp_armor">#dac183</color>
     <color name="hp_normal">#d7dcfd</color>
     <color name="hp_shield">#8dcdd6</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
