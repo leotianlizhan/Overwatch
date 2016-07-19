@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/lbl_patch_notes"
-        android:text="something"
+        android:text="working on this new feature. Currently trying to figure out how to send http request without crashing..."
         android:textColor="@color/text_primary"/>
 
 </RelativeLayout>

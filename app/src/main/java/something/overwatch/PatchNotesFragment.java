@@ -20,8 +20,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -45,41 +49,41 @@ public class PatchNotesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_patch_notes, container, false);
 
         patchNotes = (TextView)v.findViewById(R.id.lbl_patch_notes);
-        try {
-            JSONObject json = readJsonFromUrl(URL_PATCH_NOTES);
-            patchNotes.setText(json.getString("detail"));
-        }catch (Exception e){
-            Toast.makeText(getContext(), "Failed to obtain patch notes", Toast.LENGTH_LONG).show();
-        }
-
+        //patchNotes.setText(readJsonFromUrl(URL_PATCH_NOTES));
         return v;
     }
 
-    public JSONObject readJsonFromUrl(String urlString) throws IOException, JSONException {
-        URL url = new URL(urlString);
-        HttpURLConnection c = null;
-        try {
-            c = (HttpURLConnection) url.openConnection();
-            c.connect();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(c.getInputStream()));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            //get the latest patch notes
-            JSONArray jArray = json.getJSONArray("patchNotes");
-            c.disconnect();
-            return jArray.getJSONObject(INDEX_PATCH_NOTES);
-        } finally {
-
-        }
-    }
-
-    private String readAll(Reader rd) throws IOException{
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while((cp = rd.read())!=-1){
-            sb.append((char)cp);
-        }
-        return sb.toString();
-    }
+//    public String readJsonFromUrl(String urlString){
+//        URL url;
+//
+//        BufferedReader br;
+//        StringBuilder sb = new StringBuilder();
+//
+//        try {
+//            URLConnection c = new URL(urlString).openConnection();
+//            br = new BufferedReader(new InputStreamReader(is));
+//            HttpsURLConnection c = (HttpsURLConnection) url.openConnection();
+//            c.connect();
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(c.getInputStream()));
+//            int cp;
+//            while((cp = rd.read())!=-1){
+//                sb.append((char)cp);
+//            }
+//            return sb.toString();
+//
+//
+//        } catch (MalformedURLException m){
+//            Toast.makeText(getContext(), "MalformedURLException", Toast.LENGTH_LONG).show();
+//        } catch (IOException e){
+//            Toast.makeText(getContext(), "IOException in first try", Toast.LENGTH_LONG).show();
+//        } finally {
+//            try{
+//                if(is!=null) is.close();
+//            } catch (IOException ioe){
+//                Toast.makeText(getContext(), "IOException", Toast.LENGTH_LONG).show();
+//            }
+//        }
+//        return "";
+//    }
 
 }
