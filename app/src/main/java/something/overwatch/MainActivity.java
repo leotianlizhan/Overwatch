@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity
 
     public static String PACKAGE_NAME;
     public static List<String> heroNames = Arrays.asList("Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Reinhardt",
-            "Roadhog", "Winston", "Zarya", "Lucio", "Mercy", "Symmetra", "Zenyatta");
+            "Roadhog", "Winston", "Zarya", "Ana", "Lucio", "Mercy", "Symmetra", "Zenyatta");
     public static List<String> heroClasses = Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank",
-            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support");
+            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support");
     public static List<String> mapNames = Arrays.asList("Dorado", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
@@ -120,13 +120,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Maps");
-        } else if (id == R.id.nav_players) {
-            TemporaryFragment fragment = new TemporaryFragment();
+        } else if (id == R.id.nav_patchnotes) {
+            PatchNotesFragment fragment = new PatchNotesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-            setTitle("Players");
+            setTitle("Patch Notes");
         } else if (id == R.id.nav_about) {
             AboutFragment fragment = new AboutFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -147,4 +147,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }
