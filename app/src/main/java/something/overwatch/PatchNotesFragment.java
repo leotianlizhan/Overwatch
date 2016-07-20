@@ -1,11 +1,15 @@
 package something.overwatch;
 
 
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,8 +42,10 @@ public class PatchNotesFragment extends Fragment {
     public static final String URL_PATCH_NOTES = "https://api.lootbox.eu/patch_notes";
     public static final int INDEX_PATCH_NOTES = 0;
     public static final int TIMEOUT = 2000;
+    public static final String COLOR = "#FFFFFF";
 
     private TextView patchNotes;
+    private WebView webview;
 
     public PatchNotesFragment() {
         // Required empty public constructor
@@ -49,41 +57,66 @@ public class PatchNotesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_patch_notes, container, false);
 
         patchNotes = (TextView)v.findViewById(R.id.lbl_patch_notes);
-        //patchNotes.setText(readJsonFromUrl(URL_PATCH_NOTES));
+        webview = (WebView)v.findViewById(R.id.webview);
+        webview.getSettings().setDefaultFontSize(13);
+        webview.setBackgroundColor(Color.TRANSPARENT);
+        RequestTask task = new RequestTask();
+        task.execute();
         return v;
     }
 
-//    public String readJsonFromUrl(String urlString){
-//        URL url;
-//
-//        BufferedReader br;
-//        StringBuilder sb = new StringBuilder();
-//
-//        try {
-//            URLConnection c = new URL(urlString).openConnection();
-//            br = new BufferedReader(new InputStreamReader(is));
-//            HttpsURLConnection c = (HttpsURLConnection) url.openConnection();
-//            c.connect();
-//            BufferedReader rd = new BufferedReader(new InputStreamReader(c.getInputStream()));
-//            int cp;
-//            while((cp = rd.read())!=-1){
-//                sb.append((char)cp);
-//            }
-//            return sb.toString();
-//
-//
-//        } catch (MalformedURLException m){
-//            Toast.makeText(getContext(), "MalformedURLException", Toast.LENGTH_LONG).show();
-//        } catch (IOException e){
-//            Toast.makeText(getContext(), "IOException in first try", Toast.LENGTH_LONG).show();
-//        } finally {
-//            try{
-//                if(is!=null) is.close();
-//            } catch (IOException ioe){
-//                Toast.makeText(getContext(), "IOException", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//        return "";
-//    }
+    private class RequestTask extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = "https://api.lootbox.eu/patch_notes";
+            HttpURLConnection c = null;
+            String result = "";
 
+            try {
+                c = (HttpURLConnection)(new URL(urlString).openConnection());
+                c.setRequestMethod("GET");
+
+                InputStream is = c.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while((line = rd.readLine())!=null){
+                    sb.append(line);
+                    sb.append('\r');
+                }
+                rd.close();
+                result = sb.toString();
+            } catch (Exception e){
+                e.printStackTrace();
+                result = "";
+            } finally {
+                //if(c!=null) c.disconnect();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(!s.equals("")){
+                try {
+                    JSONObject json = new JSONObject(s);
+                    JSONArray jArray = json.getJSONArray("patchNotes");
+                    String htmlString = "<html><head>"
+                    + "<style type=\"text/css\">body{color: #b7b9bc; background-color: #1a1a1a;}"
+                    + "</style></head>"
+                    + "<body link=\"orange\">" + jArray.getJSONObject(0).getString("detail") + "</body></html>";
+                    patchNotes.setVisibility(View.GONE);
+                    webview.loadData(htmlString, "text/html; charset=utf-8", "UTF-8");
+                } catch (Exception e){
+                    e.printStackTrace();
+                    patchNotes.setText("Failed to retrieve data");
+                    patchNotes.setVisibility(View.VISIBLE);
+                }
+            }else{
+                patchNotes.setText("Failed to retrieve data");
+                patchNotes.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 }
