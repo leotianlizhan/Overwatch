@@ -82,7 +82,7 @@ public class HeroInfoActivity extends AppCompatActivity {
     }
     private void handleOnBackPress()
     {
-        finish();
+        //finish();
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

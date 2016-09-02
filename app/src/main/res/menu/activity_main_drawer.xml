@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_heroes"
-            android:icon="@drawable/ic_group_24dp"
+            android:icon="@drawable/ic_recent_actors_24dp"
             android:title="Heroes" />
         <item
             android:id="@+id/nav_maps"
@@ -14,6 +14,10 @@
             android:id="@+id/nav_patchnotes"
             android:icon="@drawable/ic_event_note_24dp"
             android:title="Patch Notes" />
+        <item
+            android:id="@+id/nav_players"
+            android:icon="@drawable/ic_group_24dp"
+            android:title="Player Stats"/>
     </group>
 
     <item android:title="Communicate">

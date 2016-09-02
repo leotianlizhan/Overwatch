@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//import hotchemi.android.rate.AppRate;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+//        AppRate.with(this).setInstallDays(3).monitor();
+//        AppRate.showRateDialogIfMeetsConditions(this);
     }
 
     public void startHeroInfo(){
@@ -127,6 +132,13 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Patch Notes");
+        } else if (id == R.id.nav_players) {
+            TemporaryFragment fragment = new TemporaryFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            setTitle("Players");
         } else if (id == R.id.nav_about) {
             AboutFragment fragment = new AboutFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =

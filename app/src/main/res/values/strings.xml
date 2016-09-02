@@ -11,4 +11,6 @@
     <string name="lbl_hp_armor">Armor HP:</string>
     <string name="lbl_hp_shield">Shield HP:</string>
     <string name="lbl_basic_stats">Hero Basic Stats</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
