@@ -30,7 +30,12 @@
         <activity
             android:name=".MapInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InfoPlayerActivity"></activity>
+        <activity
+            android:name=".InfoPlayerActivity"
+            android:label="Player Stats"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

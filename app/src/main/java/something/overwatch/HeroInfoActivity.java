@@ -51,7 +51,7 @@ public class HeroInfoActivity extends AppCompatActivity {
             lblHeroClass.setText(MainActivity.heroClasses.get(position));
         } else lblHeroName.setText("Error");
         //some toolbar stuff
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_hero);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

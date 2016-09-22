@@ -1,11 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="something.overwatch.PlayerFragment">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-</FrameLayout>
+    <ImageView
+        android:layout_marginTop="96dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:id="@+id/img_player_search"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_launcher_winston_dark_web" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/img_player_search"
+        android:textColor="@color/text_secondary"
+        android:text="Enter a Battle-Tag or a PSN/XBL player name to search for player career stats."
+        android:textSize="20sp" />
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBar"
+        app:floatingSearch_searchBarMarginLeft="5dp"
+        app:floatingSearch_searchBarMarginTop="5dp"
+        app:floatingSearch_searchBarMarginRight="5dp"
+        app:floatingSearch_leftActionMode="noLeftAction"
+        app:floatingSearch_searchHint="Search US player..."
+        app:floatingSearch_menu="@menu/menu_search"/>
+</RelativeLayout>

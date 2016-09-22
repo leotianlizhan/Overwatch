@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     public static List<String> mapNames = Arrays.asList("Dorado", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
+    private static int currentFragment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,23 @@ public class MainActivity extends AppCompatActivity
         PACKAGE_NAME = getPackageName();
 
         //Set the fragment initially
-        MainFragment fragment = new MainFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-        setTitle("Heroes");
+        if(currentFragment==R.id.nav_players) {
+            PlayerFragment fragment = new PlayerFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            setTitle("Players");
+            currentFragment=R.id.nav_players;
+        }else {
+            MainFragment fragment = new MainFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            setTitle("Heroes");
+            currentFragment = R.id.nav_heroes;
+        }
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +130,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Heroes");
+            currentFragment = R.id.nav_heroes;
         } else if (id == R.id.nav_maps) {
             MapsFragment fragment = new MapsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -125,6 +138,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Maps");
+            currentFragment = R.id.nav_maps;
         } else if (id == R.id.nav_patchnotes) {
             PatchNotesFragment fragment = new PatchNotesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -132,13 +146,15 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Patch Notes");
+            currentFragment = R.id.nav_patchnotes;
         } else if (id == R.id.nav_players) {
-            TemporaryFragment fragment = new TemporaryFragment();
+            PlayerFragment fragment = new PlayerFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Players");
+            currentFragment = R.id.nav_players;
         } else if (id == R.id.nav_about) {
             AboutFragment fragment = new AboutFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -146,6 +162,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("About");
+            currentFragment = R.id.nav_about;
         } else if (id == R.id.nav_send) {
             TemporaryFragment fragment = new TemporaryFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -153,6 +170,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
             setTitle("Overwatch");
+            currentFragment = R.id.nav_send;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -160,6 +178,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("fragment", currentFragment);
+        super.onSaveInstanceState(outState);
+    }
 }

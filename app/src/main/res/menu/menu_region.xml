@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/us"
+        android:title="US"/>
+
+    <item
+        android:id="@+id/eu"
+        android:title="EU"/>
+
+    <item
+        android:id="@+id/kr"
+        android:title="KR"/>
+    <item
+        android:id="@+id/cn"
+        android:title="CN"/>
+    <item
+        android:id="@+id/xbl"
+        android:title="XBL"/>
+    <item
+        android:id="@+id/psn"
+        android:title="PSN"/>
+</menu>
