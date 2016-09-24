@@ -8,21 +8,7 @@
     tools:context="something.overwatch.HeroInfoActivity"
     android:background="@color/colorAccent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_hero"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:titleTextColor="@color/text_white"
-            android:theme="@style/ToolbarColoredBackArrow"/>
-    </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,6 +31,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/pic_hero_description"
                     android:id="@+id/pic_hero_info"
                     android:minHeight="70dp"
                     android:minWidth="70dp" />
@@ -54,7 +41,6 @@
                     android:id="@+id/lbl_hero_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SOME THING"
                     android:textSize="30sp"
                     android:layout_toEndOf="@id/pic_hero_info"
                     android:textColor="@color/text_title"
@@ -110,7 +96,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:text="0"
                             android:id="@+id/lbl_hp_total_value"
                             android:textColor="@color/text_primary"
                             android:textSize="12sp"
@@ -134,7 +119,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
                             android:textSize="12sp"
                             android:id="@+id/lbl_hp_normal_value"
                             android:textColor="@color/hp_normal"
@@ -158,7 +142,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
                             android:id="@+id/lbl_hp_armor_value"
                             android:textColor="@color/hp_armor"
                             android:layout_marginStart="40dp"
@@ -182,7 +165,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
                             android:id="@+id/lbl_hp_shield_value"
                             android:textColor="@color/hp_shield"
                             android:layout_marginStart="40dp"
@@ -212,14 +194,26 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Abilities"
                     android:textColor="@color/text_title"
                     android:textSize="20sp"/>
                 <!-- add ability here -->
             </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-
+    </ScrollView>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_hero"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/text_white"
+            android:theme="@style/ToolbarColoredBackArrow"/>
+    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>
 
