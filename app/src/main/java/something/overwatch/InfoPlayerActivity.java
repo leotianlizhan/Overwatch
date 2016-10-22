@@ -26,16 +26,15 @@ public class InfoPlayerActivity extends AppCompatActivity {
 
         String query = getIntent().getStringExtra("query");
         String region = getIntent().getStringExtra("region");
-        query = query.replace("#", "-").replace(" ", "");
 
         progDailog = ProgressDialog.show(this, "Loading","Please wait...", true);
         progDailog.setCancelable(false);
 
         String currentUrl;
         if(region.equals("XBL")||region.equals("PSN")){
-            currentUrl = "https://playoverwatch.com/en-us/career/" + region.toLowerCase() + "/" + query;
+            currentUrl = "https://playoverwatch.com/en-us/career/" + region.toLowerCase() + "/" + query.replace("#", "-").replace(" ", "%20");
         }else{
-            currentUrl = "https://playoverwatch.com/en-us/career/pc/" + region.toLowerCase() + "/" + query;
+            currentUrl = "https://playoverwatch.com/en-us/career/pc/" + region.toLowerCase() + "/" + query.replace("#", "-").replace(" ", "");
         }
 
         WebView webView = (WebView)findViewById(R.id.webview_player);
