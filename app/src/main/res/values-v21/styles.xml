@@ -13,4 +13,10 @@
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="cardPreventCornerOverlap">false</item>
     </style>
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:colorAccent">@color/text_title</item>
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textColorPrimary">@color/text_secondary</item>
+    </style>
 </resources>

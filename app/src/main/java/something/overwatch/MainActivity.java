@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -163,14 +163,6 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             setTitle("About");
             currentFragment = R.id.nav_about;
-        } else if (id == R.id.nav_send) {
-            TemporaryFragment fragment = new TemporaryFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Overwatch");
-            currentFragment = R.id.nav_send;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
