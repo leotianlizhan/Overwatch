@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId "something.overwatch"
-        minSdkVersion 18
+        minSdkVersion 15
         targetSdkVersion 24
-        versionCode 17
-        versionName "1.9.2"
+        versionCode 18
+        versionName "1.9.3"
     }
     buildTypes {
         release {
