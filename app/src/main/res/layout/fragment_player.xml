@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
         android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/lbl_favorites"
         android:textColor="@color/text_title"
         android:text="Favorites"
@@ -53,8 +54,9 @@
         app:floatingSearch_searchBarMarginTop="5dp"
         app:floatingSearch_searchBarMarginRight="5dp"
         app:floatingSearch_leftActionMode="noLeftAction"
-        app:floatingSearch_searchHint="Search US player..."
-        app:floatingSearch_menu="@menu/menu_search"/>
+        app:floatingSearch_searchHint="username#1337"
+        app:floatingSearch_menu="@menu/menu_search"
+        app:floatingSearch_hintTextColor="@color/text_secondary"/>
 
     
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package something.overwatch;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +89,10 @@ public class MainActivity extends AppCompatActivity
 
 //        AppRate.with(this).setInstallDays(3).monitor();
 //        AppRate.showRateDialogIfMeetsConditions(this);
+
+        // Calls AsyncTask to GET modified time of data on Google Drive
+        //RequestTask task = new RequestTask();
+        //task.execute();
     }
 
     public void startHeroInfo(){
@@ -175,4 +190,54 @@ public class MainActivity extends AppCompatActivity
         outState.putInt("fragment", currentFragment);
         super.onSaveInstanceState(outState);
     }
+    /*
+    // GET the modified time of data on Google Drive
+    private class RequestTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = "https://www.googleapis.com/drive/v3/files/19Dw0CMdQc8CuMmQudC2upkG9LHIAl_8WAeXRk-bbj2s?key=AIzaSyC99M-7t3fE3HLDO-mXGB0gIVf0nxXU7OA&fields=modifiedTime";
+            HttpURLConnection c = null;
+            String result = "";
+
+            try {
+                c = (HttpURLConnection)(new URL(urlString).openConnection());
+                c.setRequestMethod("GET");
+
+                InputStream is = c.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while((line = rd.readLine())!=null){
+                    sb.append(line);
+                    sb.append('\r');
+                }
+                rd.close();
+                result = sb.toString();
+            } catch (Exception e){
+                e.printStackTrace();
+                result = "";
+            } finally {
+                //if(c!=null) c.disconnect();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(!s.equals("")){
+                try {
+                    JSONObject json = new JSONObject(s);
+                    String modifiedTime = json.getString("modifiedTime");
+                    Toast.makeText(getApplicationContext(), modifiedTime, Toast.LENGTH_SHORT).show();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Failed to check for update", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(getApplicationContext(), "Failed to check for update", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    */
 }

@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ public class InfoPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_player);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_player);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
@@ -42,6 +42,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 y = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
 
+        //get stuff from intent
         query = getIntent().getStringExtra("query");
         region = getIntent().getStringExtra("region");
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
@@ -50,47 +51,43 @@ public class InfoPlayerActivity extends AppCompatActivity {
         } else {
             isFavorited = favorites.contains(query + ";" + region);
         }
-
-
-
-        progDailog = ProgressDialog.show(this, "Loading","Please wait...", true);
-        progDailog.setCancelable(false);
+        //progDailog = ProgressDialog.show(this, "Loading","Please wait...", true);
+        //progDailog.setCancelable(false);
 
         String currentUrl;
-        if(region.equals("XBL")||region.equals("PSN")){
-            currentUrl = "https://playoverwatch.com/en-us/career/" + region.toLowerCase() + "/" + query.replace("#", "-").replace(" ", "%20");
-        }else{
-            currentUrl = "https://playoverwatch.com/en-us/career/pc/" + region.toLowerCase() + "/" + query.replace("#", "-").replace(" ", "");
-        }
+        currentUrl = "https://playoverwatch.com/en-us/search?q=" + query.replace("#", "-").replace(" ", "%20");
 
         WebView webView = (WebView)findViewById(R.id.webview_player);
-        webView.setVisibility(View.INVISIBLE);
+        //webView.setVisibility(View.INVISIBLE);
         webView.getSettings().setJavaScriptEnabled(true);
         //webView.getSettings().setLoadWithOverviewMode(true);
         //webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                progDailog.show();
-                return super.shouldOverrideUrlLoading(view, url);
+            public void onPageCommitVisible(WebView view, String url) {
+                view.loadUrl("javascript:(function() { " +
+                        "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
+                        "})()");
+                super.onPageCommitVisible(view, url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                // deletes the top and bottom blizzard bar
+
                 view.loadUrl("javascript:(function() { " +
-                        "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
                         "document.getElementById('footer').style.display = 'none'; " +
                         "document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
-                        "document.getElementById('profile-platforms').style.display = 'none'; " +
                         "})()");
-                view.setVisibility(View.VISIBLE);
-                progDailog.dismiss();
+
+                // add this line if u want to hide platform buttons
+                //"document.getElementById('profile-platforms').style.display = 'none'; " +
+                //view.setVisibility(View.VISIBLE);
+                //progDailog.dismiss();
             }
         });
-
         webView.loadUrl(currentUrl);
-
     }
 
     @Override
@@ -161,6 +158,5 @@ public class InfoPlayerActivity extends AppCompatActivity {
             removeInfo(v);
         else
             saveInfo(v);
-
     }
 }

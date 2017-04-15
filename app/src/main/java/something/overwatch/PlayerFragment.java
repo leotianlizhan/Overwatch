@@ -39,7 +39,8 @@ import java.util.Arrays;
  */
 public class PlayerFragment extends Fragment {
 
-    private String region = "US";
+    private final int PC = 0, CONSOLE = 1;
+    private String region = "PC";
     private MenuItem menuItem = null;
     private ArrayList<String> favorites = null;
     private FavoritesViewAdapter recyclerAdapter;
@@ -49,7 +50,6 @@ public class PlayerFragment extends Fragment {
     public PlayerFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,7 +65,6 @@ public class PlayerFragment extends Fragment {
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
             }
 
             @Override
@@ -78,26 +77,27 @@ public class PlayerFragment extends Fragment {
             }
         });
         getRegion(searchView);
-        final CharSequence[] regions = {"US","EU","KR","CN","XBL","PSN"};
+        final CharSequence[] regions = {"PC","Console"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle);
-        builder.setTitle("Select Region");
+        builder.setTitle("Select Platform");
         builder.setItems(regions, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                searchView.setSearchHint("Search " + regions[which] + "...");
+                if(which == PC)
+                    searchView.setSearchHint("username#1337");
+                else
+                    searchView.setSearchHint("username");
                 region=regions[which].toString();
                 saveRegion(region);
             }
         });
         final AlertDialog selectRegions = builder.create();
-
         searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
             @Override
             public void onActionMenuItemSelected(MenuItem item) {
                 selectRegions.show();
             }
         });
-
         return v;
     }
 
@@ -112,15 +112,17 @@ public class PlayerFragment extends Fragment {
         String raw = sharedPref.getString("region", "-1");
         if(!raw.equals("-1")) {
             region = raw;
-            searchView.setSearchHint("Search " + raw + "...");
+            if(raw.equals("PC"))
+                searchView.setSearchHint("username#1337");
+            else
+                searchView.setSearchHint("username");
         } else
-            region = "US";
+            region = "PC";
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     private void getFavorites(){
