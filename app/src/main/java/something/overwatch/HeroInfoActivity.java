@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
@@ -94,8 +96,8 @@ public class HeroInfoActivity extends AppCompatActivity {
         try
         {
             //excel stuff
-            AssetManager am = getAssets();
-            InputStream is = am.open("data.xls");
+            //AssetManager am = getAssets();
+            FileInputStream is = openFileInput("data.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
             int row = s.getRows(), col = s.getColumns();
@@ -121,8 +123,9 @@ public class HeroInfoActivity extends AppCompatActivity {
         try
         {
             //excel setup
-            AssetManager am = getAssets();
-            InputStream is = am.open("heroes.xls");
+            //AssetManager am = getAssets();
+            //InputStream is = am.open("heroes.xls");
+            FileInputStream is = openFileInput("heroes.xls");
             Workbook wb = Workbook.getWorkbook(is);
             Sheet s = wb.getSheet(0);
             int idx = 1, row = s.getRows(), col = s.getColumns();

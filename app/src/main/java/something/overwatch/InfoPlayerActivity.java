@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +26,7 @@ import java.util.Arrays;
 
 public class InfoPlayerActivity extends AppCompatActivity {
 
-    private ProgressDialog progDailog;
+    private ProgressDialog progDialog;
     private ArrayList<String> favorites = null;
     private String query = "";
     private String region = "";
@@ -51,7 +54,9 @@ public class InfoPlayerActivity extends AppCompatActivity {
         } else {
             isFavorited = favorites.contains(query + ";" + region);
         }
-        //progDailog = ProgressDialog.show(this, "Loading","Please wait...", true);
+        //progDialog = new ProgressDialog(this);
+        //progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //progDialog.show();
         //progDailog.setCancelable(false);
 
         String currentUrl;
@@ -64,8 +69,23 @@ public class InfoPlayerActivity extends AppCompatActivity {
         //webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
+            private boolean isRedirected = false;
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                //check if this is loading the redirected url
+                if (url.contains("career")){
+                    //provide some feedback to make sure the user know it's not frozen
+                    Toast t = Toast.makeText(getApplicationContext(), "Player found. Redirecting...", Toast.LENGTH_SHORT);
+                    t.setGravity(Gravity.CENTER,0,0);
+                    t.show();
+                }
+            }
+
             @Override
             public void onPageCommitVisible(WebView view, String url) {
+                //deletes top blizzard bar
                 view.loadUrl("javascript:(function() { " +
                         "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
                         "})()");
@@ -74,17 +94,16 @@ public class InfoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                // deletes the top and bottom blizzard bar
-
+                // deletes bottom blizzard bar
                 view.loadUrl("javascript:(function() { " +
                         "document.getElementById('footer').style.display = 'none'; " +
-                        "document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
+                        //"document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
+                        "document.getElementById('Page-footer').style.display = 'none'; " +
                         "})()");
-
                 // add this line if u want to hide platform buttons
                 //"document.getElementById('profile-platforms').style.display = 'none'; " +
                 //view.setVisibility(View.VISIBLE);
-                //progDailog.dismiss();
+                //if(progDialog.isShowing()) progDialog.dismiss();
             }
         });
         webView.loadUrl(currentUrl);

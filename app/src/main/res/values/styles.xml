@@ -50,5 +50,4 @@
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textColorPrimary">@color/text_secondary</item>
     </style>
-
 </resources>
