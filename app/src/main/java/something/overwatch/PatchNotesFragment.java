@@ -68,7 +68,10 @@ public class PatchNotesFragment extends Fragment {
     private class RequestTask extends AsyncTask<String, Void, String>{
         @Override
         protected String doInBackground(String... params) {
-            String urlString = "https://api.lootbox.eu/patch_notes";
+            //String urlString = "https://api.lootbox.eu/patch_notes";
+            //I found this link in LootBox.eu's Gitlab
+            //https://gitlab.com/SingularityIO/LootBoxAPI/blob/master/routes/patch_notes.js
+            String urlString = "https://cache-eu.battle.net/system/cms/oauth/api/patchnote/list?program=pro&region=US&locale=enUS&type=RETAIL&page=1&pageSize=5&orderBy=buildNumber&buildNumberMin=0";
             HttpURLConnection c = null;
             String result = "";
 

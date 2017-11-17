@@ -15,4 +15,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pic_hero_description">Hero Picture</string>
     <string name="lbl_title_abilities">Abilities</string>
+
+
+    <string name="rate_dialog_title">No one likes ads</string>
+    <string name="rate_dialog_message">I don\'t like ads. That\'s why this app will always be AD-FREE.\n\nTo show your support, please consider taking 30 seconds to rate it. I would really appreciate that. </string>
 </resources>

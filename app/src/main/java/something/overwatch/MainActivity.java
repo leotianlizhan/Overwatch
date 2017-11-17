@@ -37,15 +37,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import hotchemi.android.rate.AppRate;
+
 //import hotchemi.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String PACKAGE_NAME;
-    public static List<String> heroNames = Arrays.asList("Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
+    public static List<String> heroNames = Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
             "Roadhog", "Winston", "Zarya", "Ana", "Lucio", "Mercy", "Symmetra", "Zenyatta");
-    public static List<String> heroClasses = Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
+    public static List<String> heroClasses = Arrays.asList("Offense","Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support");
     public static List<String> mapNames = Arrays.asList("Dorado", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     Toolbar toolbar = null;
@@ -100,9 +102,6 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        AppRate.with(this).setInstallDays(3).monitor();
-//        AppRate.showRateDialogIfMeetsConditions(this);
-
 
         //check if file exists
         if (!fileExistance("data.xls") || !fileExistance("heroes.xls")) {
@@ -117,6 +116,13 @@ public class MainActivity extends AppCompatActivity
         }
         DownloadDataTask task = new DownloadDataTask();
         task.execute();
+
+        AppRate.with(this)
+                .setInstallDays(0)
+                .setLaunchTimes(2)
+                .setRemindInterval(1)
+                .monitor();
+        AppRate.showRateDialogIfMeetsConditions(this);
     }
 
     //check if file exists function
