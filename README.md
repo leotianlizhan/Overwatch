@@ -17,8 +17,8 @@ We're just students at the University of Waterloo.
 
 # Author
 #### Leo Zhan:
- - leotianlizhan.github.io
+ - [leotianlizhan.github.io](https://leotianlizhan.github.io "My personal website")
  - tianli.zhan@uwaterloo.ca
  
 #### Bill Zheng:
- - pyrexshorts.github.io
+ - [pyrexshorts.github.io](https://pyrexshorts.github.io "Bill's personal website")
