@@ -17,6 +17,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
+        public ImageView mapType;
         Context ctx;
 
         public MyViewHolder(View v, Context ctx) {
@@ -24,6 +25,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
             this.ctx = ctx;
             v.setOnClickListener(this);
             name = (TextView) v.findViewById(R.id.lbl_map_name);
+            mapType = (ImageView) v.findViewById(R.id.pic_map_type_card);
         }
 
         @Override
@@ -50,8 +52,11 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        final int cardPosition = holder.getAdapterPosition();
         String str = _list.get(position);
         holder.name.setText(str);
+        str = MainActivity.mapTypes.get(position).toLowerCase();
+        holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
     }
 
     public int getItemCount() {

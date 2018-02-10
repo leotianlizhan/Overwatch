@@ -21,8 +21,18 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingStart="35dp"
+            android:paddingLeft="35dp"
             android:layout_centerVertical="true"
             android:textColor="@color/text_card"
             android:textSize="17sp"/>
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:id="@+id/pic_map_type_card"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity
             "Roadhog", "Winston", "Zarya", "Ana", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta");
     public static List<String> heroClasses = Arrays.asList("Offense","Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support");
-    public static List<String> mapNames = Arrays.asList("Dorado", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
+    public static List<String> mapNames = Arrays.asList("Dorado", "Eichenwalde", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
+    public static List<String> mapTypes = Arrays.asList("Escort", "AssaultEscort", "Assault", "AssaultEscort", "Control", "AssaultEscort", "Control", "Control", "AssaultEscort", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
     private static int currentFragment = 0;
