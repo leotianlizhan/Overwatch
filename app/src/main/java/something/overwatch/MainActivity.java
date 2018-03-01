@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity
 
     public static String PACKAGE_NAME;
     public static List<String> heroNames = Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
-            "Roadhog", "Winston", "Zarya", "Ana", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta");
+            "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta");
     public static List<String> heroClasses = Arrays.asList("Offense","Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
-            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support");
+            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support");
     public static List<String> mapNames = Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Control", "AssaultEscort", "Control", "Control", "AssaultEscort", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
