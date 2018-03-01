@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import hotchemi.android.rate.AppRate;
+import jxl.Workbook;
 
 //import hotchemi.android.rate.AppRate;
 
@@ -103,20 +105,13 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        //check if file exists
-        if (!fileExistance("data.xls") || !fileExistance("heroes.xls")) {
-            //fetching data for the first time. Must stop user from all action.
-            progDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-            progDialog.setTitle("Please wait...");
-            progDialog.setMessage("Downloading data for the first time");
-            progDialog.setCancelable(false);
-            progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
-            progDialog.show();
-            isDialogShowing = true;
-        }
-        DownloadDataTask task = new DownloadDataTask();
-        task.execute();
+        //prepare dialog for checking updates
+        progDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        progDialog.setTitle("Please wait...");
+        progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
+        progDialog.setCancelable(false);
+        //checks if file exists and valid, then check if there's an update
+        checkForUpdate();
 
         AppRate.with(this)
                 .setInstallDays(0)
@@ -130,6 +125,35 @@ public class MainActivity extends AppCompatActivity
     public boolean fileExistance(String fname){
         File file = getBaseContext().getFileStreamPath(fname);
         return file.exists();
+    }
+
+    //check file integrity of data.xls and heroes.xls
+    public boolean fileIntegrity(){
+        try {
+            Workbook.getWorkbook(openFileInput("data.xls"));
+            Workbook.getWorkbook(openFileInput("heroes.xls"));
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void checkForUpdate(){
+        //check if file exists
+        if (!fileExistance("data.xls") || !fileExistance("heroes.xls")) {
+            //fetching data for the first time. Must stop user from all action.
+            progDialog.setMessage("Downloading data for the first time");
+        } else {
+            if(fileIntegrity()){
+                progDialog.setMessage("Checking for updates");
+            } else {
+                progDialog.setMessage("Invalid data detected, redownloading hero data");
+            }
+        }
+        progDialog.show();
+        isDialogShowing = true;
+        DownloadDataTask task = new DownloadDataTask();
+        task.execute();
     }
 
     public void startHeroInfo(){
@@ -306,12 +330,30 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(isDialogShowing){
-                progDialog.dismiss();
-                isDialogShowing = false;
-            }
             if (s.equals("updated")){
-                Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
+                //check file integrity
+                if(fileIntegrity())
+                    Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
+                else{
+                    // show alert dialog because it needs to re-download due to invalid file
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
+                    alert.setTitle("Download Failed");
+                    alert.setMessage("Downloaded data is incomplete. Make sure you have a stable internet connection.");
+                    alert.setCancelable(false);
+                    alert.setPositiveButton("Retry", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkForUpdate();
+                        }
+                    });
+                    alert.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.this.finish();
+                        }
+                    });
+                    alert.show();
+                }
             } else if(s.equals("error")) {
                 Toast.makeText(getApplicationContext(), "Update failed. Please check your internet connection.", Toast.LENGTH_SHORT).show();
             } else if(s.equals("needInternetError")) {
@@ -320,13 +362,23 @@ public class MainActivity extends AppCompatActivity
                 alert.setTitle("No Internet Connection");
                 alert.setMessage("You must be connected to internet to download data for the first time.");
                 alert.setCancelable(false);
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                alert.setPositiveButton("RETRY", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkForUpdate();
+                    }
+                });
+                alert.setNegativeButton("EXIT", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MainActivity.this.finish();
                     }
                 });
                 alert.show();
+            }
+            if(isDialogShowing){
+                progDialog.dismiss();
+                isDialogShowing = false;
             }
         }
     }
