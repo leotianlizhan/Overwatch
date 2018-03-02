@@ -28,6 +28,10 @@ public class MainFragment extends Fragment {
     private RecyclerView recyclerView;
     private static Parcelable mState;
 
+    public void updateAdapter() {
+        if(recyclerAdapter!=null) recyclerAdapter.notifyDataSetChanged();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,18 +39,17 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView=(RecyclerView)v.findViewById(R.id.hero_list_recycler_view);
-        recyclerView.setHasFixedSize(true);
         return v;
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(mState!=null){
-            recyclerView.getLayoutManager().onRestoreInstanceState(mState);
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if(mState!=null){
+//            recyclerView.getLayoutManager().onRestoreInstanceState(mState);
+//        }
+//    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -59,19 +62,19 @@ public class MainFragment extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle state) {
-        super.onSaveInstanceState(state);
+//    @Override
+//    public void onSaveInstanceState(Bundle state) {
+//        super.onSaveInstanceState(state);
+//
+//        // Save list state
+//        mState = recyclerView.getLayoutManager().onSaveInstanceState();
+//    }
 
-        // Save list state
-        mState = recyclerView.getLayoutManager().onSaveInstanceState();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mState = recyclerView.getLayoutManager().onSaveInstanceState();
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        mState = recyclerView.getLayoutManager().onSaveInstanceState();
+//    }
 
 
 

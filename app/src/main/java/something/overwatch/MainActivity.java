@@ -10,6 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +26,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,6 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import android.os.Handler;
 
 import hotchemi.android.rate.AppRate;
 import jxl.Workbook;
@@ -47,17 +52,18 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String PACKAGE_NAME;
-    public static List<String> heroNames = Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
-            "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta");
-    public static List<String> heroClasses = Arrays.asList("Offense","Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
-            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support");
+    public static List<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
+            "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
+    public static List<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
+            "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
     public static List<String> mapNames = Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
     public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Control", "AssaultEscort", "Control", "Control", "AssaultEscort", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
     private static int currentFragment = 0;
     private ProgressDialog progDialog;
-    private boolean isDialogShowing = false;
+    //private boolean isDialogShowing = false;
+    private MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,33 +74,32 @@ public class MainActivity extends AppCompatActivity
 
         PACKAGE_NAME = getPackageName();
 
-        //Set the fragment initially
-        if(currentFragment==R.id.nav_players) {
-            PlayerFragment fragment = new PlayerFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Players");
-            currentFragment=R.id.nav_players;
-        }else {
-            MainFragment fragment = new MainFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Heroes");
-            currentFragment = R.id.nav_heroes;
-        }
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+//        //Set the fragment initially
+//        if(currentFragment==R.id.nav_players) {
+//            PlayerFragment fragment = new PlayerFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Players");
+//            currentFragment=R.id.nav_players;
+//        }else {
+//            MainFragment fragment = new MainFragment();
+//            mainFragment = fragment;
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Heroes");
+//            currentFragment = R.id.nav_heroes;
+//        }
+        MainFragment fragment = new MainFragment();
+        mainFragment = fragment;
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+        setTitle("Heroes");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,13 +117,28 @@ public class MainActivity extends AppCompatActivity
         progDialog.setCancelable(false);
         //checks if file exists and valid, then check if there's an update
         checkForUpdate();
+        //Toast.makeText(this, "onCreate called", Toast.LENGTH_LONG).show();
 
+        // rate app
         AppRate.with(this)
-                .setInstallDays(0)
-                .setLaunchTimes(2)
+                .setInstallDays(1)
+                .setLaunchTimes(3)
                 .setRemindInterval(1)
                 .monitor();
         AppRate.showRateDialogIfMeetsConditions(this);
+
+        //setup fragment backstack listner
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+
+            @Override
+            public void onBackStackChanged() {
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if (f != null){
+                    updateTitleAndDrawer (f);
+                }
+
+            }
+        });
     }
 
     //check if file exists function
@@ -132,6 +152,11 @@ public class MainActivity extends AppCompatActivity
         try {
             Workbook.getWorkbook(openFileInput("data.xls"));
             Workbook.getWorkbook(openFileInput("heroes.xls"));
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String heroesList = sharedPref.getString("heroesList", "-1");
+            if(!heroesList.equals("-1")){
+                JSONArray heroesArray = new JSONArray(heroesList);
+            }
             return true;
         }catch (Exception e) {
             return false;
@@ -139,8 +164,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkForUpdate(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //check if file exists
-        if (!fileExistance("data.xls") || !fileExistance("heroes.xls")) {
+        if (!fileExistance("data.xls") || !fileExistance("heroes.xls") || !sharedPref.contains("heroesList")) {
             //fetching data for the first time. Must stop user from all action.
             progDialog.setMessage("Downloading data for the first time");
         } else {
@@ -151,9 +177,29 @@ public class MainActivity extends AppCompatActivity
             }
         }
         progDialog.show();
-        isDialogShowing = true;
+        //isDialogShowing = true;
         DownloadDataTask task = new DownloadDataTask();
         task.execute();
+    }
+
+    private void updateHeroesList(){
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String heroesList = sharedPref.getString("heroesList", "-1");
+        if(heroesList.equals("-1") || mainFragment==null) return;
+        try{
+            JSONArray heroesArray = new JSONArray(heroesList);
+            heroNames.clear();
+            heroClasses.clear();
+            for (int i = 0; i < heroesArray.length(); i++) {
+                JSONObject hero = heroesArray.getJSONObject(i);
+                heroNames.add(hero.getString("name"));
+                heroClasses.add(hero.getString("class"));
+            }
+            if(mainFragment!=null) mainFragment.updateAdapter();
+        }catch (JSONException e){
+            e.printStackTrace();
+            return;
+        }
     }
 
     public void startHeroInfo(){
@@ -161,15 +207,15 @@ public class MainActivity extends AppCompatActivity
         startActivity(heroInfoIntent);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,71 +239,74 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_heroes) {
-            MainFragment fragment = new MainFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Heroes");
-            currentFragment = R.id.nav_heroes;
-        } else if (id == R.id.nav_maps) {
-            MapsFragment fragment = new MapsFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Maps");
-            currentFragment = R.id.nav_maps;
-        } else if (id == R.id.nav_patchnotes) {
-            PatchNotesFragment fragment = new PatchNotesFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Patch Notes");
-            currentFragment = R.id.nav_patchnotes;
-        } else if (id == R.id.nav_players) {
-            PlayerFragment fragment = new PlayerFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("Players");
-            currentFragment = R.id.nav_players;
-        } else if (id == R.id.nav_about) {
-            AboutFragment fragment = new AboutFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
-            setTitle("About");
-            currentFragment = R.id.nav_about;
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("fragment", currentFragment);
-        super.onSaveInstanceState(outState);
-    }
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//
+//        if (id == R.id.nav_heroes) {
+//            MainFragment fragment = new MainFragment();
+//            mainFragment = fragment;
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Heroes");
+//            currentFragment = R.id.nav_heroes;
+//        } else if (id == R.id.nav_maps) {
+//            MapsFragment fragment = new MapsFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Maps");
+//            currentFragment = R.id.nav_maps;
+//        } else if (id == R.id.nav_patchnotes) {
+//            PatchNotesFragment fragment = new PatchNotesFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Patch Notes");
+//            currentFragment = R.id.nav_patchnotes;
+//        } else if (id == R.id.nav_players) {
+//            PlayerFragment fragment = new PlayerFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("Players");
+//            currentFragment = R.id.nav_players;
+//        } else if (id == R.id.nav_about) {
+//            AboutFragment fragment = new AboutFragment();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container, fragment);
+//            fragmentTransaction.commit();
+//            setTitle("About");
+//            currentFragment = R.id.nav_about;
+//        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+//
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putInt("fragment", currentFragment);
+//        super.onSaveInstanceState(outState);
+//    }
 
     private class DownloadDataTask extends AsyncTask<String, Void, String> {
         private AlertDialog exitDialog;
-        private String getRemoteVersion(){
-            String versionRemote;
+        private String versionRemote;
+        private String versionLocal;
+        private JSONArray heroesList;
+        private JSONObject getJson(String url){
             try {
-                URL urlVersion = new URL("http://158.69.60.95/version.json");
+                URL urlVersion = new URL(url);
                 InputStream is = urlVersion.openConnection().getInputStream();
                 BufferedReader rd = new BufferedReader(new InputStreamReader(is));
                 StringBuilder sb = new StringBuilder();
@@ -268,12 +317,34 @@ public class MainActivity extends AppCompatActivity
                 }
                 rd.close();
                 is.close();
-                JSONObject json = new JSONObject(sb.toString());
-                versionRemote = json.getString("version");
+                return new JSONObject(sb.toString());
             } catch (Exception e){
+                return null;
+            }
+        }
+        private String getRemoteVersion(){
+            JSONObject json = getJson("http://158.69.60.95/version.json");
+            if(json!=null){
+                try {
+                    return json.getString("version");
+                } catch (Exception e){
+                    return "noInternet";
+                }
+            } else {
                 return "noInternet";
             }
-            return versionRemote;
+        }
+        private JSONArray getHeroesList(){
+            JSONObject json = getJson("http://158.69.60.95/data.json");
+            if(json!=null){
+                try {
+                    return json.getJSONArray("list");
+                } catch (Exception e){
+                    return null;
+                }
+            } else {
+                return null;
+            }
         }
         private void saveNewVersionCode(String v){
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -281,9 +352,15 @@ public class MainActivity extends AppCompatActivity
             editor.putString("version", v);
             editor.apply();
         }
+        private void saveHeroesList(JSONArray jArray){
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("heroesList", jArray.toString());
+            editor.apply();
+        }
         @Override
         protected String doInBackground(String... params) {
-            String versionRemote = getRemoteVersion();
+            versionRemote = getRemoteVersion();
             //check if getting the remote version is successful
             if(versionRemote.equals("noInternet")) {
                 //if this is the first time, must not let user click anything
@@ -294,7 +371,7 @@ public class MainActivity extends AppCompatActivity
             }
             //check if local data is up to date
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String versionLocal = sharedPref.getString("version", "-1");
+            versionLocal = sharedPref.getString("version", "-1");
             if (versionLocal.equals(versionRemote)) {
                 //if local data is up to date or there is no internet connection, do not update
                 return "doNothing";
@@ -318,8 +395,9 @@ public class MainActivity extends AppCompatActivity
                     output.write(data, 0, read);
                 output.close();
                 input.close();
-                //store new version code
-                saveNewVersionCode(versionRemote);
+                //get hero list update
+                heroesList = getHeroesList();
+                if(heroesList==null) throw new JSONException("Getting heroes list failed");
             } catch(Exception e){
                 e.printStackTrace();
                 return "error";
@@ -330,33 +408,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if (s.equals("updated")){
-                //check file integrity
-                if(fileIntegrity())
-                    Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
-                else{
-                    // show alert dialog because it needs to re-download due to invalid file
-                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
-                    alert.setTitle("Download Failed");
-                    alert.setMessage("Downloaded data is incomplete. Make sure you have a stable internet connection.");
-                    alert.setCancelable(false);
-                    alert.setPositiveButton("Retry", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            checkForUpdate();
-                        }
-                    });
-                    alert.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.this.finish();
-                        }
-                    });
-                    alert.show();
-                }
-            } else if(s.equals("error")) {
-                Toast.makeText(getApplicationContext(), "Update failed. Please check your internet connection.", Toast.LENGTH_SHORT).show();
-            } else if(s.equals("needInternetError")) {
+            //check file integrity
+            if(s.equals("needInternetError")) {
                 // show alert dialog because it needs to download data for the first time
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
                 alert.setTitle("No Internet Connection");
@@ -375,11 +428,44 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 alert.show();
+            } else if(!fileIntegrity()){
+                // show alert dialog because it needs to re-download due to invalid file
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
+                alert.setTitle("Download Failed");
+                alert.setMessage("Downloading hero data failed. Make sure you have a stable internet connection.");
+                alert.setCancelable(false);
+                alert.setPositiveButton("Retry", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkForUpdate();
+                    }
+                });
+                alert.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.finish();
+                    }
+                });
+                alert.show();
+            } else if (s.equals("updated")){
+                Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
+                //store new version code
+                saveNewVersionCode(versionRemote);
+                saveHeroesList(heroesList);
+            } else if(s.equals("error")) {
+                Toast.makeText(getApplicationContext(), "Update failed. Please check your internet connection.", Toast.LENGTH_SHORT).show();
             }
-            if(isDialogShowing){
-                progDialog.dismiss();
-                isDialogShowing = false;
-            }
+            updateHeroesList();
+//            final Handler handler = new Handler();
+//            handler.postDelayed(new Runnable(){
+//                @Override
+//                public void run() {
+//                    progDialog.dismiss();
+//                    //isDialogShowing = false;
+//                }
+//            }, 100);
+            progDialog.dismiss();
+//            isDialogShowing = false;
         }
     }
 
@@ -433,4 +519,86 @@ public class MainActivity extends AppCompatActivity
         }
     }
     */
+    //*************** FRAGMENT CODE ***************************/
+    private void updateTitleAndDrawer (Fragment fragment){
+        String fragClassName = fragment.getClass().getName();
+
+        if (fragClassName.equals(MainFragment.class.getName())){
+            setTitle("Heroes");
+            navigationView.setCheckedItem(R.id.nav_heroes);
+        }
+        else if (fragClassName.equals(MapsFragment.class.getName())){
+            setTitle("Maps");
+            navigationView.setCheckedItem(R.id.nav_maps);
+        }
+        else if (fragClassName.equals(PatchNotesFragment.class.getName())){
+            setTitle("Patch Notes");
+            navigationView.setCheckedItem(R.id.nav_patchnotes);
+        }
+        else if (fragClassName.equals(PlayerFragment.class.getName())){
+            setTitle("Players");
+            navigationView.setCheckedItem(R.id.nav_players);
+        }
+        else if (fragClassName.equals(AboutFragment.class.getName())){
+            setTitle("About");
+            navigationView.setCheckedItem(R.id.nav_about);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        navigate(id);
+
+        // Close nav drawer
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    public void navigate(int id){
+        Fragment fragment = null;
+        if (id == R.id.nav_heroes) {
+            fragment = new MainFragment();
+        } else if (id == R.id.nav_maps) {
+            fragment = new MapsFragment();
+        } else if (id == R.id.nav_patchnotes) {
+            fragment = new PatchNotesFragment();
+        } else if (id == R.id.nav_players) {
+            fragment = new PlayerFragment();
+        } else if (id == R.id.nav_about) {
+            fragment = new AboutFragment();
+        }
+
+        if(fragment != null){
+            replaceFragment(fragment);
+        }
+    }
+
+    private void replaceFragment (Fragment fragment){
+        String backStateName =  fragment.getClass().getName();
+        String fragmentTag = backStateName;
+
+        FragmentManager manager = getSupportFragmentManager();
+        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+
+        if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_container, fragment, fragmentTag);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.addToBackStack(backStateName);
+            ft.commit();
+        }
+    }
 }

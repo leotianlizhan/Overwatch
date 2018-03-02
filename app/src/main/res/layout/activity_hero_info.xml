@@ -6,20 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="something.overwatch.HeroInfoActivity"
-    android:background="@color/colorAccent">
-
+    android:background="@color/colorAccent"
+    >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_hero"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:titleTextColor="@color/text_white"
         android:theme="@style/ToolbarColoredBackArrow"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -29,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingStart="5dp"
+                android:paddingLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rectangle">
@@ -48,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="30sp"
                     android:layout_toEndOf="@id/pic_hero_info"
+                    android:layout_toRightOf="@id/pic_hero_info"
                     android:textColor="@color/text_title"
                     />
 
@@ -58,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/lbl_hero_name"
                     android:layout_alignStart="@id/lbl_hero_name"
+                    android:layout_alignLeft="@id/lbl_hero_name"
                     android:layout_marginTop="-1dp"
                     android:textColor="@color/text_primary"/>
 
@@ -104,7 +111,8 @@
                             android:id="@+id/lbl_hp_total_value"
                             android:textColor="@color/text_primary"
                             android:textSize="12sp"
-                            android:layout_marginStart="40dp"/>
+                            android:layout_marginStart="40dp"
+                            android:layout_marginLeft="40dp"/>
 
                     </TableRow>
 
@@ -127,7 +135,8 @@
                             android:textSize="12sp"
                             android:id="@+id/lbl_hp_normal_value"
                             android:textColor="@color/hp_normal"
-                            android:layout_marginStart="40dp"/>
+                            android:layout_marginStart="40dp"
+                            android:layout_marginLeft="40dp"/>
 
                     </TableRow>
 
@@ -150,6 +159,7 @@
                             android:id="@+id/lbl_hp_armor_value"
                             android:textColor="@color/hp_armor"
                             android:layout_marginStart="40dp"
+                            android:layout_marginLeft="40dp"
                             android:textSize="12sp"/>
 
                     </TableRow>
@@ -173,6 +183,7 @@
                             android:id="@+id/lbl_hp_shield_value"
                             android:textColor="@color/hp_shield"
                             android:layout_marginStart="40dp"
+                            android:layout_marginLeft="40dp"
                             android:textSize="12sp"/>
 
                     </TableRow>
@@ -198,6 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/text_title"
                     android:textSize="20sp"
@@ -206,7 +218,6 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
 
 
