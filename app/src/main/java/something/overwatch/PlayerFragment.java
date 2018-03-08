@@ -40,6 +40,8 @@ import java.util.Arrays;
 public class PlayerFragment extends Fragment {
 
     private final int PC = 0, CONSOLE = 1;
+    private final String hintPC = "PC/Xbox";
+    private final String hintConsole = "Xbox/PSN";
     private String region = "PC";
     private MenuItem menuItem = null;
     private ArrayList<String> favorites = null;
@@ -84,9 +86,9 @@ public class PlayerFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which == PC)
-                    searchView.setSearchHint("username#1337");
+                    searchView.setSearchHint(hintPC);
                 else
-                    searchView.setSearchHint("username");
+                    searchView.setSearchHint(hintConsole);
                 region=regions[which].toString();
                 saveRegion(region);
             }
@@ -113,9 +115,9 @@ public class PlayerFragment extends Fragment {
         if(!raw.equals("-1")) {
             region = raw;
             if(raw.equals("PC"))
-                searchView.setSearchHint("username#1337");
+                searchView.setSearchHint(hintPC);
             else
-                searchView.setSearchHint("username");
+                searchView.setSearchHint(hintConsole);
         } else
             region = "PC";
     }

@@ -60,7 +60,15 @@ public class InfoPlayerActivity extends AppCompatActivity {
         //progDailog.setCancelable(false);
 
         String currentUrl;
-        currentUrl = "https://playoverwatch.com/en-us/search?q=" + query.replace("#", "-").replace(" ", "%20");
+        // PSN allows alphanumeric, hyphen, and underscore
+        // Xbox allows alphanumeric and white space
+        // Battlenet allows alphanumeric, foreign words, but NO symbols like hyphen
+        // Blizzard's search is bugged for "-" currently. revert this change after they fix it.
+        if(region.equals("Console") && query.contains("-")){
+            currentUrl = "https://playoverwatch.com/en-us/career/psn/" + query.replace(" ", "%20");
+        } else {
+            currentUrl = "https://playoverwatch.com/en-us/search?q=" + query.replace("#", "-").replace(" ", "%20");
+        }
 
         WebView webView = (WebView)findViewById(R.id.webview_player);
         //webView.setVisibility(View.INVISIBLE);

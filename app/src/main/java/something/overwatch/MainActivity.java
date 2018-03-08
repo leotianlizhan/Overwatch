@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
     public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Control", "AssaultEscort", "Control", "Control", "AssaultEscort", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
-    private static int currentFragment = 0;
+    //private static int currentFragment = 0;
     private ProgressDialog progDialog;
     //private boolean isDialogShowing = false;
     private MainFragment mainFragment;

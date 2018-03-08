@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
     private List<String> heroNames = MainActivity.heroNames;
     private RecyclerViewAdapter recyclerAdapter;
     private RecyclerView recyclerView;
-    private static Parcelable mState;
+    //private static Parcelable mState;
 
     public void updateAdapter() {
         if(recyclerAdapter!=null) recyclerAdapter.notifyDataSetChanged();
