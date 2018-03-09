@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -60,9 +63,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String str = _list.get(position);
         holder.name.setText(str);
         str = str.toLowerCase().replace(".", "").replace(" ", "");
-        holder.icon.setImageResource(ctx.getResources().getIdentifier("pic_" + str, "mipmap", MainActivity.PACKAGE_NAME));
+        int resId = ctx.getResources().getIdentifier("pic_" + str, "mipmap", MainActivity.PACKAGE_NAME);
+        Log.d(str, Integer.toString(resId));
+        if(resId!=0){
+            Picasso.with(ctx).load(resId).into(holder.icon);
+        } else {
+            Log.d("WARNING", str + " icon cannot be found");
+            holder.icon.setImageResource(resId);
+        }
         str = MainActivity.heroClasses.get(position).toLowerCase();
-        holder.heroClass.setImageResource(ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", MainActivity.PACKAGE_NAME));
+        resId = ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", MainActivity.PACKAGE_NAME);
+        if(resId!=0) Picasso.with(ctx).load(resId).into(holder.heroClass);
 //        holder.card.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

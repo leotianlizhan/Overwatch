@@ -10,6 +10,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.SurfaceView;
@@ -20,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -63,7 +66,8 @@ public class HeroInfoActivity extends AppCompatActivity {
         String heroName = MainActivity.heroNames.get(position);
         heroName = heroName.toLowerCase().replace(".", "").replace(" ", "");
         int resId = getResources().getIdentifier("pic_" + heroName, "mipmap", MainActivity.PACKAGE_NAME);
-        pic.setImageResource(resId);
+        if(resId!=0) Picasso.with(this).load(resId).into(pic);
+        // pic.setImageResource(resId);
 
         //set hero hp
         TextView hpTotal = (TextView)findViewById(R.id.lbl_hp_total_value);
@@ -79,6 +83,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
         abilitySection.setOrientation(LinearLayout.VERTICAL);
         Ability[] abilities = getAbilityInfo(position);
+        //if(abilities==null) Log.d("ERROR", "abilities is null. "+heroName);
         for(int i=0; i<abilities.length; i++) abilitySection.addView(abilities[i]);
         /****************abilities stats****************/
     }

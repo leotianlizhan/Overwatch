@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
@@ -56,7 +58,9 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         String str = _list.get(position);
         holder.name.setText(str);
         str = MainActivity.mapTypes.get(position).toLowerCase();
-        holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
+        //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
+        int resId = ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME);
+        if(resId!=0) Picasso.with(ctx).load(resId).into(holder.mapType);
     }
 
     public int getItemCount() {
