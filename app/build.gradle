@@ -8,8 +8,8 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 34
-        versionName "1.14.6"
+        versionCode 35
+        versionName "1.15.0"
     }
     buildTypes {
         release {
@@ -31,4 +31,6 @@ dependencies {
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
     compile 'com.github.hotchemi:android-rate:1.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.stfalcon:frescoimageviewer:0.5.0'
+    compile 'com.facebook.fresco:fresco:1.8.1'
 }

@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
@@ -33,10 +35,15 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            Intent intent = new Intent(this.ctx, MapInfoActivity.class);
-            intent.putExtra("position", position);
-            this.ctx.startActivity(intent);
-
+//            Intent intent = new Intent(this.ctx, MapInfoActivity.class);
+//            intent.putExtra("position", position);
+//            this.ctx.startActivity(intent);
+            String str = MainActivity.mapNames.get(position).toLowerCase().replace(" ", "").replace(":", "").replace("'", "");
+            int resId = ctx.getResources().getIdentifier("map_" + str, "drawable", MainActivity.PACKAGE_NAME);
+            List<String> list = Arrays.asList("res:///" + Integer.toString(resId));
+            new ImageViewer.Builder<>(ctx, list)
+                    .setStartPosition(0)
+                    .show();
         }
     }
 

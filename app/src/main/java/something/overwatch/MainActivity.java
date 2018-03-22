@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     public static List<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
-    public static List<String> mapNames = Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "No Ilios Map Yet", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
-    public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Control", "AssaultEscort", "Control", "Control", "AssaultEscort", "Escort", "Assault", "Assault", "Escort");
+    public static List<String> mapNames = Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
+    public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
     //private static int currentFragment = 0;
@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity
 
     private class DownloadDataTask extends AsyncTask<String, Void, String> {
         private AlertDialog exitDialog;
+        private JSONObject versionRemoteJson;
         private String versionRemote;
         private String versionLocal;
         private JSONArray heroesList;
@@ -322,17 +323,8 @@ public class MainActivity extends AppCompatActivity
                 return null;
             }
         }
-        private String getRemoteVersion(){
-            JSONObject json = getJson("http://158.69.60.95/version.json");
-            if(json!=null){
-                try {
-                    return json.getString("version");
-                } catch (Exception e){
-                    return "noInternet";
-                }
-            } else {
-                return "noInternet";
-            }
+        private JSONObject getRemoteVersion(){
+            return getJson("http://158.69.60.95/version.json");
         }
         private JSONArray getHeroesList(){
             JSONObject json = getJson("http://158.69.60.95/data.json");
@@ -360,7 +352,14 @@ public class MainActivity extends AppCompatActivity
         }
         @Override
         protected String doInBackground(String... params) {
-            versionRemote = getRemoteVersion();
+            versionRemoteJson = getRemoteVersion();
+            if(versionRemoteJson==null){
+                try{
+                    versionRemote = versionRemoteJson.getString("version");
+                } catch (Exception e){
+                    versionRemote = "noInternet";
+                }
+            } else versionRemote = "noInternet";
             //check if getting the remote version is successful
             if(versionRemote.equals("noInternet")) {
                 //if this is the first time, must not let user click anything

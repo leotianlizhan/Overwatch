@@ -13,6 +13,6 @@
         android:gravity="center_vertical"
         android:textColor="@color/text_primary"
         android:layout_margin="10dp"
-        android:text="We are just 2 University of Waterloo students who like to play OW.\nAlso, all the maps are made by Joe at https://joeizgaming.blogspot.ca/. All credit goes to him. " />
+        android:text="We are just 2 Computer Science students who like to play OW.\nMaps courtesy of statbanana.com" />
 
 </RelativeLayout>
