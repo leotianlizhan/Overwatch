@@ -14,10 +14,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initalizeFresco();
+        initializeFresco();
     }
 
-    private void initalizeFresco(){
+    private void initializeFresco(){
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
                 .setResizeAndRotateEnabledForNetwork(true)

@@ -20,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -353,7 +354,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected String doInBackground(String... params) {
             versionRemoteJson = getRemoteVersion();
-            if(versionRemoteJson==null){
+            if(versionRemoteJson!=null){
                 try{
                     versionRemote = versionRemoteJson.getString("version");
                 } catch (Exception e){
@@ -413,6 +414,7 @@ public class MainActivity extends AppCompatActivity
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
                 alert.setTitle("No Internet Connection");
                 alert.setMessage("You must be connected to internet to download data for the first time.");
+                //alert.setMessage(versionRemote);
                 alert.setCancelable(false);
                 alert.setPositiveButton("RETRY", new DialogInterface.OnClickListener(){
                     @Override
