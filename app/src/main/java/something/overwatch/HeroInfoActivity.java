@@ -29,16 +29,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.List;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
 
 public class HeroInfoActivity extends AppCompatActivity {
 

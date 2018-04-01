@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity
 
         // rate app
         AppRate.with(this)
-                .setInstallDays(1)
-                .setLaunchTimes(3)
-                .setRemindInterval(1)
+                .setInstallDays(2)
+                .setLaunchTimes(4)
+                .setRemindInterval(2)
                 .monitor();
         AppRate.showRateDialogIfMeetsConditions(this);
 
