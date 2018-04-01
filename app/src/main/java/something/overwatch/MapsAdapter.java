@@ -2,14 +2,15 @@ package something.overwatch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
-        public ImageView mapType;
+        public SimpleDraweeView mapType;
         Context ctx;
 
         public MyViewHolder(View v, Context ctx) {
@@ -29,7 +30,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
             this.ctx = ctx;
             v.setOnClickListener(this);
             name = (TextView) v.findViewById(R.id.lbl_map_name);
-            mapType = (ImageView) v.findViewById(R.id.pic_map_type_card);
+            mapType = (SimpleDraweeView) v.findViewById(R.id.pic_map_type_card);
         }
 
         @Override
@@ -67,7 +68,11 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         str = MainActivity.mapTypes.get(position).toLowerCase();
         //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
         int resId = ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME);
-        if(resId!=0) Picasso.with(ctx).load(resId).into(holder.mapType);
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+                .path(String.valueOf(resId))
+                .build();
+        holder.mapType.setImageURI(uri);
     }
 
     public int getItemCount() {

@@ -5,6 +5,9 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -24,7 +27,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +41,7 @@ public class HeroInfoActivity extends AppCompatActivity {
     private ViewPager viewPager = null;
     private int position = -1;
     private JSONObject hero = null;
+    boolean isMobileData = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,11 @@ public class HeroInfoActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        //determine network state
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isMobileData = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+
         //get position
         position = getIntent().getIntExtra("position", -1);
         TextView lblHeroName = (TextView)findViewById(R.id.lbl_hero_name);
@@ -58,12 +68,15 @@ public class HeroInfoActivity extends AppCompatActivity {
             lblHeroClass.setText(MainActivity.heroClasses.get(position));
         } else lblHeroName.setText("Error");
         //set hero picture
-        ImageView pic = (ImageView)findViewById(R.id.pic_hero_info);
+        SimpleDraweeView pic = (SimpleDraweeView) findViewById(R.id.pic_hero_info);
         String heroName = MainActivity.heroNames.get(position);
         heroName = heroName.toLowerCase().replace(".", "").replace(" ", "");
         int resId = getResources().getIdentifier("pic_" + heroName, "mipmap", MainActivity.PACKAGE_NAME);
-        if(resId!=0) Picasso.with(this).load(resId).into(pic);
-        // pic.setImageResource(resId);
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+                .path(String.valueOf(resId))
+                .build();
+        pic.setImageURI(uri);
 
         // get hero JSON object
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -109,7 +122,10 @@ public class HeroInfoActivity extends AppCompatActivity {
             Ability[] res = new Ability[len];
             for(int i=0; i<len; i++){
                 JSONObject ability = abilities.getJSONObject(i);
-                res[i] = new Ability(this, ability.getString("name"), ability.getString("key"), ability.getString("description"));
+                if(ability.has("iconUrl") && !isMobileData)
+                    res[i] = new Ability(this, ability.getString("name"), ability.getString("key"), ability.getString("description"), ability.getString("iconUrl"));
+                else
+                    res[i] = new Ability(this, ability.getString("name"), ability.getString("key"), ability.getString("description"));
                 JSONArray statsArray = ability.getJSONArray("stats");
                 for(int j=0; j<statsArray.length(); j++){
                     JSONObject stat = statsArray.getJSONObject(j);

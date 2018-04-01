@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String PACKAGE_NAME;
+    public static final String remoteUrl = "http://158.69.60.95/";
     public static List<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     public static List<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
@@ -399,6 +400,7 @@ public class MainActivity extends AppCompatActivity
                 });
                 alert.show();
             }
+            // TODO: put this in "else" and put it in "updated" too (more efficient)
             updateHeroesList();
 //            final Handler handler = new Handler();
 //            handler.postDelayed(new Runnable(){

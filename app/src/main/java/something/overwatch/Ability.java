@@ -5,14 +5,20 @@ package something.overwatch;
 //if you don't, you're adding 2 things, with the same reference which crashes
 
 import android.content.Context;
+import android.graphics.drawable.Animatable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.List;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 //A compound view for each hero ability
 public class Ability extends TableLayout {
@@ -22,6 +28,14 @@ public class Ability extends TableLayout {
         this.setName(name);
         this.setKey(key);
         this.setDescription(description);
+    }
+    public Ability(Context context, String name, String key, String description, String iconUrl) {
+        super(context);
+        initializeViews(context);
+        this.setName(name);
+        this.setKey(key);
+        this.setDescription(description);
+        this.setIcon(iconUrl);
     }
     public Ability(Context context) {
         super(context);
@@ -35,6 +49,18 @@ public class Ability extends TableLayout {
     private void initializeViews(Context context){
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.ability, this);
+        final SimpleDraweeView iconView = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        ControllerListener controllerListener = new BaseControllerListener(){
+            @Override
+            public void onFailure(String id, Throwable throwable) {
+                super.onFailure(id, throwable);
+                iconView.setVisibility(View.GONE);
+            }
+        };
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setControllerListener(controllerListener)
+                .build();
+        iconView.setController(controller);
     }
 
     //set name of the ability
@@ -56,6 +82,12 @@ public class Ability extends TableLayout {
         abilityDescription.setText(description);
     }
 
+    //set ability icon
+    public void setIcon(String iconUrl){
+        Uri uri = Uri.parse(MainActivity.remoteUrl + "images/" + iconUrl);
+        SimpleDraweeView iconView = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        iconView.setImageURI(uri);
+    }
 
     //add a set of stats
     public void addStat(AbilityStat stat){

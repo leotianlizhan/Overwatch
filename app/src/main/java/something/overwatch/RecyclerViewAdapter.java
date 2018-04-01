@@ -2,6 +2,7 @@ package something.overwatch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.common.util.UriUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener
         public TextView name;
-        public ImageView icon;
-        public ImageView heroClass;
+        public SimpleDraweeView icon;
+        public SimpleDraweeView heroClass;
         public CardView card;
 
         public MyViewHolder(View v, final Context ctx) {
@@ -40,8 +42,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
             name = (TextView) v.findViewById(R.id.lbl_hero_name_card);
-            icon = (ImageView) v.findViewById(R.id.pic_hero_card);
-            heroClass = (ImageView) v.findViewById(R.id.pic_hero_class_card);
+            icon = (SimpleDraweeView) v.findViewById(R.id.pic_hero_card);
+            heroClass = (SimpleDraweeView) v.findViewById(R.id.pic_hero_class_card);
             card = (CardView)v.findViewById(R.id.card_hero);
         }
     }
@@ -66,14 +68,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         int resId = ctx.getResources().getIdentifier("pic_" + str, "mipmap", MainActivity.PACKAGE_NAME);
         Log.d(str, Integer.toString(resId));
         if(resId!=0){
-            Picasso.with(ctx).load(resId).into(holder.icon);
+            Uri uri = new Uri.Builder()
+                    .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                    .path(String.valueOf(resId))
+                    .build();
+            holder.icon.setImageURI(uri);
         } else {
             Log.d("WARNING", str + " icon cannot be found");
-            holder.icon.setImageResource(resId);
         }
         str = MainActivity.heroClasses.get(position).toLowerCase();
         resId = ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", MainActivity.PACKAGE_NAME);
-        if(resId!=0) Picasso.with(ctx).load(resId).into(holder.heroClass);
+        Uri uri = new Uri.Builder()
+                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build();
+        holder.heroClass.setImageURI(uri);
 //        holder.card.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
