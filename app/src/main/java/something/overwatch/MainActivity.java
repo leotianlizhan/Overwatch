@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -31,10 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -45,9 +43,6 @@ import java.util.List;
 import android.os.Handler;
 
 import hotchemi.android.rate.AppRate;
-import jxl.Workbook;
-
-//import hotchemi.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,14 +56,15 @@ public class MainActivity extends AppCompatActivity
     public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Assault", "Assault", "Escort");
     Toolbar toolbar = null;
     NavigationView navigationView = null;
-    //private static int currentFragment = 0;
+    private SharedPreferences sharedPref;
     private ProgressDialog progDialog;
-    //private boolean isDialogShowing = false;
     private MainFragment mainFragment;
+    public boolean oldDataIntegrity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,9 +112,10 @@ public class MainActivity extends AppCompatActivity
         progDialog.setTitle("Please wait...");
         progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
         progDialog.setCancelable(false);
-        //checks if file exists and valid, then check if there's an update
+        progDialog.setMessage("Processing data...");
+        progDialog.show(); // must show dialog before dataIntegrity() to prevent users from clicking
+        //checks if heroesList exists and valid, then check if there's an update
         checkForUpdate();
-        //Toast.makeText(this, "onCreate called", Toast.LENGTH_LONG).show();
 
         // rate app
         AppRate.with(this)
@@ -142,49 +139,34 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    //check if file exists function
-    public boolean fileExistance(String fname){
-        File file = getBaseContext().getFileStreamPath(fname);
-        return file.exists();
-    }
-
-    //check file integrity of data.xls and heroes.xls
-    public boolean fileIntegrity(){
+    //check data integrity of SharedPreferences.heroesList (data_min.json)
+    //MUST BE CALLED BEFORE DownloadTask!
+    public boolean dataIntegrity(){
         try {
-            Workbook.getWorkbook(openFileInput("data.xls"));
-            Workbook.getWorkbook(openFileInput("heroes.xls"));
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String heroesList = sharedPref.getString("heroesList", "-1");
-            if(!heroesList.equals("-1")){
-                JSONArray heroesArray = new JSONArray(heroesList);
-            }
-            return true;
-        }catch (Exception e) {
+            JSONArray data = new JSONArray(sharedPref.getString("heroesList", "-1"));
+            if(!data.getJSONObject(10).has("hpTotal") || !data.getJSONObject(26).has("abilities"))
+                return false;
+        }catch (JSONException e) {
+            Log.e("**DATA_INTEGRITY", e.toString());
             return false;
         }
+        oldDataIntegrity = true;
+        return true;
     }
 
     private void checkForUpdate(){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //check if file exists
-        if (!fileExistance("data.xls") || !fileExistance("heroes.xls") || !sharedPref.contains("heroesList")) {
-            //fetching data for the first time. Must stop user from all action.
-            progDialog.setMessage("Downloading data for the first time");
+        if (sharedPref.contains("heroesList") && dataIntegrity()) {
+            progDialog.setMessage("Checking for updates");
+        } else if (sharedPref.contains("heroesList")){
+            progDialog.setMessage("Invalid data detected, re-downloading hero data");
         } else {
-            if(fileIntegrity()){
-                progDialog.setMessage("Checking for updates");
-            } else {
-                progDialog.setMessage("Invalid data detected, redownloading hero data");
-            }
+            progDialog.setMessage("Downloading data for the first time");
         }
-        progDialog.show();
-        //isDialogShowing = true;
         DownloadDataTask task = new DownloadDataTask();
         task.execute();
     }
 
     private void updateHeroesList(){
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String heroesList = sharedPref.getString("heroesList", "-1");
         if(heroesList.equals("-1") || mainFragment==null) return;
         try{
@@ -207,16 +189,6 @@ public class MainActivity extends AppCompatActivity
         Intent heroInfoIntent = new Intent(this, HeroInfoActivity.class);
         startActivity(heroInfoIntent);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -301,7 +273,6 @@ public class MainActivity extends AppCompatActivity
 //    }
 
     private class DownloadDataTask extends AsyncTask<String, Void, String> {
-        private AlertDialog exitDialog;
         private JSONObject versionRemoteJson;
         private String versionRemote;
         private String versionLocal;
@@ -328,25 +299,21 @@ public class MainActivity extends AppCompatActivity
             return getJson("http://158.69.60.95/version.json");
         }
         private JSONArray getHeroesList(){
-            JSONObject json = getJson("http://158.69.60.95/data.json");
-            if(json!=null){
-                try {
-                    return json.getJSONArray("list");
-                } catch (Exception e){
-                    return null;
-                }
-            } else {
+            JSONObject json = getJson("http://158.69.60.95/data_min.json");
+            if(json==null)
+                return null;
+            try {
+                return json.getJSONArray("list");
+            } catch (Exception e){
                 return null;
             }
         }
         private void saveNewVersionCode(String v){
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("version", v);
             editor.apply();
         }
         private void saveHeroesList(JSONArray jArray){
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("heroesList", jArray.toString());
             editor.apply();
@@ -358,48 +325,27 @@ public class MainActivity extends AppCompatActivity
                 try{
                     versionRemote = versionRemoteJson.getString("version");
                 } catch (Exception e){
+                    Log.e("****VERSION", e.toString());
                     versionRemote = "noInternet";
                 }
             } else versionRemote = "noInternet";
             //check if getting the remote version is successful
             if(versionRemote.equals("noInternet")) {
-                //if this is the first time, must not let user click anything
-                if(!fileExistance("data.xls") || !fileExistance("heroes.xls"))
-                    return "needInternetError";
-                //otherwise, there are local files, do not do anything
-                return "doNothing";
+                return versionRemote;
             }
             //check if local data is up to date
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             versionLocal = sharedPref.getString("version", "-1");
-            if (versionLocal.equals(versionRemote)) {
-                //if local data is up to date or there is no internet connection, do not update
+            if (versionLocal.equals(versionRemote) && oldDataIntegrity)
                 return "doNothing";
-            }
-            try{
-                String fileNameHp = "data.xls";
-                String fileNameData = "heroes.xls";
-                URL urlHp = new URL("http://158.69.60.95/data.xls");
-                URL urlData = new URL("http://158.69.60.95/heroes.xls");
-                InputStream input = urlHp.openConnection().getInputStream();
-                FileOutputStream output = openFileOutput(fileNameHp, Context.MODE_PRIVATE);
-                int read;
-                byte[] data = new byte[1024];
-                while ((read = input.read(data)) != -1)
-                    output.write(data, 0, read);
-                output.close();
-                input.close();
-                input = urlData.openConnection().getInputStream();
-                output = openFileOutput(fileNameData, Context.MODE_PRIVATE);
-                while ((read = input.read(data)) != -1)
-                    output.write(data, 0, read);
-                output.close();
-                input.close();
-                //get hero list update
-                heroesList = getHeroesList();
-                if(heroesList==null) throw new JSONException("Getting heroes list failed");
-            } catch(Exception e){
-                e.printStackTrace();
+            //get new data
+            heroesList = getHeroesList();
+            //check new data for error
+            try {
+                if(heroesList==null || !heroesList.getJSONObject(10).has("hpTotal") || !heroesList.getJSONObject(26).has("abilities")){
+                    return "error";
+                }
+            } catch (JSONException e){
+                Log.e("***DoInBackground", e.toString());
                 return "error";
             }
             return "updated";
@@ -408,9 +354,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //check file integrity
-            if(s.equals("needInternetError")) {
-                // show alert dialog because it needs to download data for the first time
+            if(s.equals("noInternet") && !oldDataIntegrity) {
+                // show alert dialog because it MUST download data for the first time
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
                 alert.setTitle("No Internet Connection");
                 alert.setMessage("You must be connected to internet to download data for the first time.");
@@ -429,11 +374,16 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 alert.show();
-            } else if(!fileIntegrity()){
+            } else if (s.equals("updated")){
+                Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
+                //store new version code
+                saveNewVersionCode(versionRemote);
+                saveHeroesList(heroesList);
+            } else if(s.equals("error") && !oldDataIntegrity) {
                 // show alert dialog because it needs to re-download due to invalid file
                 AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
                 alert.setTitle("Download Failed");
-                alert.setMessage("Downloading hero data failed. Make sure you have a stable internet connection.");
+                alert.setMessage("Downloading hero data failed. Make sure you have a stable internet connection and try again.");
                 alert.setCancelable(false);
                 alert.setPositiveButton("Retry", new DialogInterface.OnClickListener(){
                     @Override
@@ -448,13 +398,6 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 alert.show();
-            } else if (s.equals("updated")){
-                Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
-                //store new version code
-                saveNewVersionCode(versionRemote);
-                saveHeroesList(heroesList);
-            } else if(s.equals("error")) {
-                Toast.makeText(getApplicationContext(), "Update failed. Please check your internet connection.", Toast.LENGTH_SHORT).show();
             }
             updateHeroesList();
 //            final Handler handler = new Handler();
@@ -462,11 +405,9 @@ public class MainActivity extends AppCompatActivity
 //                @Override
 //                public void run() {
 //                    progDialog.dismiss();
-//                    //isDialogShowing = false;
 //                }
-//            }, 100);
+//            }, 4000);
             progDialog.dismiss();
-//            isDialogShowing = false;
         }
     }
 

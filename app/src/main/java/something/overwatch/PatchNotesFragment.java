@@ -106,7 +106,11 @@ public class PatchNotesFragment extends Fragment {
                     JSONObject json = new JSONObject(s);
                     JSONArray jArray = json.getJSONArray("patchNotes");
                     String htmlString = "<html><head>"
-                    + "<style type=\"text/css\">body{color: #b7b9bc; background-color: #1a1a1a;}"
+                    + "<style type=\"text/css\">"
+                    + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
+                    + "body h1{color: #b7b9bc !important;}"
+                    + "body h2{color: #c98318 !important;}"
+                    + "body strong{color: #0f97c9 !important;}"
                     + "</style></head>"
                     + "<body link=\"orange\">" + jArray.getJSONObject(0).getString("detail") + "</body></html>";
                     patchNotes.setVisibility(View.GONE);
