@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
@@ -29,6 +30,8 @@ public class Ability extends TableLayout {
         this.setName(name);
         this.setKey(key);
         this.setDescription(description);
+        SimpleDraweeView v = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        v.setVisibility(View.GONE);
     }
     public Ability(Context context, String name, String key, String description, String iconUrl) {
         super(context);
@@ -37,6 +40,8 @@ public class Ability extends TableLayout {
         this.setKey(key);
         this.setDescription(description);
         this.setIcon(iconUrl);
+        SimpleDraweeView v = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        v.setVisibility(View.VISIBLE);
     }
     public Ability(Context context) {
         super(context);
@@ -50,18 +55,6 @@ public class Ability extends TableLayout {
     private void initializeViews(Context context){
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.ability, this);
-        final SimpleDraweeView iconView = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
-        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
-            @Override
-            public void onFailure(String id, Throwable throwable) {
-                super.onFailure(id, throwable);
-                iconView.setVisibility(View.GONE);
-            }
-        };
-        DraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setControllerListener(controllerListener)
-                .build();
-        iconView.setController(controller);
     }
 
     //set name of the ability
