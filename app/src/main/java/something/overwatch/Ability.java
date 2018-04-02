@@ -19,6 +19,7 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
 
 //A compound view for each hero ability
 public class Ability extends TableLayout {
@@ -50,7 +51,7 @@ public class Ability extends TableLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.ability, this);
         final SimpleDraweeView iconView = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
-        ControllerListener controllerListener = new BaseControllerListener(){
+        ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
