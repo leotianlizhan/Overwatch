@@ -56,7 +56,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         //determine network state
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isMobileData = activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+        isMobileData = activeNetwork == null || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 
         //get position
         position = getIntent().getIntExtra("position", -1);

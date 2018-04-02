@@ -8,8 +8,8 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 38
-        versionName "1.16.0"
+        versionCode 39
+        versionName "1.16.1"
     }
     buildTypes {
         release {
