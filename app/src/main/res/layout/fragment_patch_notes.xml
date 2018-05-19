@@ -6,24 +6,37 @@
     tools:context="something.overwatch.PatchNotesFragment"
     android:background="@color/colorAccent">
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <!--<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="fill_vertical"-->
+        <!--android:id="@+id/webview_scroll"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+        <!--<WebView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/webview"/>-->
+    <!--</android.support.v4.widget.NestedScrollView>-->
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/webview" />
-    </android.support.v4.widget.NestedScrollView>
+        android:id="@+id/webview"/>
+    
+    <ProgressBar
+        android:id="@+id/bar_patch_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
     <TextView
+        android:id="@+id/lbl_fail_patch_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lbl_patch_notes"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Loading..."
-        android:textColor="@color/text_secondary"/>
+        android:text="Failed to retrieve data"
+        android:textColor="@color/text_secondary"
+        android:visibility="gone"/>
 
 </RelativeLayout>

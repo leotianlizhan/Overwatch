@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/drawer_main_section" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_heroes"
             android:icon="@drawable/ic_recent_actors_24dp"
+            android:checked="true"
             android:title="Heroes" />
         <item
             android:id="@+id/nav_maps"
@@ -20,13 +21,11 @@
             android:title="Player Stats"/>
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
-                android:title="About" />
-        </menu>
-    </item>
+    <group android:id="@+id/drawer_about_section" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_share"
+            android:title="About" />
+    </group>
 
 </menu>

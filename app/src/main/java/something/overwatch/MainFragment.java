@@ -14,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,14 @@ public class MainFragment extends Fragment {
     private RecyclerViewAdapter recyclerAdapter;
     private RecyclerView recyclerView;
     //private static Parcelable mState;
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
 
     public void updateAdapter() {
         if(recyclerAdapter!=null) recyclerAdapter.notifyDataSetChanged();

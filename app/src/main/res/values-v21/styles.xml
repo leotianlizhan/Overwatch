@@ -1,11 +1,13 @@
 <resources>>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
     <style name="CardViewStyle" parent="android:Widget.TextView">
         <item name="android:foreground">@drawable/selector_card</item>

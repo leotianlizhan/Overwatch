@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.leakcanary.RefWatcher;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,12 @@ public class MapsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

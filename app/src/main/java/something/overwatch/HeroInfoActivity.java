@@ -1,31 +1,20 @@
 package something.overwatch;
 
 
-import android.app.ActionBar;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -33,6 +22,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
 
 public class HeroInfoActivity extends AppCompatActivity {
 
@@ -53,92 +44,56 @@ public class HeroInfoActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        //determine network state
-        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isMobileData = activeNetwork == null || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 
         //get position
         position = getIntent().getIntExtra("position", -1);
-        TextView lblHeroName = (TextView)findViewById(R.id.lbl_hero_name);
-        TextView lblHeroClass = (TextView)findViewById(R.id.lbl_hero_role);
-        //set hero name
-        if(position != -1) {
-            lblHeroName.setText(MainActivity.heroNames.get(position));
-            lblHeroClass.setText(MainActivity.heroClasses.get(position));
-        } else lblHeroName.setText("Error");
-        //set hero picture
-        SimpleDraweeView pic = (SimpleDraweeView) findViewById(R.id.pic_hero_info);
-        String heroName = MainActivity.heroNames.get(position);
-        heroName = heroName.toLowerCase().replace(".", "").replace(" ", "");
-        int resId = getResources().getIdentifier("pic_" + heroName, "mipmap", MainActivity.PACKAGE_NAME);
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
-                .path(String.valueOf(resId))
-                .build();
-        pic.setImageURI(uri);
-
-        // get hero JSON object
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String heroesList = sharedPref.getString("heroesList", "-1");
-        try {
-            hero = new JSONArray(heroesList).getJSONObject(position);
-
-            //set hero hp
-            TextView hpTotal = (TextView) findViewById(R.id.lbl_hp_total_value);
-            TextView hpNormal = (TextView) findViewById(R.id.lbl_hp_normal_value);
-            TextView hpArmor = (TextView) findViewById(R.id.lbl_hp_armor_value);
-            TextView hpShield = (TextView) findViewById(R.id.lbl_hp_shield_value);
-            hpTotal.setText(hero.getString("hpTotal"));
-            hpNormal.setText(hero.getString("hpNormal"));
-            hpArmor.setText(hero.getString("hpArmor"));
-            hpShield.setText(hero.getString("hpShield"));
-//            hpTotal.setText(getHpInfo(position, "Total HP"));
-//            hpNormal.setText(getHpInfo(position, "Normal HP"));
-//            hpArmor.setText(getHpInfo(position, "Armor HP"));
-//            hpShield.setText(getHpInfo(position, "Shield HP"));
-        } catch (JSONException e){
-            Log.e("******JSON", e.toString());
-        }
-
-        /****************abilities stats****************/
-        LinearLayout abilitySection = (LinearLayout)findViewById(R.id.ability_section);
-        abilitySection.setOrientation(LinearLayout.VERTICAL);
-        Ability[] abilities = getAbilityInfo();
-        //if(abilities==null) Log.d("ERROR", "abilities is null. "+heroName);
-        for(int i=0; i<abilities.length; i++) abilitySection.addView(abilities[i]);
-        /****************abilities stats****************/
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(position == -1) position = getIntent().getIntExtra("position", -1);
+
+//        //set hero picture
+//        String heroName = MainActivity.heroNames.get(position);
+//        heroName = heroName.toLowerCase().replace(".", "").replace(" ", "");
+//        int resId = getResources().getIdentifier("pic_" + heroName, "mipmap", MainActivity.PACKAGE_NAME);
+//        Uri uri = new Uri.Builder()
+//                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+//                .path(String.valueOf(resId))
+//                .build();
+//        SimpleDraweeView pic = (SimpleDraweeView) findViewById(R.id.pic_hero_info);
+//        pic.setImageURI(uri);
+//
+//        try {
+//            hero = MainActivity.heroesJson.getJSONObject(position);
+//
+//            //set hero hp
+//            TextView hpTotal = (TextView) findViewById(R.id.lbl_hp_total_value);
+//            TextView hpNormal = (TextView) findViewById(R.id.lbl_hp_normal_value);
+//            TextView hpArmor = (TextView) findViewById(R.id.lbl_hp_armor_value);
+//            TextView hpShield = (TextView) findViewById(R.id.lbl_hp_shield_value);
+//            hpTotal.setText(hero.getString("hpTotal"));
+//            hpNormal.setText(hero.getString("hpNormal"));
+//            hpArmor.setText(hero.getString("hpArmor"));
+//            hpShield.setText(hero.getString("hpShield"));
+////            hpTotal.setText(getHpInfo(position, "Total HP"));
+////            hpNormal.setText(getHpInfo(position, "Normal HP"));
+////            hpArmor.setText(getHpInfo(position, "Armor HP"));
+////            hpShield.setText(getHpInfo(position, "Shield HP"));
+//        } catch (JSONException e){
+//            Log.e("******JSON", e.toString());
+//        }
+        LoadHeroTask mTask = new LoadHeroTask(this, position);
+        mTask.execute();
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OverviewFragment(), "OVERVIEW");
         viewPager.setAdapter(adapter);
     }
-    private Ability[] getAbilityInfo()
-    {
-        try {
-            JSONArray abilities = hero.getJSONArray("abilities");
-            int len = abilities.length();
-            Ability[] res = new Ability[len];
-            for(int i=0; i<len; i++){
-                JSONObject ability = abilities.getJSONObject(i);
-                if(ability.has("iconUrl") && !isMobileData)
-                    res[i] = new Ability(this, ability.getString("name"), ability.getString("key"), ability.getString("description"), ability.getString("iconUrl"));
-                else
-                    res[i] = new Ability(this, ability.getString("name"), ability.getString("key"), ability.getString("description"));
-                JSONArray statsArray = ability.getJSONArray("stats");
-                for(int j=0; j<statsArray.length(); j++){
-                    JSONObject stat = statsArray.getJSONObject(j);
-                    res[i].addStat(new AbilityStat(this, stat.getString("name"), stat.getString("value")));
-                }
-            }
-            return res;
-        }catch (Exception e) {
-            Log.e("LOAD HERO", e.getMessage());
-            Toast.makeText(getApplicationContext(), "Cannot find hero saved in data", Toast.LENGTH_LONG).show();
-        }
-        return null;
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -147,6 +102,142 @@ public class HeroInfoActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private static class LoadHeroTask extends AsyncTask<Void, Integer, Boolean>{
+        private String hp_total;
+        private String hp_normal;
+        private String hp_armor;
+        private String hp_shield;
+        private Ability[] abilities;
+        private Uri uri;
+        ConnectivityManager cm;
+        private boolean isMobileData;
+
+        private final WeakReference<HeroInfoActivity> activityReference;
+        int pos;
+
+        LoadHeroTask(HeroInfoActivity context, int position){
+            activityReference = new WeakReference<>(context);
+            pos = position;
+            cm = (ConnectivityManager)activityReference.get().getSystemService(HeroInfoActivity.CONNECTIVITY_SERVICE);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            HeroInfoActivity activity = activityReference.get();
+            if(activity == null || activity.isFinishing()) return;
+
+            //set hero name
+            TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
+            if(0 <= pos && pos < MainActivity.heroNames.size()) {
+                TextView lblHeroClass = (TextView)activity.findViewById(R.id.lbl_hero_role);
+                lblHeroName.setText(MainActivity.heroNames.get(pos));
+                lblHeroClass.setText(MainActivity.heroClasses.get(pos));
+            } else {
+                lblHeroName.setText("Error");
+            }
+        }
+
+        private void getAbilityInfo(JSONObject hero)
+        {
+            try {
+                JSONArray abilitiesJson = hero.getJSONArray("abilities");
+                int len = abilitiesJson.length();
+                abilities = new Ability[len];
+                for(int i=0; i<len; i++){
+                    JSONObject ability = abilitiesJson.getJSONObject(i);
+                    if(ability.has("iconUrl") && !isMobileData)
+                        abilities[i] = new Ability(activityReference.get(), ability.getString("name"), ability.getString("key"), ability.getString("description"), ability.getString("iconUrl"));
+                    else
+                        abilities[i] = new Ability(activityReference.get(), ability.getString("name"), ability.getString("key"), ability.getString("description"));
+                    JSONArray statsArray = ability.getJSONArray("stats");
+                    for(int j=0; j<statsArray.length(); j++){
+                        JSONObject stat = statsArray.getJSONObject(j);
+                        abilities[i].addStat(new AbilityStat(activityReference.get(), stat.getString("name"), stat.getString("value")));
+                    }
+                    //TODO: do progress updates
+                    //publishProgress(i);
+                }
+                return;
+            }catch (Exception e) {
+                Log.e("LOAD HERO", e.getMessage());
+                //Toast.makeText(null, "Cannot find hero saved in data", Toast.LENGTH_LONG).show();
+            }
+            abilities = null;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            JSONObject hero;
+            //determine network state
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            isMobileData = activeNetwork == null || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+
+            try{
+                hero = MainActivity.heroesJson.getJSONObject(pos);
+                hp_total = hero.getString("hpTotal");
+                hp_normal = hero.getString("hpNormal");
+                hp_armor = hero.getString("hpArmor");
+                hp_shield = hero.getString("hpShield");
+            } catch (JSONException e){
+                e.printStackTrace();
+                return false;
+            }
+
+            getAbilityInfo(hero);
+
+            String hero_name = MainActivity.heroNames.get(pos);
+            hero_name = hero_name.toLowerCase().replace(".", "").replace(" ", "");
+            HeroInfoActivity activity = activityReference.get();
+            if(activity == null || activity.isFinishing()) return false;
+            int resId = activity.getResources().getIdentifier("pic_" + hero_name, "mipmap", MainActivity.PACKAGE_NAME);
+            uri = new Uri.Builder()
+                    .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
+                    .path(String.valueOf(resId))
+                    .build();
+
+            return abilities != null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            int index = values[0];
+            HeroInfoActivity activity = activityReference.get();
+            if(activity == null || activity.isFinishing()) return;
+
+            LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
+            abilitySection.addView(abilities[index]);
+
+            activity = null;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean succ) {
+            HeroInfoActivity activity = activityReference.get();
+            if(!succ || activity == null || activity.isFinishing()) return;
+
+            //****************hero icon****************/
+            SimpleDraweeView pic = (SimpleDraweeView)activity.findViewById(R.id.pic_hero_info);
+            pic.setImageURI(uri);
+
+            //****************set hero hp****************/
+            TextView hpTotal = (TextView) activity.findViewById(R.id.lbl_hp_total_value);
+            TextView hpNormal = (TextView) activity.findViewById(R.id.lbl_hp_normal_value);
+            TextView hpArmor = (TextView) activity.findViewById(R.id.lbl_hp_armor_value);
+            TextView hpShield = (TextView) activity.findViewById(R.id.lbl_hp_shield_value);
+            hpTotal.setText(hp_total);
+            hpNormal.setText(hp_normal);
+            hpArmor.setText(hp_armor);
+            hpShield.setText(hp_shield);
+
+            //****************abilities stats****************/
+            LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
+            abilitySection.setOrientation(LinearLayout.VERTICAL);
+            for(int i=0; i<abilities.length; i++) abilitySection.addView(abilities[i]);
+
+            activity = null;
         }
     }
 }

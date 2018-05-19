@@ -2,16 +2,21 @@ package something.overwatch;
 
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -44,7 +50,8 @@ public class PatchNotesFragment extends Fragment {
     public static final int TIMEOUT = 2000;
     public static final String COLOR = "#FFFFFF";
 
-    private TextView patchNotes;
+    private ProgressBar bar;
+    private TextView lblFail;
     private WebView webview;
 
     public PatchNotesFragment() {
@@ -52,20 +59,39 @@ public class PatchNotesFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_patch_notes, container, false);
-
-        patchNotes = (TextView)v.findViewById(R.id.lbl_patch_notes);
+        bar = (ProgressBar)v.findViewById(R.id.bar_patch_notes);
+        lblFail = (TextView)v.findViewById(R.id.lbl_fail_patch_notes);
         webview = (WebView)v.findViewById(R.id.webview);
+        bar.getIndeterminateDrawable().setColorFilter(getResources()
+                .getColor(R.color.text_secondary), PorterDuff.Mode.SRC_IN);
         webview.getSettings().setDefaultFontSize(13);
         webview.setBackgroundColor(Color.TRANSPARENT);
-        RequestTask task = new RequestTask();
+        RequestTask task = new RequestTask(bar, lblFail, webview);
         task.execute();
         return v;
     }
 
-    private class RequestTask extends AsyncTask<String, Void, String>{
+    private static class RequestTask extends AsyncTask<String, Void, String>{
+        private final WeakReference<ProgressBar> barRef;
+        private final WeakReference<TextView> lblFailRef;
+        private final WeakReference<WebView> webviewRef;
+
+        RequestTask(ProgressBar sp, TextView fail,WebView web){
+            barRef = new WeakReference<>(sp);
+            lblFailRef = new WeakReference<>(fail);
+            webviewRef = new WeakReference<>(web);
+        }
+
         @Override
         protected String doInBackground(String... params) {
             //String urlString = "https://api.lootbox.eu/patch_notes";
@@ -89,40 +115,40 @@ public class PatchNotesFragment extends Fragment {
                 }
                 rd.close();
                 result = sb.toString();
+                if(result.equals("")) return "";
+
+                JSONObject json = new JSONObject(result);
+                JSONArray jArray = json.getJSONArray("patchNotes");
+                String htmlString = "<html><head>"
+                        + "<style type=\"text/css\">"
+                        + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
+                        + "body h1{color: #b7b9bc !important;}"
+                        + "body h2{color: #c98318 !important;}"
+                        + "body strong{color: #0f97c9 !important;}"
+                        + "</style></head>"
+                        + "<body link=\"orange\">" + jArray.getJSONObject(0).getString("detail") + "</body></html>";
+                return htmlString;
             } catch (Exception e){
                 e.printStackTrace();
                 result = "";
-            } finally {
-                //if(c!=null) c.disconnect();
+                return "";
             }
-            return result;
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(final String s) {
             super.onPostExecute(s);
+            final ProgressBar bar = barRef.get();
+            final TextView lblFail = lblFailRef.get();
+            final WebView webview = webviewRef.get();
+            if(bar == null || lblFail == null || webview == null) return;
+
             if(!s.equals("")){
-                try {
-                    JSONObject json = new JSONObject(s);
-                    JSONArray jArray = json.getJSONArray("patchNotes");
-                    String htmlString = "<html><head>"
-                    + "<style type=\"text/css\">"
-                    + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
-                    + "body h1{color: #b7b9bc !important;}"
-                    + "body h2{color: #c98318 !important;}"
-                    + "body strong{color: #0f97c9 !important;}"
-                    + "</style></head>"
-                    + "<body link=\"orange\">" + jArray.getJSONObject(0).getString("detail") + "</body></html>";
-                    patchNotes.setVisibility(View.GONE);
-                    webview.loadData(htmlString, "text/html; charset=utf-8", "UTF-8");
-                } catch (Exception e){
-                    e.printStackTrace();
-                    patchNotes.setText("Failed to retrieve data");
-                    patchNotes.setVisibility(View.VISIBLE);
-                }
+                webview.loadData(s, "text/html; charset=utf-8", "UTF-8");
+                bar.setVisibility(View.GONE);
             }else{
-                patchNotes.setText("Failed to retrieve data");
-                patchNotes.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+                lblFail.setVisibility(View.VISIBLE);
             }
         }
     }

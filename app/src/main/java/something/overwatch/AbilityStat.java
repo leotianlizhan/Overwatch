@@ -14,6 +14,7 @@ public class AbilityStat extends GridLayout{
 
     public AbilityStat(Context context, String name, String value) {
         super(context);
+        if(context == null) return;
         initializeViews(context);
         this.setStatName(name);
         this.setStatValue(value);

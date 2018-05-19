@@ -26,6 +26,7 @@ import com.facebook.imagepipeline.image.ImageInfo;
 public class Ability extends TableLayout {
     public Ability(Context context, String name, String key, String description) {
         super(context);
+        if(context == null) return;
         initializeViews(context);
         this.setName(name);
         this.setKey(key);
