@@ -49,11 +49,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         query = getIntent().getStringExtra("query");
         region = getIntent().getStringExtra("region");
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
-        if (favorites == null) {
-            isFavorited = false;
-        } else {
-            isFavorited = favorites.contains(query + ";" + region);
-        }
+        isFavorited = favorites != null && favorites.contains(query + ";" + region);
         //progDialog = new ProgressDialog(this);
         //progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //progDialog.show();
@@ -71,10 +67,8 @@ public class InfoPlayerActivity extends AppCompatActivity {
         }
 
         WebView webView = (WebView)findViewById(R.id.webview_player);
-        //webView.setVisibility(View.INVISIBLE);
+        // required to make blizzard's website work
         webView.getSettings().setJavaScriptEnabled(true);
-        //webView.getSettings().setLoadWithOverviewMode(true);
-        //webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setWebViewClient(new WebViewClient(){
             private boolean isRedirected = false;
@@ -104,6 +98,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 // deletes bottom blizzard bar
                 view.loadUrl("javascript:(function() { " +
+                        "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
                         "document.getElementById('footer').style.display = 'none'; " +
                         //"document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
                         "document.getElementById('Page-footer').style.display = 'none'; " +

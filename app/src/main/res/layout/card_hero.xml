@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:id="@+id/card_hero"
     card_view:cardBackgroundColor="@color/colorRect"
-    style="@style/CardViewStyle"
+    android:clickable="false"
+    style="@style/ClickableCardView"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp">

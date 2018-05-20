@@ -3,6 +3,7 @@ package something.overwatch;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         this.ctx = ctx;
     }
 
-
+    @NonNull
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mapCardView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_map, parent, false);

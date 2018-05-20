@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
+    </style>
+    
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -33,18 +38,21 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="CardViewStyle" parent="android:Widget.TextView">
+    <style name="ClickableCardView" parent="android:Widget.TextView">
         <item name="android:foreground">@drawable/selector_card</item>
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="cardPreventCornerOverlap">false</item>
         <item name="cardUseCompatPadding">true</item>
+        <item name="android:focusable">true</item>
     </style>
+
     <style name="CardViewPlayerStyle" parent="android:Widget.TextView">
         <item name="android:foreground">@drawable/selector_card</item>
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>
         <item name="cardElevation">@dimen/card_elevation</item>
     </style>
+
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Dialog">
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/text_secondary</item>

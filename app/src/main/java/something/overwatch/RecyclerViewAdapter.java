@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,51 +18,71 @@ import android.widget.Toast;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
     private List<String> _list;
-    private Context ctx;
+    private final WeakReference<Context> ctxRef;
+    private RecyclerItemClickListener listener;
+//    private MyFilter filter;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener { //implements View.OnClickListener
         public TextView name;
         public SimpleDraweeView icon;
-        public SimpleDraweeView heroClass;
-        public CardView card;
+        private SimpleDraweeView heroClass;
+        private CardView card;
+        private RecyclerItemClickListener mListener;
 
-        public MyViewHolder(View v, final Context ctx) {
+        MyViewHolder(View v, final RecyclerItemClickListener listener) {
             super(v);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Intent intent = new Intent(ctx, HeroInfoActivity.class);
-                    intent.putExtra("position", position);
-                    ctx.startActivity(intent);
-                }
-            });
+            mListener = listener;
+            v.setOnClickListener(this);
+//            v.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int position = getAdapterPosition();
+//                    Intent intent = new Intent(ctx, HeroInfoActivity.class);
+//                    intent.putExtra("position", position);
+//                    ctx.startActivity(intent);
+//                }
+//            });
             name = (TextView) v.findViewById(R.id.lbl_hero_name_card);
             icon = (SimpleDraweeView) v.findViewById(R.id.pic_hero_card);
             heroClass = (SimpleDraweeView) v.findViewById(R.id.pic_hero_class_card);
             card = (CardView)v.findViewById(R.id.card_hero);
         }
+
+        @Override
+        public void onClick(View view) {
+            if(mListener != null) mListener.onItemClick(view, getAdapterPosition());
+        }
     }
 
-    public RecyclerViewAdapter(List<String> list, Context ctx){
+    RecyclerViewAdapter(List<String> list, Context ctx, RecyclerItemClickListener listener){
         this._list = list;
-        this.ctx = ctx;
+        ctxRef = new WeakReference<>(ctx);
+        this.listener = listener;
     }
 
+//    @Override
+//    public Filter getFilter() {
+//        if(filter == null) filter = new MyFilter(this);
+//        return filter;
+//    }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View heroCardView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_hero, parent, false);
-        return new MyViewHolder(heroCardView, ctx);
+        // calls the MyViewHolder constructor above
+        return new MyViewHolder(heroCardView, listener);
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Context ctx = ctxRef.get();
+        if(ctx == null) return;
+
         final int cardPosition = holder.getAdapterPosition();
         String str = _list.get(position);
         holder.name.setText(str);

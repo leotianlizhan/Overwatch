@@ -19,4 +19,11 @@
 
     <string name="rate_dialog_title">No one likes ads</string>
     <string name="rate_dialog_message">I don\'t like ads. That\'s why this app will always be AD-FREE.\n\nTo show your support, please consider taking 30 seconds to rate it. I would really appreciate that. </string>
+    <string name="title_activity_info_hero">InfoHeroActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="search_title_heroes">Hero Search</string>
+    <string name="search_heroes_hint">Search heroes...</string>
 </resources>

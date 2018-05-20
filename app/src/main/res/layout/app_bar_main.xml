@@ -23,6 +23,20 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/content_main"/>
+    <!-- Scrolling-hides-toolbar Behaviour Steps -->
+
+
+    <!-- Step 1 -->
+    <!-- Ancestor Layout for everything must be CoordinatorLayout -->
+    <!-- Step 2 -->
+    <!-- Wrap toolbar in AppBarLayout -->
+    <!-- Step 3 -->
+    <!-- and add layout_scrollFlags to toolbar -->
+    <!-- Step 4 -->
+    <!-- add layout_behaviour to whatever layout / view itself that  -->
+    <!-- contains the scrolling view in question, like this one:     -->
+        <!--<include layout="@layout/content_main"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
 
 </android.support.design.widget.CoordinatorLayout>
