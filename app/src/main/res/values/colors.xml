@@ -8,10 +8,13 @@
     <!-- Black theme. -->
     <color name="colorPrimary">#333132</color>
     <color name="colorPrimaryDark">#282728</color>
-    <color name="colorAccent">#1a1a1a</color>
+    <color name="colorAccent">#fd9926</color>
+    <color name="colorBackground">#1a1a1a</color>
     <color name="colorRect">#262626</color>
     <color name="colorRectAlpha">#33bebebe</color>
+    <color name="colorWhiteAlpha">#50FFFFFF</color>
     <color name="colorControlHighlight">@color/colorRectAlpha</color>
+    <color name="colorSearch">#dfcea0</color>
 
     <!-- Dark green theme. -->
     <!--<color name="colorPrimary">#112d31</color>-->

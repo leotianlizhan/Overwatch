@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,15 +19,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,33 +37,38 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import hotchemi.android.rate.AppRate;
+import io.fabric.sdk.android.services.common.Crash;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String PACKAGE_NAME;
     public static final String remoteUrl = "http://158.69.60.95/";
-    public static List<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
+    private ArrayList<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
-    public static List<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
+    private ArrayList<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
-    public static List<String> mapNames = Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar");
-    public static List<String> mapTypes = Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Escort", "Assault", "Assault", "Escort");
-    public static JSONArray heroesJson = null;
-    Toolbar toolbar = null;
-    NavigationView navigationView = null;
-    private SharedPreferences sharedPref;
+    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar"));
+    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Escort", "Assault", "Assault", "Escort"));
+    private JSONArray heroesJson = null;
+    private Bundle heroesBundle = new Bundle();
+    private Bundle mapsBundle = new Bundle();
+    private Toolbar toolbar = null;
+    private NavigationView navigationView = null;
+    public SharedPreferences sharedPref;
     private ProgressDialog progDialog;
-    private MainFragment mainFragment;
+    private AlertDialog.Builder alertError;
     public boolean oldDataIntegrity = false;
+
+    public ArrayList<String> getHeroNames() { return heroNames; }
+    public ArrayList<String> getHeroClasses() { return heroClasses; }
+    public JSONArray getHeroesJson() { return heroesJson; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,53 +78,48 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        PACKAGE_NAME = getPackageName();
+        heroesBundle.putString("packageName", getPackageName());
+        mapsBundle.putString("packageName", getPackageName());
 
-//        //Set the fragment initially
-//        if(currentFragment==R.id.nav_players) {
-//            PlayerFragment fragment = new PlayerFragment();
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container, fragment);
-//            fragmentTransaction.commit();
-//            setTitle("Players");
-//            currentFragment=R.id.nav_players;
-//        }else {
-//            MainFragment fragment = new MainFragment();
-//            mainFragment = fragment;
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container, fragment);
-//            fragmentTransaction.commit();
-//            setTitle("Heroes");
-//            currentFragment = R.id.nav_heroes;
-//        }
-        MainFragment fragment = new MainFragment();
-        mainFragment = fragment;
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-        setTitle("Heroes");
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+        // AlertDialog for when Internet Unavailable or Download Error
+        alertError = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
+        alertError.setCancelable(false);
+        alertError.setPositiveButton("RETRY", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                checkForUpdate();
+            }
+        });
+        alertError.setNegativeButton("EXIT", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+            }
+        });
         //prepare dialog for checking updates
         progDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         progDialog.setTitle("Please wait...");
         progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimary)));
         progDialog.setCancelable(false);
         progDialog.setMessage("Processing data...");
-        progDialog.show(); // must show dialog before dataIntegrity() to prevent users from clicking
-        //checks if heroesList exists and valid, then check if there's an update
-        checkForUpdate();
+        progDialog.show();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                View v = getCurrentFocus();
+                if(v != null) inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        };
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // rate app
         AppRate.with(this)
@@ -137,13 +134,14 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onBackStackChanged() {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                if (f != null){
-                    updateTitleAndDrawer (f);
-                }
-
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (f != null){
+                updateTitleAndDrawer (f);
+            }
             }
         });
+
+        checkForUpdate();
     }
 
     //check data integrity of SharedPreferences.heroesList (data_min.json)
@@ -155,6 +153,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
         }catch (JSONException e) {
             Log.e("**DATA_INTEGRITY", e.toString());
+            Crashlytics.log(1, "MainActivity", "dataIntegrity() == false");
             return false;
         }
         oldDataIntegrity = true;
@@ -169,13 +168,17 @@ public class MainActivity extends AppCompatActivity
         } else {
             progDialog.setMessage("Downloading data for the first time");
         }
-        DownloadDataTask task = new DownloadDataTask();
+        String versionLocal = sharedPref.getString("version", "-1");
+        DownloadDataTask task = new DownloadDataTask(this, versionLocal, oldDataIntegrity);
         task.execute();
     }
 
-    private void updateHeroesList(){
+    private void finishUpdate(){
         String heroesList = sharedPref.getString("heroesList", "-1");
-        if(heroesList.equals("-1") || mainFragment==null) return;
+        if(heroesList.equals("-1")){
+            Crashlytics.log(1, "MainActivity", "finishUpdate() sharedPref empty");
+            return;
+        }
         try{
             heroesJson = new JSONArray(heroesList);
             heroNames.clear();
@@ -185,12 +188,22 @@ public class MainActivity extends AppCompatActivity
                 heroNames.add(hero.getString("name"));
                 heroClasses.add(hero.getString("class"));
             }
-            if(mainFragment!=null) mainFragment.updateAdapter();
+            heroesBundle.putString("heroesJson", heroesJson.toString());
+            heroesBundle.putStringArrayList("heroNames", heroNames);
+            heroesBundle.putStringArrayList("heroClasses", heroClasses);
         }catch (JSONException e){
             //TODO: data is corrupt, do something
+            Crashlytics.log(1, "MainActivity", "finishUpdate() failed");
             e.printStackTrace();
             return;
         }
+        // Init fragment
+        MainFragment fragment = new MainFragment();
+        fragment.setArguments(heroesBundle);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, fragment);
+        ft.commit();
+        setTitle("Heroes");
     }
 
     public void startHeroInfo(){
@@ -219,6 +232,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 //    @SuppressWarnings("StatementWithEmptyBody")
 //    @Override
@@ -279,12 +293,31 @@ public class MainActivity extends AppCompatActivity
 //        outState.putInt("fragment", currentFragment);
 //        super.onSaveInstanceState(outState);
 //    }
+    private void saveNewVersionCode(String v){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("version", v);
+        editor.apply();
+    }
+    private void saveHeroesList(JSONArray jArray){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("heroesList", jArray.toString());
+        editor.apply();
+    }
 
-    private class DownloadDataTask extends AsyncTask<String, Void, String> {
+    private static class DownloadDataTask extends AsyncTask<String, Void, String> {
+        private final WeakReference<MainActivity> ref;
+        private final boolean oldDataIntegrity;
         private JSONObject versionRemoteJson;
         private String versionRemote;
         private String versionLocal;
         private JSONArray heroesList;
+        private boolean cancel = false;
+        DownloadDataTask(MainActivity activity, String v, boolean good){
+            ref = new WeakReference<>(activity);
+            versionLocal = v;
+            oldDataIntegrity = good;
+        }
+
         private JSONObject getJson(String url) throws JSONException, IOException{
             URL urlVersion = new URL(url);
             InputStream is = urlVersion.openConnection().getInputStream();
@@ -306,16 +339,18 @@ public class MainActivity extends AppCompatActivity
             JSONObject json = getJson("http://158.69.60.95/data_min.json");
             return json.getJSONArray("list");
         }
-        private void saveNewVersionCode(String v){
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("version", v);
-            editor.apply();
+
+        @Override
+        protected void onPreExecute() {
+            MainActivity act = ref.get();
+            if(act == null || act.isFinishing()){
+                cancel = true;
+                return;
+            }
+
+
         }
-        private void saveHeroesList(JSONArray jArray){
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("heroesList", jArray.toString());
-            editor.apply();
-        }
+
         @Override
         protected String doInBackground(String... params) {
             try{
@@ -330,7 +365,6 @@ public class MainActivity extends AppCompatActivity
                 return versionRemote;
             }
             //check if local data is up to date
-            versionLocal = sharedPref.getString("version", "-1");
             if (versionLocal.equals(versionRemote) && oldDataIntegrity)
                 return "doNothing";
 
@@ -353,9 +387,13 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            final MainActivity act = ref.get();
+            if(act == null || act.isFinishing()) return;
+
+            act.progDialog.dismiss();
             if(s.equals("noInternet") && !oldDataIntegrity) {
                 // show alert dialog because it MUST download data for the first time
-                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
+                AlertDialog.Builder alert = new AlertDialog.Builder(act, R.style.MyAlertDialogStyle);
                 alert.setTitle("No Internet Connection");
                 alert.setMessage("You must be connected to internet to download data for the first time.");
                 //alert.setMessage(versionRemote);
@@ -363,43 +401,47 @@ public class MainActivity extends AppCompatActivity
                 alert.setPositiveButton("RETRY", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        checkForUpdate();
+                        act.checkForUpdate();
                     }
                 });
                 alert.setNegativeButton("EXIT", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.this.finish();
+                        act.finish();
                     }
                 });
                 alert.show();
+                Crashlytics.log(1, "MainActivity", "AsyncTask noInternet");
             } else if (s.equals("updated")){
-                Toast.makeText(getApplicationContext(), "All data up to date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(act, "All data up to date", Toast.LENGTH_SHORT).show();
                 //store new version code
-                saveNewVersionCode(versionRemote);
-                saveHeroesList(heroesList);
-                updateHeroesList();
+                act.saveNewVersionCode(versionRemote);
+                act.saveHeroesList(heroesList);
+                act.finishUpdate();
+                Crashlytics.log(1, "MainActivity","AsyncTask updated");
             } else if(s.equals("error") && !oldDataIntegrity) {
                 // show alert dialog because it needs to re-download due to invalid file
-                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this, R.style.MyAlertDialogStyle);
+                AlertDialog.Builder alert = new AlertDialog.Builder(act, R.style.MyAlertDialogStyle);
                 alert.setTitle("Download Failed");
                 alert.setMessage("Downloading hero data failed. Make sure you have a stable internet connection and try again.");
                 alert.setCancelable(false);
                 alert.setPositiveButton("Retry", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        checkForUpdate();
+                        act.checkForUpdate();
                     }
                 });
                 alert.setNegativeButton("Exit", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.this.finish();
+                        act.finish();
                     }
                 });
                 alert.show();
+                Crashlytics.log(1, "MainActivity", "AsyncTask error");
             } else {
-                updateHeroesList();
+                Crashlytics.log(1, "MainActivity","AsyncTask doNothing");
+                act.finishUpdate();
             }
 //            final Handler handler = new Handler();
 //            handler.postDelayed(new Runnable(){
@@ -408,7 +450,6 @@ public class MainActivity extends AppCompatActivity
 //                    progDialog.dismiss();
 //                }
 //            }, 4000);
-            progDialog.dismiss();
         }
     }
 
@@ -514,8 +555,10 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_heroes) {
             fragment = new MainFragment();
+            fragment.setArguments(heroesBundle);
         } else if (id == R.id.nav_maps) {
             fragment = new MapsFragment();
+            fragment.setArguments(mapsBundle);
         } else if (id == R.id.nav_patchnotes) {
             fragment = new PatchNotesFragment();
         } else if (id == R.id.nav_players) {
@@ -534,7 +577,7 @@ public class MainActivity extends AppCompatActivity
         String fragmentTag = backStateName;
 
         FragmentManager manager = getSupportFragmentManager();
-        boolean fragmentPopped = manager.popBackStackImmediate (backStateName, 0);
+        boolean fragmentPopped = manager.popBackStackImmediate(backStateName, 0);
 
         if (!fragmentPopped && manager.findFragmentByTag(fragmentTag) == null){ //fragment not in back stack, create it.
             FragmentTransaction ft = manager.beginTransaction();

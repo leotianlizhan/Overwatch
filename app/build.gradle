@@ -8,8 +8,8 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 42
-        versionName "1.17.1"
+        versionCode 45
+        versionName "1.17.4"
     }
     buildTypes {
         release {
@@ -22,6 +22,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
@@ -30,8 +32,9 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.github.arimorty:floatingsearchview:2.0.3'
     implementation 'com.github.hotchemi:android-rate:1.0.1'
     implementation 'com.github.stfalcon:frescoimageviewer:0.5.0'
     implementation 'com.facebook.fresco:fresco:1.8.1'
 }
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'

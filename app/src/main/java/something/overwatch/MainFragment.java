@@ -23,7 +23,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.RefWatcher;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +38,10 @@ import java.util.List;
  */
 public class MainFragment extends Fragment implements RecyclerItemClickListener{
 
-    private List<String> heroNames = MainActivity.heroNames;
+    private String packageName;
+    private ArrayList<String> heroNames;
+    private ArrayList<String> heroClasses;
+    private JSONArray heroesJson;
     private RecyclerViewAdapter recyclerAdapter;
     private RecyclerView recyclerView;
     //private static Parcelable mState;
@@ -47,10 +54,6 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
         refWatcher.watch(this);
     }
 
-    public void updateAdapter() {
-        if(recyclerAdapter!=null) recyclerAdapter.notifyDataSetChanged();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,35 +61,46 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_main, container, false);
 //        TODO: uncomment this when finished implementing search
-//        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
         recyclerView = v.findViewById(R.id.hero_list_recycler_view);
+        Bundle args = getArguments();
+        if(args == null) Crashlytics.log("getArguments() returned null in MainFragment");
+        heroNames = args.getStringArrayList("heroNames");
+        heroClasses = args.getStringArrayList("heroClasses");
+        packageName = args.getString("packageName");
+        try {
+            heroesJson = new JSONArray(args.getString("heroesJson"));
+        } catch (JSONException e){
+            Crashlytics.log("converting argument into JSON failed in MainFragment");
+        }
         return v;
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_heroes, menu);
-//        // Associate searchable configuration with the SearchView
-//        FragmentActivity ctx = getActivity();
-//        if(ctx != null) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_heroes, menu);
+        // Associate searchable configuration with the SearchView
+        FragmentActivity ctx = getActivity();
+        if(ctx != null) {
 //            SearchManager searchManager = (SearchManager) ctx.getSystemService(Context.SEARCH_SERVICE);
-//            SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-//            searchView.setQueryHint("Search heroes");
-//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                @Override
-//                public boolean onQueryTextSubmit(String s) {
-//                    return false;
-//                }
-//
-//                @Override
-//                public boolean onQueryTextChange(String s) {
-//                    return false;
-//                }
-//            });
+            SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+            searchView.setQueryHint("Search heroes");
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    recyclerAdapter.getFilter().filter(s);
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    recyclerAdapter.getFilter().filter(s);
+                    return false;
+                }
+            });
 //            if(searchManager != null) searchView.setSearchableInfo(searchManager.getSearchableInfo(ctx.getComponentName()));
-//        }
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     //    @Override
 //    public void onStart() {
@@ -100,7 +114,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerAdapter = new RecyclerViewAdapter(heroNames, getActivity(), this);
+        recyclerAdapter = new RecyclerViewAdapter(heroNames, heroClasses, packageName, getActivity(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -109,10 +123,17 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
 
     @Override
     public void onItemClick(View v, int position) {
+        Crashlytics.log(2,"MainFragment","Clicked adapter position "+Integer.toString(position));
+        String data = "";
+        try {
+            data = heroesJson.getJSONObject(position).toString();
+        } catch (JSONException e){
+            Crashlytics.log(2,"MainFragment","getJSONObject(position) failed");
+        }
         FragmentActivity activity = getActivity();
         if(activity == null) return;
         Intent intent = new Intent(activity, HeroInfoActivity.class);
-        intent.putExtra("position", position);
+        intent.putExtra("json", data);
         activity.startActivity(intent);
     }
 

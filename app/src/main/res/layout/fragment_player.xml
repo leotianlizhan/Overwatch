@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="something.overwatch.PlayerFragment">
+    tools:context="something.overwatch.PlayerFragment"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_below="@id/search_player_container"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:id="@+id/lbl_favorites"
@@ -46,17 +48,84 @@
         android:textSize="20sp"
         android:visibility="gone"/>
 
-    <com.arlib.floatingsearchview.FloatingSearchView
+    <!--<com.arlib.floatingsearchview.FloatingSearchView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/searchBar"-->
+        <!--app:floatingSearch_searchBarMarginLeft="5dp"-->
+        <!--app:floatingSearch_searchBarMarginTop="5dp"-->
+        <!--app:floatingSearch_searchBarMarginRight="5dp"-->
+        <!--app:floatingSearch_leftActionMode="noLeftAction"-->
+        <!--app:floatingSearch_searchHint="username#1337"-->
+        <!--app:floatingSearch_menu="@menu/menu_search"-->
+        <!--app:floatingSearch_hintTextColor="@color/text_secondary"/>-->
+    <LinearLayout
+        android:id="@+id/search_player_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchBar"
-        app:floatingSearch_searchBarMarginLeft="5dp"
-        app:floatingSearch_searchBarMarginTop="5dp"
-        app:floatingSearch_searchBarMarginRight="5dp"
-        app:floatingSearch_leftActionMode="noLeftAction"
-        app:floatingSearch_searchHint="username#1337"
-        app:floatingSearch_menu="@menu/menu_search"
-        app:floatingSearch_hintTextColor="@color/text_secondary"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="11dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_player"
+                style="@style/MySearchViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                app:searchHintIcon="@null" />
+
+            <!--<android.support.v7.widget.AppCompatImageButton-->
+                <!--android:id="@+id/search_player_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="end"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:focusable="true"-->
+                <!--android:clickable="true"-->
+                <!--android:background="@null"-->
+                <!--android:padding="7dp"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@drawable/ic_arrow_forward_black_24dp"-->
+                <!--style="@style/Base.Widget.AppCompat.Button"/>-->
+        </android.support.v7.widget.CardView>
+
+        <RadioGroup
+            android:id="@+id/radio_group_platform"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_button_pc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30sp"
+                android:layout_marginEnd="30sp"
+                android:checked="true"
+                android:text="PC"
+                android:textColor="@color/text_white" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_button_console"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Console"
+                android:textColor="@color/text_white" />
+        </RadioGroup>
+    </LinearLayout>
 
     
 </RelativeLayout>

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -25,13 +26,13 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+import io.fabric.sdk.android.services.common.Crash;
+
 public class HeroInfoActivity extends AppCompatActivity {
 
-    private Toolbar toolbar = null;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
-    private int position = -1;
-    private JSONObject hero = null;
+    private JSONObject heroJson = null;
     boolean isMobileData = false;
 
     @Override
@@ -39,20 +40,23 @@ public class HeroInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero_info);
         //some toolbar stuff
-        toolbar = (Toolbar) findViewById(R.id.toolbar_hero);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_hero);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //get position
-        position = getIntent().getIntExtra("position", -1);
+        try {
+            heroJson = new JSONObject(getIntent().getStringExtra("json"));
+        } catch (JSONException e){
+            Crashlytics.log(3, "HeroInfoActivity", "new JSONObject(getIntent()) failed");
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(position == -1) position = getIntent().getIntExtra("position", -1);
 
-        LoadHeroTask mTask = new LoadHeroTask(this, position);
+        LoadHeroTask mTask = new LoadHeroTask(this, heroJson, getPackageName());
         mTask.execute();
     }
 
@@ -74,6 +78,9 @@ public class HeroInfoActivity extends AppCompatActivity {
     }
 
     private static class LoadHeroTask extends AsyncTask<Void, Integer, Boolean>{
+        private JSONObject hero;
+        private String hero_name;
+        private String hero_class;
         private String hp_total;
         private String hp_normal;
         private String hp_armor;
@@ -82,30 +89,22 @@ public class HeroInfoActivity extends AppCompatActivity {
         private Uri uri;
         ConnectivityManager cm;
         private boolean isMobileData;
+        private final String PACKAGE_NAME;
 
         private final WeakReference<HeroInfoActivity> activityReference;
         int pos;
 
-        LoadHeroTask(HeroInfoActivity context, int position){
+        LoadHeroTask(HeroInfoActivity context, JSONObject hero, String pName){
             activityReference = new WeakReference<>(context);
-            pos = position;
+            this.hero = hero;
             cm = (ConnectivityManager)activityReference.get().getSystemService(HeroInfoActivity.CONNECTIVITY_SERVICE);
+            PACKAGE_NAME = pName;
         }
 
         @Override
         protected void onPreExecute() {
             HeroInfoActivity activity = activityReference.get();
             if(activity == null || activity.isFinishing()) return;
-
-            //set hero name
-            TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
-            if(0 <= pos && pos < MainActivity.heroNames.size()) {
-                TextView lblHeroClass = (TextView)activity.findViewById(R.id.lbl_hero_role);
-                lblHeroName.setText(MainActivity.heroNames.get(pos));
-                lblHeroClass.setText(MainActivity.heroClasses.get(pos));
-            } else {
-                lblHeroName.setText("Error");
-            }
         }
 
         private void getAbilityInfo(JSONObject hero) throws JSONException
@@ -132,28 +131,28 @@ public class HeroInfoActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            JSONObject hero;
             //determine network state
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             isMobileData = activeNetwork == null || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
 
             try{
-                hero = MainActivity.heroesJson.getJSONObject(pos);
+                hero_name = hero.getString("name");
+                hero_class = hero.getString("class");
                 hp_total = hero.getString("hpTotal");
                 hp_normal = hero.getString("hpNormal");
                 hp_armor = hero.getString("hpArmor");
                 hp_shield = hero.getString("hpShield");
                 getAbilityInfo(hero);
             } catch (JSONException e){
+                Crashlytics.log(3, "HeroInfoActivity", "AsyncTask doInBackground accessing JSON props failed");
                 e.printStackTrace();
                 return false;
             }
 
-            String hero_name = MainActivity.heroNames.get(pos);
-            hero_name = hero_name.toLowerCase().replace(".", "").replace(" ", "");
+            String hero_pic_id = hero_name.toLowerCase().replace(".", "").replace(" ", "");
             HeroInfoActivity activity = activityReference.get();
             if(activity == null || activity.isFinishing()) return false;
-            int resId = activity.getResources().getIdentifier("pic_" + hero_name, "mipmap", MainActivity.PACKAGE_NAME);
+            int resId = activity.getResources().getIdentifier("pic_" + hero_pic_id, "mipmap", PACKAGE_NAME);
             uri = new Uri.Builder()
                     .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
                     .path(String.valueOf(resId))
@@ -162,25 +161,34 @@ public class HeroInfoActivity extends AppCompatActivity {
             return abilities != null;
         }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            int index = values[0];
-            HeroInfoActivity activity = activityReference.get();
-            if(activity == null || activity.isFinishing()) return;
-
-            LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
-            abilitySection.addView(abilities[index]);
-
-            activity = null;
-        }
+//        @Override
+//        protected void onProgressUpdate(Integer... values) {
+//            int index = values[0];
+//            HeroInfoActivity activity = activityReference.get();
+//            if(activity == null || activity.isFinishing()) return;
+//
+//            LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
+//            abilitySection.addView(abilities[index]);
+//
+//            activity = null;
+//        }
 
         @Override
         protected void onPostExecute(Boolean succ) {
             HeroInfoActivity activity = activityReference.get();
-            if(!succ || activity == null || activity.isFinishing()) return;
+            if(activity == null || activity.isFinishing()) return;
+            if(!succ){
+                TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
+                lblHeroName.setText("ERROR");
+                return;
+            }
 
-            //****************hero icon****************/
+            //****************hero name, class, and icon****************/
+            TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
+            TextView lblHeroClass = (TextView)activity.findViewById(R.id.lbl_hero_role);
             SimpleDraweeView pic = (SimpleDraweeView)activity.findViewById(R.id.pic_hero_info);
+            lblHeroName.setText(hero_name);
+            lblHeroClass.setText(hero_class);
             pic.setImageURI(uri);
 
             //****************set hero hp****************/
@@ -196,7 +204,7 @@ public class HeroInfoActivity extends AppCompatActivity {
             //****************abilities stats****************/
             LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
             abilitySection.setOrientation(LinearLayout.VERTICAL);
-            for(int i=0; i<abilities.length; i++) abilitySection.addView(abilities[i]);
+            for(Ability a : abilities) abilitySection.addView(a);
 
             activity = null;
         }

@@ -19,14 +19,19 @@ import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
-    private List<String> _list;
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> implements Filterable{
+    private ArrayList<String> _list;
+    // Hacky solution to filtered-onclick problem. TODO: should serialize JSON into my own classes in the future
+    private ArrayList<Integer> _indices;
+    private ArrayList<Integer> _indicesFiltered;
+    private ArrayList<String> _classes;
     private final WeakReference<Context> ctxRef;
+    private final String PACKAGE_NAME;
     private RecyclerItemClickListener listener;
-//    private MyFilter filter;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener { //implements View.OnClickListener
         public TextView name;
@@ -56,21 +61,51 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
-            if(mListener != null) mListener.onItemClick(view, getAdapterPosition());
+            int realPos = _indicesFiltered.get(getAdapterPosition());
+            if(mListener != null) mListener.onItemClick(view, realPos);
         }
     }
 
-    RecyclerViewAdapter(List<String> list, Context ctx, RecyclerItemClickListener listener){
+    RecyclerViewAdapter(ArrayList<String> list, ArrayList<String> classes, String packageName, Context ctx, RecyclerItemClickListener listener){
         this._list = list;
+        this._classes = classes;
+        this.PACKAGE_NAME = packageName;
         ctxRef = new WeakReference<>(ctx);
         this.listener = listener;
+        // Hacky solution to filtered-onclick problem
+        this._indices = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) _indices.add(i);
+        this._indicesFiltered = _indices;
     }
 
-//    @Override
-//    public Filter getFilter() {
-//        if(filter == null) filter = new MyFilter(this);
-//        return filter;
-//    }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String qString = charSequence.toString();
+                if(qString.isEmpty()){
+                    _indicesFiltered = _indices;
+                } else {
+                    qString = qString.toLowerCase();
+                    ArrayList<Integer> indices = new ArrayList<>();
+                    for(int i=0; i<_list.size(); i++)
+                        if (_list.get(i).toLowerCase().contains(qString) || _classes.get(i).toLowerCase().contains(qString))
+                            indices.add(_indices.get(i));
+                    _indicesFiltered = indices;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = _indicesFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                _indicesFiltered = (ArrayList<Integer>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View heroCardView = LayoutInflater.from(parent.getContext())
@@ -83,11 +118,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Context ctx = ctxRef.get();
         if(ctx == null) return;
 
-        final int cardPosition = holder.getAdapterPosition();
-        String str = _list.get(position);
+        final int realPos = _indicesFiltered.get(holder.getAdapterPosition());
+        String str = _list.get(realPos);
         holder.name.setText(str);
         str = str.toLowerCase().replace(".", "").replace(" ", "");
-        int resId = ctx.getResources().getIdentifier("pic_" + str, "mipmap", MainActivity.PACKAGE_NAME);
+        int resId = ctx.getResources().getIdentifier("pic_" + str, "mipmap", PACKAGE_NAME);
         Log.d(str, Integer.toString(resId));
         if(resId!=0){
             Uri uri = new Uri.Builder()
@@ -98,8 +133,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } else {
             Log.d("WARNING", str + " icon cannot be found");
         }
-        str = MainActivity.heroClasses.get(position).toLowerCase();
-        resId = ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", MainActivity.PACKAGE_NAME);
+        str = _classes.get(realPos).toLowerCase();
+        resId = ctx.getResources().getIdentifier("pic_class_" + str, "mipmap", PACKAGE_NAME);
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
                 .path(String.valueOf(resId))
@@ -116,7 +151,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public int getItemCount() {
-        return _list.size();
+        return _indicesFiltered.size();
     }
-
 }

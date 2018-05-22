@@ -1,7 +1,9 @@
 package something.overwatch;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -45,8 +47,10 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 y = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
 
+        handleIntent(getIntent());
+
         //get stuff from intent
-        query = getIntent().getStringExtra("query");
+        query = getIntent().getStringExtra(SearchManager.QUERY);
         region = getIntent().getStringExtra("region");
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
         isFavorited = favorites != null && favorites.contains(query + ";" + region);
@@ -110,6 +114,12 @@ public class InfoPlayerActivity extends AppCompatActivity {
             }
         });
         webView.loadUrl(currentUrl);
+    }
+
+    private void handleIntent(Intent intent){
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+            String query = intent.getStringExtra(SearchManager.QUERY);
+        }
     }
 
     @Override

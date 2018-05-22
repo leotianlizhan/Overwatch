@@ -8,18 +8,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
-    private List<String> _list;
+public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> implements Filterable{
+    private ArrayList<String> _list;
+    private ArrayList<Integer> _indices;
+    private ArrayList<Integer> _indicesFiltered;
+    private ArrayList<String> _classes;
     private Context ctx;
+    private final String PACKAGE_NAME;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
@@ -36,12 +43,12 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
+            int realPos = _indicesFiltered.get(getAdapterPosition());
 //            Intent intent = new Intent(this.ctx, MapInfoActivity.class);
 //            intent.putExtra("position", position);
 //            this.ctx.startActivity(intent);
-            String str = MainActivity.mapNames.get(position).toLowerCase().replace(" ", "").replace(":", "").replace("'", "");
-            int resId = ctx.getResources().getIdentifier("map_" + str, "drawable", MainActivity.PACKAGE_NAME);
+            String str = MainActivity.mapNames.get(realPos).toLowerCase().replace(" ", "").replace(":", "").replace("'", "");
+            int resId = ctx.getResources().getIdentifier("map_" + str, "drawable", PACKAGE_NAME);
             List<String> list = Arrays.asList("res:///" + Integer.toString(resId));
             new ImageViewer.Builder<>(ctx, list)
                     .setStartPosition(0)
@@ -49,9 +56,15 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         }
     }
 
-    public MapsAdapter(List<String> list, Context ctx){
+    public MapsAdapter(ArrayList<String> list, ArrayList<String> classes, Context ctx, String pName){
         this._list = list;
+        this._classes = classes;
         this.ctx = ctx;
+        this.PACKAGE_NAME = pName;
+        // Hacky solution to filtered-onclick problem
+        this._indices = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) _indices.add(i);
+        this._indicesFiltered = _indices;
     }
 
     @NonNull
@@ -63,12 +76,12 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final int cardPosition = holder.getAdapterPosition();
-        String str = _list.get(position);
+        final int realPosition = _indicesFiltered.get(holder.getAdapterPosition());
+        String str = _list.get(realPosition);
         holder.name.setText(str);
-        str = MainActivity.mapTypes.get(position).toLowerCase();
+        str = _classes.get(realPosition).toLowerCase();
         //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
-        int resId = ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME);
+        int resId = ctx.getResources().getIdentifier("ic_" + str, "drawable", PACKAGE_NAME);
         Uri uri = new Uri.Builder()
                 .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
                 .path(String.valueOf(resId))
@@ -76,7 +89,35 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder>{
         holder.mapType.setImageURI(uri);
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String qString = charSequence.toString();
+                if(qString.isEmpty()){
+                    _indicesFiltered = _indices;
+                } else {
+                    qString = qString.toLowerCase();
+                    ArrayList<Integer> indices = new ArrayList<>();
+                    for(int i=0; i<_list.size(); i++)
+                        if (_list.get(i).toLowerCase().contains(qString) || _classes.get(i).toLowerCase().contains(qString))
+                            indices.add(_indices.get(i));
+                    _indicesFiltered = indices;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = _indicesFiltered;
+                return filterResults;
+            }
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                _indicesFiltered = (ArrayList<Integer>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     public int getItemCount() {
-        return _list.size();
+        return _indicesFiltered.size();
     }
 }
