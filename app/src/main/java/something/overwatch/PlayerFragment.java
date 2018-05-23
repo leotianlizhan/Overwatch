@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.PopupMenuCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
@@ -32,6 +33,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
@@ -220,5 +222,15 @@ public class PlayerFragment extends Fragment {
             recyclerView.setAdapter(recyclerAdapter);
         }
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentActivity act = getActivity();
+        if(act != null){
+            FirebaseAnalytics mFirebase = FirebaseAnalytics.getInstance(act);
+            mFirebase.setCurrentScreen(act, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+        }
     }
 }

@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.leakcanary.RefWatcher;
 
 
@@ -83,5 +84,15 @@ public class MapsFragment extends Fragment {
             if(searchManager != null) searchView.setSearchableInfo(searchManager.getSearchableInfo(ctx.getComponentName()));
         }
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentActivity act = getActivity();
+        if(act != null){
+            FirebaseAnalytics mFirebase = FirebaseAnalytics.getInstance(act);
+            mFirebase.setCurrentScreen(act, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+        }
     }
 }

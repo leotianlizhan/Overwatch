@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
@@ -150,6 +152,16 @@ public class PatchNotesFragment extends Fragment {
                 bar.setVisibility(View.GONE);
                 lblFail.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentActivity act = getActivity();
+        if(act != null){
+            FirebaseAnalytics mFirebase = FirebaseAnalytics.getInstance(act);
+            mFirebase.setCurrentScreen(act, this.getClass().getSimpleName(), this.getClass().getSimpleName());
         }
     }
 }

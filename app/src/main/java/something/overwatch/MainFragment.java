@@ -24,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
@@ -152,5 +153,13 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
 //    }
 
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentActivity act = getActivity();
+        if(act != null){
+            FirebaseAnalytics mFirebase = FirebaseAnalytics.getInstance(act);
+            mFirebase.setCurrentScreen(act, this.getClass().getSimpleName(), this.getClass().getSimpleName());
+        }
+    }
 }

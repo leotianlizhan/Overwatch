@@ -28,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -202,7 +203,8 @@ public class MainActivity extends AppCompatActivity
         fragment.setArguments(heroesBundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, fragment);
-        ft.commit();
+        // This is OK fix for now, but if error in resuming activity in future, revisit this
+        ft.commitAllowingStateLoss();
         setTitle("Heroes");
     }
 

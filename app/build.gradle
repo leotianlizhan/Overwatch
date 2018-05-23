@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
     compileSdkVersion 27
@@ -8,13 +9,17 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 45
-        versionName "1.17.4"
+        versionCode 46
+        versionName "1.17.5"
     }
     buildTypes {
         release {
+            manifestPlaceholders = [crashlyticsEnabled: true]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            manifestPlaceholders = [crashlyticsEnabled: false]
         }
     }
 }
@@ -23,6 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.google.firebase:firebase-perf:15.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
