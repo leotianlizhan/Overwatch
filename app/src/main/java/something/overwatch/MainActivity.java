@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar"));
     public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Escort", "Assault", "Assault", "Escort"));
     private JSONArray heroesJson = null;
-    private Bundle heroesBundle = new Bundle();
+//    private Bundle heroesBundle = new Bundle();
     private Bundle mapsBundle = new Bundle();
     private Toolbar toolbar = null;
     private NavigationView navigationView = null;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        heroesBundle.putString("packageName", getPackageName());
+//        heroesBundle.putString("packageName", getPackageName());
         mapsBundle.putString("packageName", getPackageName());
 
         // AlertDialog for when Internet Unavailable or Download Error
@@ -189,9 +189,9 @@ public class MainActivity extends AppCompatActivity
                 heroNames.add(hero.getString("name"));
                 heroClasses.add(hero.getString("class"));
             }
-            heroesBundle.putString("heroesJson", heroesJson.toString());
-            heroesBundle.putStringArrayList("heroNames", heroNames);
-            heroesBundle.putStringArrayList("heroClasses", heroClasses);
+//            heroesBundle.putString("heroesJson", heroesJson.toString());
+//            heroesBundle.putStringArrayList("heroNames", heroNames);
+//            heroesBundle.putStringArrayList("heroClasses", heroClasses);
         }catch (JSONException e){
             //TODO: data is corrupt, do something
             Crashlytics.log(1, "MainActivity", "finishUpdate() failed");
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity
         }
         // Init fragment
         MainFragment fragment = new MainFragment();
-        fragment.setArguments(heroesBundle);
+//        fragment.setArguments(heroesBundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container, fragment);
         // This is OK fix for now, but if error in resuming activity in future, revisit this
@@ -557,7 +557,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_heroes) {
             fragment = new MainFragment();
-            fragment.setArguments(heroesBundle);
+//            fragment.setArguments(heroesBundle);
         } else if (id == R.id.nav_maps) {
             fragment = new MapsFragment();
             fragment.setArguments(mapsBundle);

@@ -29,6 +29,7 @@ import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment implements RecyclerItemClickListener{
-
-    private String packageName;
-    private ArrayList<String> heroNames;
-    private ArrayList<String> heroClasses;
     private JSONArray heroesJson;
     private RecyclerViewAdapter recyclerAdapter;
     private RecyclerView recyclerView;
@@ -64,16 +61,6 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
 //        TODO: uncomment this when finished implementing search
         setHasOptionsMenu(true);
         recyclerView = v.findViewById(R.id.hero_list_recycler_view);
-        Bundle args = getArguments();
-        if(args == null) Crashlytics.log("getArguments() returned null in MainFragment");
-        heroNames = args.getStringArrayList("heroNames");
-        heroClasses = args.getStringArrayList("heroClasses");
-        packageName = args.getString("packageName");
-        try {
-            heroesJson = new JSONArray(args.getString("heroesJson"));
-        } catch (JSONException e){
-            Crashlytics.log("converting argument into JSON failed in MainFragment");
-        }
         return v;
     }
 
@@ -114,8 +101,9 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        recyclerAdapter = new RecyclerViewAdapter(heroNames, heroClasses, packageName, getActivity(), this);
+        MainActivity act = (MainActivity) getActivity();
+        heroesJson = act.getHeroesJson();
+        recyclerAdapter = new RecyclerViewAdapter(act.getHeroNames(), act.getHeroClasses(), act.getPackageName(), act, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
