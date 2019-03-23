@@ -50,7 +50,7 @@ import io.fabric.sdk.android.services.common.Crash;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static final String remoteUrl = "http://158.69.60.95/";
+    public static final String remoteUrl = "http://s1.retort.ganks.me/";
     private ArrayList<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Mccree", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     private ArrayList<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
@@ -335,10 +335,10 @@ public class MainActivity extends AppCompatActivity
             return new JSONObject(sb.toString());
         }
         private JSONObject getRemoteVersion() throws JSONException, IOException{
-            return getJson("http://158.69.60.95/version.json");
+            return getJson(MainActivity.remoteUrl + "version.json");
         }
         private JSONArray getHeroesList() throws JSONException, IOException{
-            JSONObject json = getJson("http://158.69.60.95/data_min.json");
+            JSONObject json = getJson(MainActivity.remoteUrl + "data_min.json");
             return json.getJSONArray("list");
         }
 
