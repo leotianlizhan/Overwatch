@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class FavoritesViewAdapter extends RecyclerView.Adapter<FavoritesViewAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder { //implements View.OnClickListener
         public TextView name;
+        public TextView platform;
         public ImageView icon;
         public CardView card;
 
@@ -57,7 +59,7 @@ public class FavoritesViewAdapter extends RecyclerView.Adapter<FavoritesViewAdap
             name = (TextView) v.findViewById(R.id.lbl_player_name_card);
             //icon = (ImageView) v.findViewById(R.id.pic_hero_card);
             card = (CardView)v.findViewById(R.id.card_player);
-
+            platform = (TextView) v.findViewById(R.id.lbl_player_platform_card);
         }
     }
     //create yes-no dialog for deleting players
@@ -110,7 +112,9 @@ public class FavoritesViewAdapter extends RecyclerView.Adapter<FavoritesViewAdap
         final int cardPosition = holder.getAdapterPosition();
         String str = _list.get(position);
         String name = str.split(";")[0];
-        holder.name.setText(name);
+        String platform = str.split(";")[1];
+        holder.name.setText(URLDecoder.decode(name));
+        holder.platform.setText(platform.toUpperCase());
 //        holder.card.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

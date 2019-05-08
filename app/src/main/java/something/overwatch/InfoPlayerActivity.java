@@ -13,18 +13,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InfoPlayerActivity extends AppCompatActivity {
 
@@ -34,10 +39,16 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private String region = "";
     private Boolean isFavorited = false;
     private int y = 0;
+    private WebView webView;
+    private MenuItem favButton;
+    private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)$");
+    private Matcher m = p.matcher("");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_player);
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar_player);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_player);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
@@ -59,54 +70,84 @@ public class InfoPlayerActivity extends AppCompatActivity {
         //progDialog.show();
         //progDailog.setCancelable(false);
 
-        String currentUrl;
+        String currentUrl = "https://playoverwatch.com/search";
         // PSN allows alphanumeric, hyphen, and underscore
         // Xbox allows alphanumeric and white space
         // Battlenet allows alphanumeric, foreign words, but NO symbols like hyphen
         // Blizzard's search is bugged for "-" currently. revert this change after they fix it.
-        if(region.equals("Console") && query.contains("-")){
-            currentUrl = "https://playoverwatch.com/en-us/career/psn/" + query.replace(" ", "%20");
+        if (isFavorited) {
+            currentUrl = "https://playoverwatch.com/career/" + region + "/" + query;
+        } else if (region.equals("Console") && query.contains("-")){
+            currentUrl = "https://playoverwatch.com/career/psn/" + query.replace(" ", "%20");
         } else {
-            currentUrl = "https://playoverwatch.com/en-us/search?q=" + query.replace("#", "-").replace(" ", "%20");
+            currentUrl = "https://playoverwatch.com/search";
+            //?q=" + query.replace("#", "-").replace(" ", "%20")
         }
 
-        WebView webView = (WebView)findViewById(R.id.webview_player);
+        webView = (WebView)findViewById(R.id.webview_player);
         // required to make blizzard's website work
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int progress) {
+                if (progress < 100 && progressBar.getVisibility() == ProgressBar.INVISIBLE)
+                    progressBar.setVisibility(ProgressBar.VISIBLE);
+                progressBar.setProgress(progress);
+                if (progress == 100) {
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
+                }
+            }
+        });
         webView.setWebViewClient(new WebViewClient(){
             private boolean isRedirected = false;
+
+            private void removeFooter(WebView view) {
+                view.loadUrl("javascript:(function() { " +
+                        "document.getElementsByClassName('Navbar-container')[0].style.display = 'none'; " +
+                        "document.getElementById('footer').style.display = 'none'; " +
+                        //"document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
+                        "document.getElementById('Page-footer').style.display = 'none'; " +
+                        "})()");
+            }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
                 //check if this is loading the redirected url
-                if (url.contains("career")){
+                m.reset(url);
+                if (m.matches()){
                     //provide some feedback to make sure the user know it's not frozen
                     Toast t = Toast.makeText(getApplicationContext(), "Player found. Redirecting...", Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.CENTER,0,0);
                     t.show();
+                    favButton.setVisible(true);
+                } else {
+                    favButton.setVisible(false);
                 }
+
             }
 
             @Override
             public void onPageCommitVisible(WebView view, String url) {
                 //deletes top blizzard bar
                 view.loadUrl("javascript:(function() { " +
-                        "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
+                        "document.getElementsByClassName('Navbar-container')[0].style.display = 'none'; " +
                         "})()");
                 super.onPageCommitVisible(view, url);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                m.reset(url);
+                if (!m.matches()) {
+                    view.loadUrl("javascript:(function() { " +
+                            "document.getElementsByClassName('search-input')[0].value = '" + query + "';" +
+                            "document.getElementsByClassName('search-button')[0].click();" +
+                            "})()");
+                }
                 // deletes bottom blizzard bar
-                view.loadUrl("javascript:(function() { " +
-                        "document.getElementsByClassName('navbars')[0].style.display = 'none'; " +
-                        "document.getElementById('footer').style.display = 'none'; " +
-                        //"document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
-                        "document.getElementById('Page-footer').style.display = 'none'; " +
-                        "})()");
+                removeFooter(view);
                 // add this line if u want to hide platform buttons
                 //"document.getElementById('profile-platforms').style.display = 'none'; " +
                 //view.setVisibility(View.VISIBLE);
@@ -125,7 +166,8 @@ public class InfoPlayerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_player_favorite, menu);
-        MenuItem favButton = menu.findItem(R.id.action_favorite);
+        favButton = menu.findItem(R.id.action_favorite);
+        favButton.setVisible(false);
         if(isFavorited) {
             favButton.setIcon(getResources().getDrawable(R.drawable.ic_star_on_86dp));
         } else {
@@ -138,15 +180,23 @@ public class InfoPlayerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_favorite) {
-            if(isFavorited)
-                item.setIcon(getResources().getDrawable(R.drawable.ic_star_off_86dp));
-            else
+            if(favorite(query, region))
                 item.setIcon(getResources().getDrawable(R.drawable.ic_star_on_86dp));
-            favorite(query, region);
-            isFavorited = !isFavorited;
+            else
+                item.setIcon(getResources().getDrawable(R.drawable.ic_star_off_86dp));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    Toast favoriteToast;
+    private void favoriteToast(String text) {
+        if(favoriteToast != null) {
+            favoriteToast.cancel();
+        }
+        favoriteToast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+        favoriteToast.setGravity(Gravity.TOP|Gravity.END,0,y);
+        favoriteToast.show();
     }
 
     public void saveInfo(String v){
@@ -162,9 +212,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         result = result.substring(1);
         editor.putString("favorites", result);
         editor.commit();
-        Toast toast = Toast.makeText(getApplicationContext(), "Favorited", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.END,0,y);
-        toast.show();
+        favoriteToast("Favorited");
     }
     public void removeInfo(String v){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -178,17 +226,23 @@ public class InfoPlayerActivity extends AppCompatActivity {
             result = result.substring(1);
         editor.putString("favorites", result);
         editor.commit();
-        Toast toast = Toast.makeText(getApplicationContext(), "Unfavorited", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP|Gravity.END,0,y);
-        toast.show();
+        favoriteToast("Unfavorited");
     }
 
     // Favorites/Unfavorite current player the current player
-    private void favorite(String query, String region){
-        String v = query + ";" + region;
+    private boolean favorite(String query, String region){
+        m.reset(webView.getUrl());
+        if (!m.matches()) {
+            favoriteToast("Favorite failed");
+            return isFavorited;
+        }
+        String v = m.group(2) + ";" + m.group(1);
         if(isFavorited)
             removeInfo(v);
         else
             saveInfo(v);
+        Log.d("AAAAA", m.group(2) + ";" + m.group(1));
+        isFavorited = !isFavorited;
+        return isFavorited;
     }
 }
