@@ -43,6 +43,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private MenuItem favButton;
     private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)$");
     private Matcher m = p.matcher("");
+    String currentUrl = "https://playoverwatch.com/search";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,6 @@ public class InfoPlayerActivity extends AppCompatActivity {
         //progDialog.show();
         //progDailog.setCancelable(false);
 
-        String currentUrl = "https://playoverwatch.com/search";
         // PSN allows alphanumeric, hyphen, and underscore
         // Xbox allows alphanumeric and white space
         // Battlenet allows alphanumeric, foreign words, but NO symbols like hyphen
@@ -154,7 +154,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 //if(progDialog.isShowing()) progDialog.dismiss();
             }
         });
-        webView.loadUrl(currentUrl);
+        // webView.loadUrl(currentUrl);
     }
 
     private void handleIntent(Intent intent){
@@ -167,7 +167,8 @@ public class InfoPlayerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_player_favorite, menu);
         favButton = menu.findItem(R.id.action_favorite);
-        favButton.setVisible(false);
+        // must be put after this because the webView will use favButton
+        webView.loadUrl(currentUrl);
         if(isFavorited) {
             favButton.setIcon(getResources().getDrawable(R.drawable.ic_star_on_86dp));
         } else {
