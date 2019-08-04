@@ -6,7 +6,7 @@
     android:id="@+id/fragment_main"
     >
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:paddingTop="10dp"
         android:clipToPadding="false"
         android:id="@+id/hero_list_recycler_view"

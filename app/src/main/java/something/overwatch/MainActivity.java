@@ -9,17 +9,17 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +28,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,10 +41,8 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import hotchemi.android.rate.AppRate;
-import io.fabric.sdk.android.services.common.Crash;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,8 +52,8 @@ public class MainActivity extends AppCompatActivity
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     private ArrayList<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
-    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar"));
-    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Escort", "Assault", "Assault", "Escort"));
+    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Busan", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Paris", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar"));
+    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Control", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Assault", "Escort", "Escort", "Assault", "Assault", "Escort"));
     private JSONArray heroesJson = null;
 //    private Bundle heroesBundle = new Bundle();
     private Bundle mapsBundle = new Bundle();

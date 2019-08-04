@@ -5,9 +5,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.text.Html;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,31 +16,19 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
-
-import javax.net.ssl.HttpsURLConnection;
 
 
 /**
@@ -146,7 +135,8 @@ public class PatchNotesFragment extends Fragment {
             if(bar == null || lblFail == null || webview == null) return;
 
             if(!s.equals("")){
-                webview.loadData(s, "text/html; charset=utf-8", "UTF-8");
+                String encodedStr = Base64.encodeToString(s.getBytes(), Base64.NO_PADDING);
+                webview.loadData(encodedStr, "text/html", "base64");
                 bar.setVisibility(View.GONE);
             }else{
                 bar.setVisibility(View.GONE);
