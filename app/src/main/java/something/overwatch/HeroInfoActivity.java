@@ -45,14 +45,11 @@ public class HeroInfoActivity extends AppCompatActivity {
         //get position
         try {
             heroJson = new JSONObject(getIntent().getStringExtra("json"));
-        } catch (JSONException e){
+        } catch (JSONException e) {
             Crashlytics.log(3, "HeroInfoActivity", "new JSONObject(getIntent()) failed");
+        } finally {
+            if (heroJson == null) return;
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         LoadHeroTask mTask = new LoadHeroTask(this, heroJson, getPackageName());
         mTask.execute();

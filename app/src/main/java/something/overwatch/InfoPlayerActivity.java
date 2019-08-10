@@ -74,8 +74,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         } else if (region.equals("Console") && query.contains("-")){
             currentUrl = "https://playoverwatch.com/career/psn/" + query.replace(" ", "%20");
         } else {
-            currentUrl = "https://playoverwatch.com/search";
-            //?q=" + query.replace("#", "-").replace(" ", "%20")
+            currentUrl = "https://playoverwatch.com/search?q=" + query.replace("#", "-").replace(" ", "%20");
         }
 
         webView = (WebView)findViewById(R.id.webview_player);
@@ -133,13 +132,13 @@ public class InfoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                m.reset(url);
-                if (!m.matches()) {
-                    view.loadUrl("javascript:(function() { " +
-                            "document.getElementsByClassName('search-input')[0].value = '" + query + "';" +
-                            "document.getElementsByClassName('search-button')[0].click();" +
-                            "})()");
-                }
+//                m.reset(url);
+//                if (!m.matches()) {
+//                    view.loadUrl("javascript:(function() { " +
+//                            "document.getElementsByClassName('search-input')[0].value = '" + query + "';" +
+//                            "document.getElementsByClassName('search-button')[0].click();" +
+//                            "})()");
+//                }
                 // deletes bottom blizzard bar
                 removeFooter(view);
                 // add this line if u want to hide platform buttons
