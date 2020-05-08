@@ -118,7 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         String str = _list.get(realPos);
         holder.name.setText(str);
         str = str.toLowerCase().replace(".", "").replace(" ", "");
-        int resId = ctx.getResources().getIdentifier("pic_" + str, "mipmap", PACKAGE_NAME);
+        int resId = ctx.getResources().getIdentifier("pic_" + str, "drawable", PACKAGE_NAME);
         Log.d(str, Integer.toString(resId));
         if(resId!=0){
             Uri uri = new Uri.Builder()

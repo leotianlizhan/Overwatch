@@ -147,7 +147,7 @@ public class HeroInfoActivity extends AppCompatActivity {
             String hero_pic_id = hero_name.toLowerCase().replace(".", "").replace(" ", "");
             HeroInfoActivity activity = activityReference.get();
             if(activity == null || activity.isFinishing()) return false;
-            int resId = activity.getResources().getIdentifier("pic_" + hero_pic_id, "mipmap", PACKAGE_NAME);
+            int resId = activity.getResources().getIdentifier("pic_" + hero_pic_id, "drawable", PACKAGE_NAME);
             uri = new Uri.Builder()
                     .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
                     .path(String.valueOf(resId))
