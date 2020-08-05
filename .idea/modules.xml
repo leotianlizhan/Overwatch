@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Overwatch.iml" filepath="$PROJECT_DIR$/Overwatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Overwatch-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Overwatch-app.iml" group="Overwatch/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/_devPersonal-Overwatch.iml" filepath="$PROJECT_DIR$/.idea/modules/_devPersonal-Overwatch.iml" group="Overwatch" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
