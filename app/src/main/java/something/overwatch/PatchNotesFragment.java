@@ -88,7 +88,8 @@ public class PatchNotesFragment extends Fragment {
             //String urlString = "https://api.lootbox.eu/patch_notes";
             //I found this link in LootBox.eu's Gitlab
             //https://gitlab.com/SingularityIO/LootBoxAPI/blob/master/routes/patch_notes.js
-            String urlString = "https://cache-eu.battle.net/system/cms/oauth/api/patchnote/list?program=pro&region=US&locale=enUS&type=RETAIL&page=1&pageSize=5&orderBy=buildNumber&buildNumberMin=0";
+//            String urlString = "https://cache-eu.battle.net/system/cms/oauth/api/patchnote/list?program=pro&region=US&locale=enUS&type=RETAIL&page=1&pageSize=5&orderBy=buildNumber&buildNumberMin=0";
+            String urlString = "https://playoverwatch.com/en-us/news/patch-notes/live/";
             HttpURLConnection c = null;
             String result = "";
 
@@ -108,16 +109,40 @@ public class PatchNotesFragment extends Fragment {
                 result = sb.toString();
                 if(result.equals("")) return "";
 
-                JSONObject json = new JSONObject(result);
-                JSONArray jArray = json.getJSONArray("patchNotes");
-                String htmlString = "<html><head>"
-                        + "<style type=\"text/css\">"
-                        + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
-                        + "body h1{color: #b7b9bc !important;}"
-                        + "body h2{color: #c98318 !important;}"
-                        + "body strong{color: #0f97c9 !important;}"
-                        + "</style></head>"
-                        + "<body link=\"orange\">" + jArray.getJSONObject(0).getString("detail") + "</body></html>";
+
+                String htmlString = "";
+
+                if (result.contains("<div class=\"PatchNotes-body\">") && result.contains("<div class=\"PatchNotesTop\">")){
+
+                    result = result.substring(result.indexOf("<div class=\"PatchNotes-body\">"), result.indexOf("<div class=\"PatchNotesTop\">"));
+
+
+                    htmlString = "<html><head>"
+                            + "<style type=\"text/css\">"
+                            + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
+                            + "body h1{color: #b7b9bc !important;}"
+                            + "body h2{color: #c98318 !important;}"
+                            + "body h4{color: #c98318 !important;}"
+                            + "body strong{color: #0f97c9 !important;}"
+                            + "</style></head>"
+                            + "<body link=\"orange\">" + result + "</body></html>";
+
+
+                    //Alternative styling
+//                String htmlString = "<html><head>"
+//                        + "<style type=\"text/css\">"
+//                        + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
+//                        + "body h1{color: #b7b9bc !important;}"
+//                        + "body h2{color: #c98318 !important;}"
+//                        + "body h3{color: #c98318 !important;}"
+//                        + "body h4{color: #b7b9bc !important;}"
+//                        + "body strong{color: #0f97c9 !important;}"
+//                        + "</style></head>"
+//                        + "<body link=\"orange\">" + result + "</body></html>";
+
+                }
+
+
                 return htmlString;
             } catch (Exception e){
                 e.printStackTrace();
