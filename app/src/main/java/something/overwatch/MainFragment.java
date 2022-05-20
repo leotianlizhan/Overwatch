@@ -17,9 +17,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
@@ -103,12 +102,12 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
 
     @Override
     public void onItemClick(View v, int position) {
-        Crashlytics.log(2,"MainFragment","Clicked adapter position "+Integer.toString(position));
+        FirebaseCrashlytics.getInstance().log("MainFragment Clicked adapter position "+Integer.toString(position));
         String data = "";
         try {
             data = heroesJson.getJSONObject(position).toString();
         } catch (JSONException e){
-            Crashlytics.log(2,"MainFragment","getJSONObject(position) failed");
+            FirebaseCrashlytics.getInstance().log("MainFragment getJSONObject(position) failed");
         }
         FragmentActivity activity = getActivity();
         if(activity == null) return;

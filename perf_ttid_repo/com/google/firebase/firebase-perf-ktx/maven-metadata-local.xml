@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.google.firebase</groupId>
+  <artifactId>firebase-perf-ktx</artifactId>
+  <versioning>
+    <latest>21.0.0-ttid-SNAPSHOT</latest>
+    <versions>
+      <version>21.0.0-ttid-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20220518161307</lastUpdated>
+  </versioning>
+</metadata>

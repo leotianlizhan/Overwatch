@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.google.firebase</groupId>
+  <artifactId>firebase-perf</artifactId>
+  <version>21.0.0-ttid-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20220518161307</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <classifier>fireescape</classifier>
+        <extension>zip</extension>
+        <value>21.0.0-ttid-SNAPSHOT</value>
+        <updated>20220518161307</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>javadoc</classifier>
+        <extension>jar</extension>
+        <value>21.0.0-ttid-SNAPSHOT</value>
+        <updated>20220518161307</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>aar</extension>
+        <value>21.0.0-ttid-SNAPSHOT</value>
+        <updated>20220518161307</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>21.0.0-ttid-SNAPSHOT</value>
+        <updated>20220518161307</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

@@ -1,15 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "something.overwatch"
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 58
-        versionName "1.18.6"
+        minSdkVersion 19
+        targetSdkVersion 31
+        versionCode 60
+        versionName "1.18.8"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -21,14 +23,19 @@ android {
             manifestPlaceholders = [crashlyticsEnabled: false]
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.google.firebase:firebase-core:17.4.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.7'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.google.firebase:firebase-analytics:21.0.0'
+    implementation 'com.google.firebase:firebase-perf:21.0.0-ttid-SNAPSHOT'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.10'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
@@ -42,4 +49,3 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'

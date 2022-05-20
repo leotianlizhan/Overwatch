@@ -27,7 +27,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FirebaseAnalytics.getInstance(this);
 
 //        heroesBundle.putString("packageName", getPackageName());
         mapsBundle.putString("packageName", getPackageName());
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
         }catch (JSONException e) {
             Log.e("**DATA_INTEGRITY", e.toString());
-            Crashlytics.log(1, "MainActivity", "dataIntegrity() == false");
+            FirebaseCrashlytics.getInstance().log("MainActivity dataIntegrity() == false");
             return false;
         }
         oldDataIntegrity = true;
@@ -174,7 +177,7 @@ public class MainActivity extends AppCompatActivity
     private void finishUpdate(){
         String heroesList = sharedPref.getString("heroesList", "-1");
         if(heroesList.equals("-1")){
-            Crashlytics.log(1, "MainActivity", "finishUpdate() sharedPref empty");
+            FirebaseCrashlytics.getInstance().log("MainActivity finishUpdate() sharedPref empty");
             return;
         }
         try{
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity
 //            heroesBundle.putStringArrayList("heroClasses", heroClasses);
         }catch (JSONException e){
             //TODO: data is corrupt, do something
-            Crashlytics.log(1, "MainActivity", "finishUpdate() failed");
+            FirebaseCrashlytics.getInstance().log("MainActivity finishUpdate() failed");
             e.printStackTrace();
             return;
         }
@@ -410,14 +413,14 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 alert.show();
-                Crashlytics.log(1, "MainActivity", "AsyncTask noInternet");
+                FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask noInternet");
             } else if (s.equals("updated")){
                 Toast.makeText(act, "All data up to date", Toast.LENGTH_SHORT).show();
                 //store new version code
                 act.saveNewVersionCode(versionRemote);
                 act.saveHeroesList(heroesList);
                 act.finishUpdate();
-                Crashlytics.log(1, "MainActivity","AsyncTask updated");
+                FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask updated");
             } else if(s.equals("error") && !oldDataIntegrity) {
                 // show alert dialog because it needs to re-download due to invalid file
                 AlertDialog.Builder alert = new AlertDialog.Builder(act, R.style.MyAlertDialogStyle);
@@ -437,9 +440,9 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 alert.show();
-                Crashlytics.log(1, "MainActivity", "AsyncTask error");
+                FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask error");
             } else {
-                Crashlytics.log(1, "MainActivity","AsyncTask doNothing");
+                FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask doNothing");
                 act.finishUpdate();
             }
 //            final Handler handler = new Handler();

@@ -1,6 +1,6 @@
 package something.overwatch;
 
-import android.app.Application;
+import androidx.multidex.MultiDexApplication;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -13,7 +13,7 @@ import com.squareup.leakcanary.RefWatcher;
  * Created by Leo on 2018-03-22.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     public static RefWatcher getRefWatcher(Context context){
         App application = (App) context.getApplicationContext();
         return application.refWatcher;

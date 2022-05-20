@@ -16,9 +16,9 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +46,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         try {
             heroJson = new JSONObject(getIntent().getStringExtra("json"));
         } catch (JSONException e) {
-            Crashlytics.log(3, "HeroInfoActivity", "new JSONObject(getIntent()) failed");
+            FirebaseCrashlytics.getInstance().log("HeroInfoActivity new JSONObject(getIntent()) failed");
         } finally {
             if (heroJson == null) return;
         }
@@ -139,7 +139,7 @@ public class HeroInfoActivity extends AppCompatActivity {
                 hp_shield = hero.getString("hpShield");
                 getAbilityInfo(hero);
             } catch (JSONException e){
-                Crashlytics.log(3, "HeroInfoActivity", "AsyncTask doInBackground accessing JSON props failed");
+                FirebaseCrashlytics.getInstance().log("HeroInfoActivity AsyncTask doInBackground accessing JSON props failed");
                 e.printStackTrace();
                 return false;
             }
