@@ -3,10 +3,10 @@
   <groupId>com.google.firebase</groupId>
   <artifactId>firebase-perf</artifactId>
   <versioning>
-    <latest>21.0.0-ttid-SNAPSHOT</latest>
+    <latest>20.1.1-SNAPSHOT</latest>
     <versions>
-      <version>21.0.0-ttid-SNAPSHOT</version>
+      <version>20.1.1-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20220518161307</lastUpdated>
+    <lastUpdated>20220607212624</lastUpdated>
   </versioning>
 </metadata>

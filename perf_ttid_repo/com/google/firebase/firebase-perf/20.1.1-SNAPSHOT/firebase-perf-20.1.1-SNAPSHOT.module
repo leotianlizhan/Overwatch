@@ -1,0 +1,160 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.firebase",
+    "module": "firebase-perf",
+    "version": "20.1.1-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.9",
+      "buildId": "ngbpehckcfc7tbyodpbqtqnluq"
+    }
+  },
+  "variants": [
+    {
+      "name": "runtime",
+      "attributes": {
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.support",
+          "module": "multidex",
+          "version": {
+            "requires": "1.0.2"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-installations",
+          "version": {
+            "requires": "17.0.1"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-datatransport",
+          "version": {
+            "requires": "18.1.4"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-common",
+          "version": {
+            "requires": "20.1.1"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-components",
+          "version": {
+            "requires": "17.0.0"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-config",
+          "version": {
+            "requires": "21.1.0"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-installations-interop",
+          "version": {
+            "requires": "17.0.1"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "protolite-well-known-types",
+          "version": {
+            "requires": "18.0.0"
+          }
+        },
+        {
+          "group": "com.google.protobuf",
+          "module": "protobuf-javalite",
+          "version": {
+            "requires": "3.17.3"
+          }
+        },
+        {
+          "group": "com.google.android.datatransport",
+          "module": "transport-api",
+          "version": {
+            "requires": "3.0.0"
+          }
+        },
+        {
+          "group": "com.google.android.gms",
+          "module": "play-services-tasks",
+          "version": {
+            "requires": "18.0.1"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "3.12.1"
+          }
+        },
+        {
+          "group": "com.google.dagger",
+          "module": "dagger",
+          "version": {
+            "requires": "2.27"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "firebase-perf-20.1.1-SNAPSHOT.aar",
+          "url": "firebase-perf-20.1.1-SNAPSHOT.aar",
+          "size": 313493,
+          "sha512": "e62c4ce7e8fe78c6558ef01dcb3d90fef0ca4fbd6559e0ed2fe718da4d4f5639a8f1d8a746454ba5ee39b1cb06d6c7bcccef7d953469838dcaac8865e314dbc8",
+          "sha256": "cc279b6146e47f54612271248a84474a7d3e1fd93a7fe413e808e4e951412d20",
+          "sha1": "282232f06519d4a09489ee0e37926bf9a3f64d3c",
+          "md5": "62456433e26e325c71258b804be522b4"
+        }
+      ]
+    },
+    {
+      "name": "api",
+      "attributes": {
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "firebase-perf-20.1.1-SNAPSHOT.aar",
+          "url": "firebase-perf-20.1.1-SNAPSHOT.aar",
+          "size": 313493,
+          "sha512": "e62c4ce7e8fe78c6558ef01dcb3d90fef0ca4fbd6559e0ed2fe718da4d4f5639a8f1d8a746454ba5ee39b1cb06d6c7bcccef7d953469838dcaac8865e314dbc8",
+          "sha256": "cc279b6146e47f54612271248a84474a7d3e1fd93a7fe413e808e4e951412d20",
+          "sha1": "282232f06519d4a09489ee0e37926bf9a3f64d3c",
+          "md5": "62456433e26e325c71258b804be522b4"
+        }
+      ]
+    }
+  ]
+}
