@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.google.firebase.perf.FirebasePerformance;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -445,6 +446,7 @@ public class MainActivity extends AppCompatActivity
                 FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask doNothing");
                 act.finishUpdate();
             }
+            FirebasePerformance.getInstance().reportFullyDrawn();
 //            final Handler handler = new Handler();
 //            handler.postDelayed(new Runnable(){
 //                @Override

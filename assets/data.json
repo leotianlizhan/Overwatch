@@ -1065,7 +1065,7 @@
       ]
     },
     {
-      "name": "McCree", "class": "Damage",
+      "name": "Cassidy", "class": "Damage",
       "hpTotal": "225", "hpNormal": "225", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {

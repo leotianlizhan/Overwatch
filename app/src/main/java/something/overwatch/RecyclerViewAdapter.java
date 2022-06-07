@@ -85,9 +85,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 } else {
                     qString = qString.toLowerCase();
                     ArrayList<Integer> indices = new ArrayList<>();
-                    for(int i=0; i<_list.size(); i++)
+                    for(int i=0; i<_list.size(); i++) {
                         if (_list.get(i).toLowerCase().contains(qString) || _classes.get(i).toLowerCase().contains(qString))
                             indices.add(_indices.get(i));
+                        if (_list.get(i).toLowerCase().contains("cassidy") && "mccree".contains(qString))
+                            indices.add(_indices.get(i));
+                    }
                     _indicesFiltered = indices;
                 }
                 FilterResults filterResults = new FilterResults();

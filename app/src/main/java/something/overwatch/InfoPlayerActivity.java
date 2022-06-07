@@ -35,7 +35,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private int y = 0;
     private WebView webView;
     private MenuItem favButton;
-    private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)$");
+    private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)/$");
     private Matcher m = p.matcher("");
     String currentUrl = "https://playoverwatch.com/search";
 
@@ -56,7 +56,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         handleIntent(getIntent());
 
         //get stuff from intent
-        query = getIntent().getStringExtra(SearchManager.QUERY);
+        query = getIntent().getStringExtra(SearchManager.QUERY).trim();
         region = getIntent().getStringExtra("region");
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
         isFavorited = favorites != null && favorites.contains(query + ";" + region);
@@ -71,10 +71,10 @@ public class InfoPlayerActivity extends AppCompatActivity {
         // Blizzard's search is bugged for "-" currently. revert this change after they fix it.
         if (isFavorited) {
             currentUrl = "https://playoverwatch.com/career/" + region + "/" + query;
-        } else if (region.equals("Console") && query.contains("-")){
-            currentUrl = "https://playoverwatch.com/career/psn/" + query.replace(" ", "%20");
+        } else if (query.contains(" ")){
+            currentUrl = "https://playoverwatch.com/search";
         } else {
-            currentUrl = "https://playoverwatch.com/search?q=" + query.replace("#", "-").replace(" ", "%20");
+            currentUrl = "https://playoverwatch.com/search?q=" + query;
         }
 
         webView = (WebView)findViewById(R.id.webview_player);
@@ -141,6 +141,12 @@ public class InfoPlayerActivity extends AppCompatActivity {
 //                }
                 // deletes bottom blizzard bar
                 removeFooter(view);
+                m.reset(url);
+                if (!m.matches() && query.contains(" ")) {
+                    Toast t = Toast.makeText(getApplicationContext(), "For names containing space, please enter manually here", Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.CENTER,0,0);
+                    t.show();
+                }
                 // add this line if u want to hide platform buttons
                 //"document.getElementById('profile-platforms').style.display = 'none'; " +
                 //view.setVisibility(View.VISIBLE);
