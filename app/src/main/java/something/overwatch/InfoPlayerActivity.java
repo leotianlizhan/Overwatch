@@ -37,7 +37,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private MenuItem favButton;
     private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)/$");
     private Matcher m = p.matcher("");
-    String currentUrl = "https://playoverwatch.com/search";
+    String currentUrl = "https://playoverwatch.com/search/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +71,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         // Blizzard's search is bugged for "-" currently. revert this change after they fix it.
         if (isFavorited) {
             currentUrl = "https://playoverwatch.com/career/" + region + "/" + query;
-        } else if (query.contains(" ")){
-            currentUrl = "https://playoverwatch.com/search";
-        } else {
+        } else if (!query.isEmpty()) {
             currentUrl = "https://playoverwatch.com/search?q=" + query;
         }
 
@@ -118,7 +116,6 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 } else {
                     favButton.setVisible(false);
                 }
-
             }
 
             @Override
@@ -127,6 +124,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 view.loadUrl("javascript:(function() { " +
                         "document.getElementsByClassName('Navbar-container')[0].style.display = 'none'; " +
                         "})()");
+                view.requestFocus();
                 super.onPageCommitVisible(view, url);
             }
 
@@ -142,10 +140,14 @@ public class InfoPlayerActivity extends AppCompatActivity {
                 // deletes bottom blizzard bar
                 removeFooter(view);
                 m.reset(url);
-                if (!m.matches() && query.contains(" ")) {
-                    Toast t = Toast.makeText(getApplicationContext(), "For names containing space, please enter manually here", Toast.LENGTH_LONG);
-                    t.setGravity(Gravity.CENTER,0,0);
-                    t.show();
+                if (!m.matches()) {
+                    if (query.contains(" ")) {
+                        Toast t = Toast.makeText(getApplicationContext(), "For names containing space, please enter manually here", Toast.LENGTH_LONG);
+                        t.setGravity(Gravity.CENTER, 0, 0);
+                        t.show();
+                    }
+                    view.requestFocus();
+                    view.loadUrl("javascript:document.getElementsByName('q')[0].focus();");
                 }
                 // add this line if u want to hide platform buttons
                 //"document.getElementById('profile-platforms').style.display = 'none'; " +

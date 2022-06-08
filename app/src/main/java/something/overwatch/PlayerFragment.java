@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -155,6 +156,18 @@ public class PlayerFragment extends Fragment {
         // TODO: fix X button and icon color to black
         searchView.setQueryHint("Search players");
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(getActivity(), InfoPlayerActivity.class)));
+        // Make searchView into a button
+        EditText editText = searchView.findViewById(R.id.search_src_text);
+        editText.setFocusable(false);
+        editText.setClickable(true);
+        editText.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), InfoPlayerActivity.class);
+            intent.setAction(Intent.ACTION_SEARCH);
+            intent.putExtra(SearchManager.QUERY, "");
+            intent.putExtra("region", region);
+            intent.putStringArrayListExtra("favoriteslist", favorites);
+            startActivity(intent);
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
