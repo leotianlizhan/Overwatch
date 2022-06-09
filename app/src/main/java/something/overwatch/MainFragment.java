@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
-import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,11 +34,14 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
     //private static Parcelable mState;
 
 
+    /**
+     * Memory leak fix. TODO: use view binding in Kotlin
+     */
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+    public void onDestroyView() {
+        super.onDestroyView();
+        recyclerAdapter = null;
+        recyclerView = null;
     }
 
     @Nullable
@@ -51,6 +53,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
 //        TODO: uncomment this when finished implementing search
         setHasOptionsMenu(true);
         recyclerView = v.findViewById(R.id.hero_list_recycler_view);
+        recyclerView.setHasFixedSize(true);
         return v;
     }
 
@@ -93,7 +96,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListener{
         super.onActivityCreated(savedInstanceState);
         MainActivity act = (MainActivity) getActivity();
         heroesJson = act.getHeroesJson();
-        recyclerAdapter = new RecyclerViewAdapter(act.getHeroNames(), act.getHeroClasses(), act.getPackageName(), act, this);
+        recyclerAdapter = new RecyclerViewAdapter(act.getHeroNames(), act.getHeroClasses(), act.getPackageName(), this, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

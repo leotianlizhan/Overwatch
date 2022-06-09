@@ -3,9 +3,10 @@ package something.overwatch;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import androidx.core.app.NavUtils;
 import androidx.viewpager.widget.ViewPager;
@@ -13,11 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.common.util.UriUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.json.JSONArray;
@@ -81,7 +81,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         private String hp_armor;
         private String hp_shield;
         private Ability[] abilities;
-        private Uri uri;
+        private int uri;
         ConnectivityManager cm;
         private boolean isMobileData;
         private final String PACKAGE_NAME;
@@ -147,11 +147,7 @@ public class HeroInfoActivity extends AppCompatActivity {
             String hero_pic_id = hero_name.toLowerCase().replace(".", "").replace(" ", "");
             HeroInfoActivity activity = activityReference.get();
             if(activity == null || activity.isFinishing()) return false;
-            int resId = activity.getResources().getIdentifier("pic_" + hero_pic_id, "drawable", PACKAGE_NAME);
-            uri = new Uri.Builder()
-                    .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
-                    .path(String.valueOf(resId))
-                    .build();
+            uri = activity.getResources().getIdentifier("pic_" + hero_pic_id, "drawable", PACKAGE_NAME);
 
             return abilities != null;
         }
@@ -181,10 +177,10 @@ public class HeroInfoActivity extends AppCompatActivity {
             //****************hero name, class, and icon****************/
             TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
             TextView lblHeroClass = (TextView)activity.findViewById(R.id.lbl_hero_role);
-            SimpleDraweeView pic = (SimpleDraweeView)activity.findViewById(R.id.pic_hero_info);
+            ImageView pic = (ImageView) activity.findViewById(R.id.pic_hero_info);
             lblHeroName.setText(hero_name);
             lblHeroClass.setText(hero_class);
-            pic.setImageURI(uri);
+            Glide.with(activity).load(uri).into(pic);
 
             //****************set hero hp****************/
             TextView hpTotal = (TextView) activity.findViewById(R.id.lbl_hp_total_value);
@@ -199,7 +195,10 @@ public class HeroInfoActivity extends AppCompatActivity {
             //****************abilities stats****************/
             LinearLayout abilitySection = (LinearLayout)activity.findViewById(R.id.ability_section);
             abilitySection.setOrientation(LinearLayout.VERTICAL);
-            for(Ability a : abilities) abilitySection.addView(a);
+            for(Ability a : abilities) {
+                a.setIcon(activity);
+                abilitySection.addView(a);
+            }
 
             activity = null;
         }

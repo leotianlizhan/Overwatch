@@ -25,4 +25,20 @@
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textColorPrimary">@color/text_secondary</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/text_white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:scrollbarThumbVertical">@color/colorWhiteAlpha</item>
+        <item name="android:scrollbarSize">1dp</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <!-- TODO: ?????? -->
+        <item name="android:scrollbarStyle">outsideInset</item>
+        <!--<item name="autoCompleteTextViewStyle">@style/cursorColor</item>-->
+        <!--<item name="android:textCursorDrawable">@color/text_primary</item>-->
+    </style>
 </resources>

@@ -4,6 +4,7 @@ package something.overwatch;
 //make unique ability, stat, etc every time. AKA don't reuse any objects, make new ones
 //if you don't, you're adding 2 things, with the same reference which crashes
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
@@ -11,19 +12,17 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.image.ImageInfo;
+import com.bumptech.glide.Glide;
 
 //A compound view for each hero ability
 public class Ability extends TableLayout {
+    private String iconUrl = null;
+
     public Ability(Context context, String name, String key, String description) {
         super(context);
         if(context == null) return;
@@ -31,7 +30,7 @@ public class Ability extends TableLayout {
         this.setName(name);
         this.setKey(key);
         this.setDescription(description);
-        SimpleDraweeView v = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        ImageView v = (ImageView) this.findViewById(R.id.ability_icon);
         v.setVisibility(View.GONE);
     }
     public Ability(Context context, String name, String key, String description, String iconUrl) {
@@ -40,8 +39,8 @@ public class Ability extends TableLayout {
         this.setName(name);
         this.setKey(key);
         this.setDescription(description);
-        this.setIcon(iconUrl);
-        SimpleDraweeView v = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
+        this.iconUrl = MainActivity.remoteUrl + "images/" + iconUrl;
+        ImageView v = (ImageView) this.findViewById(R.id.ability_icon);
         v.setVisibility(View.VISIBLE);
     }
     public Ability(Context context) {
@@ -78,10 +77,11 @@ public class Ability extends TableLayout {
     }
 
     //set ability icon
-    public void setIcon(String iconUrl){
-        Uri uri = Uri.parse(MainActivity.remoteUrl + "images/" + iconUrl);
-        SimpleDraweeView iconView = (SimpleDraweeView)this.findViewById(R.id.ability_icon);
-        iconView.setImageURI(uri);
+    public void setIcon(Activity activity){
+        if (iconUrl != null) {
+            ImageView iconView = (ImageView) this.findViewById(R.id.ability_icon);
+            Glide.with(activity).load(iconUrl).into(iconView);
+        }
     }
 
     //add a set of stats

@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,15 +44,19 @@ public class PatchNotesFragment extends Fragment {
     private TextView lblFail;
     private WebView webview;
 
-    public PatchNotesFragment() {
-        // Required empty public constructor
+    /**
+     * Memory leak fix. TODO: use view binding in Kotlin
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bar = null;
+        lblFail = null;
+        webview = null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+    public PatchNotesFragment() {
+        // Required empty public constructor
     }
 
     @Override

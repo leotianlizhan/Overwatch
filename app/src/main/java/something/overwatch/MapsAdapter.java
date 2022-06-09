@@ -3,18 +3,19 @@ package something.overwatch;
 import android.content.Context;
 import android.net.Uri;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.common.util.UriUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.stfalcon.frescoimageviewer.ImageViewer;
+import com.bumptech.glide.Glide;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,42 +25,34 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
     private ArrayList<Integer> _indices;
     private ArrayList<Integer> _indicesFiltered;
     private ArrayList<String> _classes;
-    private Context ctx;
+    private RecyclerItemClickListener listener;
+    private final Fragment fragment;
     private final String PACKAGE_NAME;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView name;
-        public SimpleDraweeView mapType;
-        Context ctx;
+        public ImageView mapType;
 
-        public MyViewHolder(View v, Context ctx) {
+        public MyViewHolder(View v) {
             super(v);
-            this.ctx = ctx;
             v.setOnClickListener(this);
             name = (TextView) v.findViewById(R.id.lbl_map_name);
-            mapType = (SimpleDraweeView) v.findViewById(R.id.pic_map_type_card);
+            mapType = (ImageView) v.findViewById(R.id.pic_map_type_card);
         }
 
         @Override
         public void onClick(View v) {
             int realPos = _indicesFiltered.get(getAdapterPosition());
-//            Intent intent = new Intent(this.ctx, MapInfoActivity.class);
-//            intent.putExtra("position", position);
-//            this.ctx.startActivity(intent);
-            String str = MainActivity.mapNames.get(realPos).toLowerCase().replace(" ", "").replace(":", "").replace("'", "");
-            int resId = ctx.getResources().getIdentifier("map_" + str, "drawable", PACKAGE_NAME);
-            List<String> list = Arrays.asList("res:///" + Integer.toString(resId));
-            new ImageViewer.Builder<>(ctx, list)
-                    .setStartPosition(0)
-                    .show();
+            if (listener != null) listener.onItemClick(v, realPos);
         }
     }
 
-    public MapsAdapter(ArrayList<String> list, ArrayList<String> classes, Context ctx, String pName){
+    public MapsAdapter(ArrayList<String> list, ArrayList<String> classes, Fragment f, String pName, RecyclerItemClickListener listener){
         this._list = list;
         this._classes = classes;
-        this.ctx = ctx;
+        this.fragment = f;
         this.PACKAGE_NAME = pName;
+        this.listener = listener;
         // Hacky solution to filtered-onclick problem
         this._indices = new ArrayList<>();
         for(int i=0; i<list.size(); i++) _indices.add(i);
@@ -71,7 +64,7 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
         View mapCardView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_map, parent, false);
 
-        return new MyViewHolder(mapCardView, ctx);
+        return new MyViewHolder(mapCardView);
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
@@ -80,12 +73,8 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
         holder.name.setText(str);
         str = _classes.get(realPosition).toLowerCase();
         //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
-        int resId = ctx.getResources().getIdentifier("ic_" + str, "drawable", PACKAGE_NAME);
-        Uri uri = new Uri.Builder()
-                .scheme(UriUtil.LOCAL_RESOURCE_SCHEME) // "res"
-                .path(String.valueOf(resId))
-                .build();
-        holder.mapType.setImageURI(uri);
+        int resId = fragment.getResources().getIdentifier("ic_" + str, "drawable", PACKAGE_NAME);
+        Glide.with(fragment).load(resId).into(holder.mapType);
     }
 
     @Override

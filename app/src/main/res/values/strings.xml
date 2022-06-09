@@ -26,4 +26,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="search_title_heroes">Hero Search</string>
     <string name="search_heroes_hint">Search heroes...</string>
+    <string name="title_activity_map_info">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

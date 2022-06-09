@@ -28,7 +28,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,15 +49,22 @@ public class PlayerFragment extends Fragment {
     private AppCompatImageButton searchButton;
     ImageView img;
     TextView lbl_empty, lbl_fav;
-    public PlayerFragment() {
-        // Required empty public constructor
+
+    /**
+     * Memory leak fix. TODO: use view binding in Kotlin
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        recyclerAdapter = null;
+        recyclerView = null;
+        img = null;
+        lbl_empty = null;
+        lbl_fav = null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+    public PlayerFragment() {
+        // Required empty public constructor
     }
 
     @Override

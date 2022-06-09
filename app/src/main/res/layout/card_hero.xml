@@ -9,39 +9,36 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="8dp">
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="2dp">
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/pic_hero_card"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_centerVertical="true"
-            android:minWidth="70dp"
-            android:minHeight="70dp"/>
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lbl_hero_name_card"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/pic_hero_card"
-            android:layout_toRightOf="@id/pic_hero_card"
+            card_view:layout_constraintStart_toEndOf="@id/pic_hero_card"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
             android:textColor="@color/text_card"
             android:text="SOMETHING"
             android:textSize="17sp"/>
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:layout_width="21dp"
             android:layout_height="21dp"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:id="@+id/pic_hero_class_card"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

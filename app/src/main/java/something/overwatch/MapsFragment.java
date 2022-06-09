@@ -3,6 +3,7 @@ package something.overwatch;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -17,26 +18,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.squareup.leakcanary.RefWatcher;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapsFragment extends Fragment {
+public class MapsFragment extends Fragment implements RecyclerItemClickListener{
 
     private MapsAdapter recyclerAdapter;
     private RecyclerView recyclerView;
 
-    public MapsFragment() {
-        // Required empty public constructor
+    /**
+     * Memory leak fix. TODO: use view binding in Kotlin
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        recyclerAdapter = null;
+        recyclerView = null;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+    public MapsFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -53,11 +56,18 @@ public class MapsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerAdapter = new MapsAdapter(MainActivity.mapNames, MainActivity.mapTypes, getActivity(), getActivity().getPackageName());
+        recyclerAdapter = new MapsAdapter(MainActivity.mapNames, MainActivity.mapTypes, this, getActivity().getPackageName(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+        Intent intent = new Intent(getActivity(), MapInfoActivity.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
     }
 
     @Override
