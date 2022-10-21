@@ -447,7 +447,7 @@ public class MainActivity extends AppCompatActivity
                 FirebaseCrashlytics.getInstance().log("MainActivity AsyncTask doNothing");
                 act.finishUpdate();
             }
-            FirebasePerformance.getInstance().reportFullyDrawn();
+//            FirebasePerformance.getInstance().reportFullyDrawn();
 //            final Handler handler = new Handler();
 //            handler.postDelayed(new Runnable(){
 //                @Override

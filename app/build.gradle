@@ -9,14 +9,14 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 63
-        versionName "1.18.11"
+        versionCode 64
+        versionName "1.18.12"
         multiDexEnabled true
     }
     buildTypes {
         release {
             manifestPlaceholders = [crashlyticsEnabled: true]
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -34,7 +34,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation "androidx.multidex:multidex:2.0.1"
     implementation 'com.google.firebase:firebase-analytics:21.0.0'
-    implementation 'com.google.firebase:firebase-perf:20.1.1-SNAPSHOT'
+    implementation 'com.google.firebase:firebase-perf:20.2.0'
     implementation 'com.google.firebase:firebase-crashlytics:18.2.10'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 

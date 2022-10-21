@@ -38,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:paddingStart="5dp"
-                android:paddingLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/rectangle">
@@ -49,7 +48,8 @@
                     android:contentDescription="@string/pic_hero_description"
                     android:id="@+id/pic_hero_info"
                     android:minHeight="70dp"
-                    android:minWidth="70dp" />
+                    android:minWidth="70dp"
+                    android:layout_marginEnd="10dp"/>
 
                 <!-- Name -->
                 <TextView
@@ -58,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="30sp"
                     android:layout_toEndOf="@id/pic_hero_info"
-                    android:layout_toRightOf="@id/pic_hero_info"
                     android:textColor="@color/text_title"
                     />
 
@@ -69,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/lbl_hero_name"
                     android:layout_alignStart="@id/lbl_hero_name"
-                    android:layout_alignLeft="@id/lbl_hero_name"
                     android:layout_marginTop="-1dp"
                     android:textColor="@color/text_primary"/>
 

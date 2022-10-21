@@ -101,6 +101,78 @@
       ]
     },
     {
+      "name": "Junker Queen", "class": "Tank", 
+      "hpTotal": "425", "hpNormal": "425", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "abilities": [
+        {
+          "name": "Adrenaline Rush",
+          "key": "Passive",
+          "iconUrl": "junkerqueen/Passive.png",
+          "description": "All wound damage that Junker Queen does causes her to heal herself.",
+          "stats": []
+        },
+        {
+          "name": "Scattergun",
+          "key": "Left Click",
+          "iconUrl": "junkerqueen/1.png",
+          "description": "D.Va's mech is equipped with twin short-range rotating cannons. They lay down continuous, high-damage fire without needing to reload, but slow D.Va’s movement while they’re active.",
+          "stats": [
+            {"name": "Damage", "value": "80"},
+            {"name": "Fire Rate", "value": "1.33 rps\n(0.75s recovery)"},
+            {"name": "Ammo", "value": "6"},
+            {"name": "Reload", "value": "1.5s"}
+          ]
+        },
+        {
+          "name": "Jagged Blade",
+          "key": "Right Click",
+          "iconUrl": "junkerqueen/2.png",
+          "description": "Active: Throws a blade in an arc. Re-activate ability to recall. If it sticks to an enemy, the enemy will be pulled back when the blade returns. Damages enemies in both directions.\nPassive: Quick Melee wounds enemies, dealing damage over time ",
+          "stats": [
+            {"name": "Damage", "value": "Impact: 80\nWound: 15 over 3s"},
+            {"name": "Healing", "value": "15 over 3s"},
+            {"name": "Cooldown", "value": "6s"}
+          ]
+        },
+        {
+          "name": "Commanding Shout",
+          "key": "Shift",
+          "iconUrl": "junkerqueen/Shift.png",
+          "description": "Grants temporary health and movement speed to yourself and nearby allies.",
+          "stats": [
+            {"name": "Health", "value": "+200 (self)\n+50 (ally)"},
+            {"name": "Speed", "value": "+30%"},
+            {"name": "Duration", "value": "5s (self)\n3s (ally)"},
+            {"name": "Cooldown", "value": "15s"}
+          ]
+        },
+        {
+          "name": "Carnage",
+          "key": "E",
+          "iconUrl": "junkerqueen/E.png",
+          "description": "Swing your axe to wound all enemies in front of you, dealing damage over time.",
+          "stats": [
+            {"name": "Damage", "value": "Impact: 90\nWound: 40 over 3s"},
+            {"name": "Healing", "value": "40 over 3s"},
+            {"name": "Cast Time", "value": "1s"},
+            {"name": "Cooldown", "value": "8s"}
+          ]
+        },
+        {
+          "name": "Rampage",
+          "key": "Q",
+          "ultcharge": "2520",
+          "iconUrl": "junkerqueen/Q.png",
+          "description": "Charge forward. Wounds enemies, dealing damage over time and preventing them from being healed.",
+          "stats": [
+            {"name": "Damage", "value": "100"},
+            {"name": "Healing", "value": "100"},
+            {"name": "Duration", "value": "5s"}
+          ]
+        }
+      ]
+    },
+    {
       "name": "Orisa", "class": "Tank", 
       "hpTotal": "450", "hpNormal": "200", "hpArmor": "250", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
@@ -1316,6 +1388,68 @@
             {"name": "Ammo", "value": "Refilled"},
             {"name": "Duration", "value": "3s"},
             {"name": "Speed", "value": "55%"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sojourn", "class": "Damage",
+      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "abilities": [
+        {
+          "name": "Railgun",
+          "key": "Left Click",
+          "iconUrl": "sojourn/1.png",
+          "description": "Rapid firing projectiles that generate energy on hit. Headshots generate double energy.",
+          "stats": [
+            {"name": "Damage", "value": "9"},
+            {"name": "Fire Rate", "value": "14 rps"},
+            {"name": "Ammo", "value": "45"},
+            {"name": "Reload", "value": "1.2s"},
+            {"name": "Energy / Shot", "value": "5 (normal)\n3.5 (armor)"}
+          ]
+        },
+        {
+          "name": "Railgun (Alt Fire)",
+          "key": "Right Click",
+          "iconUrl": "sojourn/1.png",
+          "description": "High impact shot that consumes stored energy.",
+          "stats": [
+            {"name": "Damage", "value": "30-130"},
+            {"name": "Type", "value": "Hitscan"},
+            {"name": "Energy Decay", "value": "After 6s"}
+          ]
+        },
+        {
+          "name": "Power Slide",
+          "key": "Shift",
+          "iconUrl": "sojourn/Shift.png",
+          "description": "Ground slide that can cancel into a high jump.",
+          "stats": [
+            {"name": "Cooldown", "value": "6s"},
+            {"name": "Duration", "value": "1s"},
+            {"name": "Speed", "value": "260%"}
+          ]
+        },
+        {
+          "name": "Disruptor Shot",
+          "key": "E",
+          "iconUrl": "sojourn/E.png",
+          "description": "Launch an energy burst that slows and deals damage to enemies within it.",
+          "stats": [
+            {"name": "Damage", "value": "52.5 per second"},
+            {"name": "Duration", "value": "4s"},
+            {"name": "Cooldown", "value": "15s"}
+          ]
+        },
+        {
+          "name": "Overclock",
+          "key": "Q",
+          "iconUrl": "sojourn/Q.png",
+          "description": "Railgun energy auto-charges for a short duration and charged shots pierce enemies.",
+          "stats": [
+            {"name": "Full Charge Time", "value": "1.2 seconds"},
+            {"name": "Duration", "value": "9s"}
           ]
         }
       ]
