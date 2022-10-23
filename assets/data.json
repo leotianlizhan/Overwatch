@@ -737,7 +737,7 @@
         {
           "name": "The Viper",
           "key": "Left Click",
-          "iconUrl": "ashe/1.png",
+          "iconUrl": "ashe/1.webp",
           "description": "Ashe’s semi-automatic rifle fires quick shots. Can headshot.",
           "stats": [
             {"name": "Damage", "value": "12-40"},
@@ -749,7 +749,7 @@
         {
           "name": "The Viper (Scoped)",
           "key": "Left Click (Scoped)",
-          "iconUrl": "ashe/1.png",
+          "iconUrl": "ashe/1.webp",
           "description": "She can also aim down sights for a more damaging, precise shot, but at slower fire rate and movement speed. Can headshot. ",
           "stats": [
             {"name": "Damage", "value": "22.5-75"},
@@ -761,7 +761,7 @@
         {
           "name": "Coach Gun",
           "key": "Shift",
-          "iconUrl": "ashe/Shift.png",
+          "iconUrl": "ashe/S.webp",
           "description": "Ashe blasts enemies in front of her, knocking them away and propelling herself backward for added mobility.",
           "stats": [
             {"name": "Damage", "value": "6 per pellet"},
@@ -772,7 +772,7 @@
         {
           "name": "Dynamite",
           "key": "E",
-          "iconUrl": "ashe/E.png",
+          "iconUrl": "ashe/E.webp",
           "description": "Ashe throws an explosive that detonates after a short delay or immediately when shot. The explosion from Dynamite also lights enemies on fire, dealing damage over time. Self damage is halved.",
           "stats": [
             {"name": "Explosion", "value": "20-50 damage"},
@@ -785,7 +785,7 @@
         {
           "name": "B.O.B.",
           "key": "Q",
-          "iconUrl": "ashe/Q.png",
+          "iconUrl": "ashe/Q.webp",
           "description": "Ashe summons her trusted omnic sidekick, Bob, who charges forward and knocks enemies into the air, then lays down suppressing fire with his arm cannons.",
           "stats": [
             {"name": "Damage", "value": "120 (initial hit)\n14 per bullet (hand cannon)"},
@@ -1884,7 +1884,7 @@
         {
           "name": "Biotic Rifle",
           "key": "Left Click",
-          "iconUrl": "ana/1.png",
+          "iconUrl": "ana/1.webp",
           "description": "The Biotic Rifle shoots darts that will heal allied heroes or apply 0.9 second damage-over-time (DOT) to enemy units. The dart is a fast moving projectile if fired from the hip, and a hitscan shot if firing while scoped. Cannot headshot.",
           "stats": [
             {"name": "Damage", "value": "70"},
@@ -1898,7 +1898,7 @@
         {
           "name": "Biotic Rifle (Scope)",
           "key": "Right Click to Scope",
-          "iconUrl": "ana/1.png",
+          "iconUrl": "ana/1.webp",
           "description": "She can use the rifle’s scope to zoom in on targets and make highly accurate shots. The dart is a fast moving projectile if fired from the hip, and a hitscan shot if firing while scoped. Cannot headshot.",
           "stats": [
             {"name": "Stats", "value": "same as above"},
@@ -1909,7 +1909,7 @@
         {
           "name": "Sleep Dart",
           "key": "Shift",
-          "iconUrl": "ana/Shift.png",
+          "iconUrl": "ana/S.webp",
           "description": "After a short delay, Ana fires a fast moving dart from her sidearm. An enemy hit is stunned for a few seconds, but the effect is immediately broken if the target takes damage.",
           "stats": [
             {"name": "Damage", "value": "5"},
@@ -1921,7 +1921,7 @@
         {
           "name": "Biotic Grenade",
           "key": "E",
-          "iconUrl": "ana/E.png",
+          "iconUrl": "ana/E.webp",
           "description": "Ana tosses a biotic bomb that deals damage to enemies and heals allies in a small area of effect. Affected allies briefly receive increased healing from all sources, while enemies caught in the blast cannot be healed for a few moments.",
           "stats": [
             {"name": "Enemies", "value": "60 damage\nblock healing"},
@@ -1933,7 +1933,7 @@
         {
           "name": "Nano Boost",
           "key": "Q",
-          "iconUrl": "ana/Q.png",
+          "iconUrl": "ana/Q.webp",
           "description": "After Ana hits one of her allies with a combat boost, they deal more damage and take less damage from enemies’ attacks.",
           "stats": [
             {"name": "Heal", "value": "250 hp"},
@@ -1951,7 +1951,7 @@
         {
           "name": "Exo Boots",
           "key": "Passive",
-          "iconUrl": "baptiste/Passive.png",
+          "iconUrl": "baptiste/P.webp",
           "description": "By first crouching, Baptiste can jump higher.",
           "stats": [
             {"name": "Charge Time", "value": "0.7s (full charge)"},
@@ -1961,7 +1961,7 @@
         {
           "name": "Biotic Launcher",
           "key": "Left Click",
-          "iconUrl": "baptiste/1.png",
+          "iconUrl": "baptiste/1.webp",
           "description": "Baptiste’s three-round-burst Biotic Launcher rewards accuracy and recoil control with significant damage output.",
           "stats": [
             {"name": "Damage", "value": "7.2-24 / round"},
@@ -1973,7 +1973,7 @@
         {
           "name": "Biotic Launcher (Alt Fire)",
           "key": "Right Click",
-          "iconUrl": "baptiste/1.png",
+          "iconUrl": "baptiste/1.webp",
           "description": "Biotic Launcher also doubles as a healing device, lobbing projectiles that heal allies near the point of impact.",
           "stats": [
             {"name": "Healing", "value": "50 hp (splash)\n70 hp (direct hit)"},
@@ -1986,7 +1986,7 @@
         {
           "name": "Regenerative Burst",
           "key": "Shift",
-          "iconUrl": "baptiste/Shift.png",
+          "iconUrl": "baptiste/S.webp",
           "description": "Baptiste activates an intense regenerative burst that heals himself and nearby allies instantly, with additional healing over time. Instant heal is doubled for targets less than half health.",
           "stats": [
             {"name": "Burst Heal", "value": "100 (<50% hp)\n50 (>50% hp)"},
@@ -1999,7 +1999,7 @@
         {
           "name": "Immortality Field",
           "key": "E",
-          "iconUrl": "baptiste/E.png",
+          "iconUrl": "baptiste/E.webp",
           "description": "Baptiste uses a device to create a field that prevents allies from dying (any ally inside the field become immune to death, and their health cannot fall below a certain amount). The generator can be destroyed.",
           "stats": [
             {"name": "Health", "value": "150"},
@@ -2011,7 +2011,7 @@
         {
           "name": "Amplification Matrix",
           "key": "Q",
-          "iconUrl": "baptiste/Q.png",
+          "iconUrl": "baptiste/Q.webp",
           "description": "Baptiste creates a matrix that increases the damage and healing effects of friendly projectiles that pass through it.",
           "stats": [
             {"name": "Damage", "value": "+100%"},
