@@ -13,7 +13,8 @@ https://play.google.com/store/apps/details?id=something.overwatch
 Feel free to create pull requests. I will upload the changes to Play Store. 
 
 # About
-We're just students at the University of Waterloo.
+This was a side project back in the student days when I was in 1st year.  
+Verified super stable Android Studio version (used for several years before upgrading finally to the latest): Android Studio 4.0.1 July 14, 2020
 
 # Author
 #### Leo Zhan:
