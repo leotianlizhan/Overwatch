@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     private ArrayList<String> heroClasses = new ArrayList<>(Arrays.asList("Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Offense", "Defense", "Defense", "Defense", "Defense", "Defense", "Defense", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
-    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Busan", "Dorado", "Eichenwalde", "Hanamura", "Hollywood", "Horizon Lunar Colony", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Paris", "Rialto", "Route 66", "Temple of Anubis", "Volskaya Industries", "Watchpoint: Gibraltar"));
-    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Control", "Escort", "AssaultEscort", "Assault", "AssaultEscort", "Assault", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Assault", "Escort", "Escort", "Assault", "Assault", "Escort"));
+    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Busan", "Dorado", "Eichenwalde", "Hollywood", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Watchpoint: Gibraltar", "Hanamura", "Horizon Lunar Colony", "Paris", "Temple of Anubis", "Volskaya Industries"));
+    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("AssaultEscort", "Control", "Escort", "AssaultEscort", "AssaultEscort", "Control", "Escort", "AssaultEscort", "Control", "Control", "AssaultEscort", "Control", "Escort", "Escort", "Escort", "Assault", "Assault", "Assault", "Assault", "Assault"));
     private JSONArray heroesJson = null;
 //    private Bundle heroesBundle = new Bundle();
     private Bundle mapsBundle = new Bundle();

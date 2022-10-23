@@ -1,6 +1,7 @@
 package something.overwatch;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -69,12 +70,17 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final int realPosition = _indicesFiltered.get(holder.getAdapterPosition());
-        String str = _list.get(realPosition);
-        holder.name.setText(str);
-        str = _classes.get(realPosition).toLowerCase();
+        holder.name.setText(_list.get(realPosition));
+        String type = _classes.get(realPosition).toLowerCase();
         //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
-        int resId = fragment.getResources().getIdentifier("ic_" + str, "drawable", PACKAGE_NAME);
+        int resId = fragment.getResources().getIdentifier("ic_" + type, "drawable", PACKAGE_NAME);
         Glide.with(fragment).load(resId).into(holder.mapType);
+        // 2CP maps are removed in OW2
+        if (type.equals("assault")) {
+            holder.name.setPaintFlags(holder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            holder.name.setPaintFlags(holder.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        }
     }
 
     @Override
