@@ -530,9 +530,20 @@
           ]
         },
         {
+          "name": "Tesla Cannon (Alt Fire)",
+          "key": "Right Click (Hold)",
+          "iconUrl": "winston/1.png",
+          "description": "Winston's weapon charges up then fires a medium-range electric beam. Cannot headshot.",
+          "stats": [
+            {"name": "Damage", "value": "15 - 50"},
+            {"name": "Charge Time", "value": "1.2s to full"},
+            {"name": "Ammo Usage", "value": "12"}
+          ]
+        },
+        {
           "name": "Jump Pack",
           "key": "Shift",
-          "iconUrl": "winston/Shift.png",
+          "iconUrl": "winston/Shift.webp",
           "description": "Assisted by his energy pack, Winston lunges through the air, dealing damage and staggering nearby enemies when he lands.",
           "stats": [
             {"name": "Damage", "value": "1-50"},
