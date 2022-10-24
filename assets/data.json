@@ -189,7 +189,7 @@
           "name": "Scattergun",
           "key": "Left Click",
           "iconUrl": "junkerqueen/1.png",
-          "description": "D.Va's mech is equipped with twin short-range rotating cannons. They lay down continuous, high-damage fire without needing to reload, but slow D.Va’s movement while they’re active.",
+          "description": "Pump action shotgun. Can headshot.",
           "stats": [
             {"name": "Damage", "value": "80"},
             {"name": "Fire Rate", "value": "1.33 rps\n(0.75s recovery)"},

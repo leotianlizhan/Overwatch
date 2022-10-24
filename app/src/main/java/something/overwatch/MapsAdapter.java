@@ -72,13 +72,14 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
         final int realPosition = _indicesFiltered.get(holder.getAdapterPosition());
         holder.name.setText(_list.get(realPosition));
         String type = _classes.get(realPosition).toLowerCase();
-        //holder.mapType.setImageResource(ctx.getResources().getIdentifier("ic_" + str, "drawable", MainActivity.PACKAGE_NAME));
-        int resId = fragment.getResources().getIdentifier("ic_" + type, "drawable", PACKAGE_NAME);
-        Glide.with(fragment).load(resId).into(holder.mapType);
+        int resId = fragment.getResources().getIdentifier("maptype_" + type, "drawable", PACKAGE_NAME);
         // 2CP maps are removed in OW2
         if (type.equals("assault")) {
+            Glide.with(fragment).load(resId).into(holder.mapType);
             holder.name.setPaintFlags(holder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
+            // Aside from 2cp/assault, the rest of the map-type icons are updated on official site.
+            holder.mapType.setImageResource(resId);
             holder.name.setPaintFlags(holder.name.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
         }
     }

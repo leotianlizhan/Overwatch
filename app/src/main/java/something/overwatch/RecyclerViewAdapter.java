@@ -130,9 +130,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Log.d("WARNING", str + " icon cannot be found");
         }
         str = _classes.get(realPos).toLowerCase();
-        resId = fragment.getResources().getIdentifier("pic_class_" + str, "mipmap", PACKAGE_NAME);
+        resId = fragment.getResources().getIdentifier("role_" + str, "drawable", PACKAGE_NAME);
 
-        Glide.with(fragment).load(resId).into(holder.heroClass);
+        holder.heroClass.setImageResource(resId);
 //        holder.card.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
