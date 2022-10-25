@@ -167,7 +167,7 @@ public class HeroInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean succ) {
             HeroInfoActivity activity = activityReference.get();
-            if(activity == null || activity.isFinishing()) return;
+            if(activity == null || activity.isDestroyed() || activity.isFinishing()) return;
             if(!succ){
                 TextView lblHeroName = (TextView)activity.findViewById(R.id.lbl_hero_name);
                 lblHeroName.setText("ERROR");

@@ -315,7 +315,6 @@ public class MainActivity extends AppCompatActivity
         private String versionRemote;
         private String versionLocal;
         private JSONArray heroesList;
-        private boolean cancel = false;
         DownloadDataTask(MainActivity activity, String v, boolean good){
             ref = new WeakReference<>(activity);
             versionLocal = v;
@@ -342,17 +341,6 @@ public class MainActivity extends AppCompatActivity
         private JSONArray getHeroesList() throws JSONException, IOException{
             JSONObject json = getJson(MainActivity.remoteUrl + "data_min.json");
             return json.getJSONArray("list");
-        }
-
-        @Override
-        protected void onPreExecute() {
-            MainActivity act = ref.get();
-            if(act == null || act.isFinishing()){
-                cancel = true;
-                return;
-            }
-
-
         }
 
         @Override
@@ -392,8 +380,9 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             final MainActivity act = ref.get();
-            if(act == null || act.isFinishing()) return;
-
+            if(act == null || act.isDestroyed() || act.isFinishing()) {
+                return;
+            }
             act.progDialog.dismiss();
             if(s.equals("noInternet") && !oldDataIntegrity) {
                 // show alert dialog because it MUST download data for the first time
@@ -594,5 +583,12 @@ public class MainActivity extends AppCompatActivity
             ft.addToBackStack(backStateName);
             ft.commit();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Fix dismiss-dialog-in-AsyncTask-after-activity-finished crash
+        progDialog.dismiss();
+        super.onDestroy();
     }
 }
