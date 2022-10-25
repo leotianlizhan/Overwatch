@@ -16,6 +16,12 @@
     <color name="colorControlHighlight">@color/colorRectAlpha</color>
     <color name="colorSearch">#dfcea0</color>
 
+    <!-- Overwatch 2 -->
+    <color name="colorOrangeLogo">#f06414</color>
+    <color name="colorNewTag1">#ffb42c</color>
+    <color name="colorNewTag2">#ffc029</color>
+    <color name="colorNewTag3">#ffe11a</color>
+
     <!-- Dark green theme. -->
     <!--<color name="colorPrimary">#112d31</color>-->
     <!--<color name="colorPrimaryDark">#071e21</color>-->

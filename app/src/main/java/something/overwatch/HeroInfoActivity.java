@@ -147,7 +147,7 @@ public class HeroInfoActivity extends AppCompatActivity {
             String hero_pic_id = hero_name.toLowerCase().replace(".", "").replace(" ", "");
             HeroInfoActivity activity = activityReference.get();
             if(activity == null || activity.isFinishing()) return false;
-            uri = activity.getResources().getIdentifier("pic_" + hero_pic_id, "drawable", PACKAGE_NAME);
+            uri = activity.getResources().getIdentifier("portrait_" + hero_pic_id, "drawable", PACKAGE_NAME);
 
             return abilities != null;
         }

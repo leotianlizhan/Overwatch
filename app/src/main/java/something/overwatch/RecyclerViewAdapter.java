@@ -122,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.heroClass.layout(0,0,0,0);
         holder.icon.layout(0,0,0,0);
         str = str.toLowerCase().replace(".", "").replace(" ", "");
-        int resId = fragment.getResources().getIdentifier("pic_" + str, "drawable", PACKAGE_NAME);
+        int resId = fragment.getResources().getIdentifier("portrait_" + str, "drawable", PACKAGE_NAME);
         Log.d(str, Integer.toString(resId));
         if(resId!=0){
             Glide.with(fragment).load(resId).into(holder.icon);
