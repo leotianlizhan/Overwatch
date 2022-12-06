@@ -1,0 +1,69 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.firebase",
+    "module": "firebase-encoders",
+    "version": "17.0.1-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.3.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "firebase-encoders-17.0.1-SNAPSHOT.jar",
+          "url": "firebase-encoders-17.0.1-SNAPSHOT.jar",
+          "size": 10223,
+          "sha512": "d884e34f815671d0b8488c81967fd71318406decc9aeb9a7e75469a8280fc53f930fb5876ec8ba20fd37c033ce42f53641798cf9d96e1586dec6441c2f610742",
+          "sha256": "a2f95a01925ac0bbacd253429e50edc75a9a94b1b6ce111c2f740cc3ad7013db",
+          "sha1": "593fc15f7427ddb1b58922c9659e7c6fe16de4d2",
+          "md5": "ef7a993a86702498f7ef4cc3992e608f"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "firebase-encoders-17.0.1-SNAPSHOT.jar",
+          "url": "firebase-encoders-17.0.1-SNAPSHOT.jar",
+          "size": 10223,
+          "sha512": "d884e34f815671d0b8488c81967fd71318406decc9aeb9a7e75469a8280fc53f930fb5876ec8ba20fd37c033ce42f53641798cf9d96e1586dec6441c2f610742",
+          "sha256": "a2f95a01925ac0bbacd253429e50edc75a9a94b1b6ce111c2f740cc3ad7013db",
+          "sha1": "593fc15f7427ddb1b58922c9659e7c6fe16de4d2",
+          "md5": "ef7a993a86702498f7ef4cc3992e608f"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.google.firebase</groupId>
+  <artifactId>firebase-config-ktx</artifactId>
+  <versioning>
+    <latest>21.2.1-SNAPSHOT</latest>
+    <versions>
+      <version>21.2.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20221206020538</lastUpdated>
+  </versioning>
+</metadata>

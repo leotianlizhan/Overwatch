@@ -1,0 +1,76 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.firebase",
+    "module": "firebase-encoders-proto",
+    "version": "16.0.1-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.3.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "firebase-encoders-proto-16.0.1-SNAPSHOT.jar",
+          "url": "firebase-encoders-proto-16.0.1-SNAPSHOT.jar",
+          "size": 16098,
+          "sha512": "0319d5bb712cfd98ec18d20e2d84771591350ff7b3e3c02079120455c9b8ccd756374890589f30e971434f6958d7cae752489b8b2ae3de21e5af3565bc43d2aa",
+          "sha256": "eb3bbf0c4ef28448282943a1964905bfa005f9e0d135747e545b7d93686c685b",
+          "sha1": "f712de438f3a1699b2cd89d72837898b27f7e063",
+          "md5": "4b5753769126cc42008ee49fedffbba8"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "com.google.firebase",
+          "module": "firebase-encoders",
+          "version": {
+            "requires": "17.0.1-SNAPSHOT"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "firebase-encoders-proto-16.0.1-SNAPSHOT.jar",
+          "url": "firebase-encoders-proto-16.0.1-SNAPSHOT.jar",
+          "size": 16098,
+          "sha512": "0319d5bb712cfd98ec18d20e2d84771591350ff7b3e3c02079120455c9b8ccd756374890589f30e971434f6958d7cae752489b8b2ae3de21e5af3565bc43d2aa",
+          "sha256": "eb3bbf0c4ef28448282943a1964905bfa005f9e0d135747e545b7d93686c685b",
+          "sha1": "f712de438f3a1699b2cd89d72837898b27f7e063",
+          "md5": "4b5753769126cc42008ee49fedffbba8"
+        }
+      ]
+    }
+  ]
+}

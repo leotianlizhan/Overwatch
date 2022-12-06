@@ -44,7 +44,7 @@
           "iconUrl": "dva/Shift.png",
           "description": "D.Va’s mech launches into the air, her momentum carrying her forward. She can turn and change directions or barrel through her enemies, knocking them back.",
           "stats": [
-            {"name": "Damage", "value": "25"},
+            {"name": "Damage", "value": "15"},
             {"name": "Speed", "value": "+118%"},
             {"name": "Duration", "value": "2s"},
             {"name": "Cooldown", "value": "4s"}
@@ -700,8 +700,8 @@
           "description": "The Particle Cannon can emit a personal barrier that shields Zarya against incoming damage and debuffs, redirecting their energy to enhance her weapon’s damage and the width of its beam. The barrier, although only has 200 hit points, will absorb all of one burst damage even if it's higher than 200. For example, Tracer's ult will be completely absorbed even if it does 400 damage.",
           "stats": [
             {"name": "Barrier", "value": "200 hp"},
-            {"name": "Duration", "value": "2.5s"},
-            {"name": "Cooldown", "value": "10s"},
+            {"name": "Duration", "value": "2s"},
+            {"name": "Cooldown", "value": "11s"},
             {"name": "Charges", "value": "2 (shared)"}
           ]
         },
@@ -712,8 +712,8 @@
           "description": "Zarya surrounds one of her teammates with an energy barrier that simultaneously absorbs fire and boosts the power of her Particle Cannon. Functions identical to Particle Barrier.",
           "stats": [
             {"name": "Barrier", "value": "200 hp"},
-            {"name": "Duration", "value": "2.5s"},
-            {"name": "Cooldown", "value": "8s"},
+            {"name": "Duration", "value": "2s"},
+            {"name": "Cooldown", "value": "11s"},
             {"name": "Charges", "value": "2 (shared)"}
           ]
         },
@@ -1024,9 +1024,9 @@
           "iconUrl": "genji/1.png",
           "description": "Genji looses three deadly throwing stars in quick succession.",
           "stats": [
-            {"name": "Damage", "value": "29"},
+            {"name": "Damage", "value": "27"},
             {"name": "Fire Rate (rps)", "value": "1.14 (3 per shot)"},
-            {"name": "Ammo", "value": "30"},
+            {"name": "Ammo", "value": "24"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -1036,9 +1036,9 @@
           "iconUrl": "genji/1.png",
           "description": "Alternatively, he can throw three shuriken in a wider spread.",
           "stats": [
-            {"name": "Damage", "value": "29"},
+            {"name": "Damage", "value": "27"},
             {"name": "Fire Rate (rps)", "value": "1.47 (3 per shot)\n0.68s recovery"},
-            {"name": "Ammo", "value": "30"},
+            {"name": "Ammo", "value": "24"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -1198,7 +1198,8 @@
           "stats": [
             {"name": "HP", "value": "100"},
             {"name": "Damage", "value": "100"},
-            {"name": "Trapped", "value": "3s"},
+            {"name": "Arming", "value": "0.75s"},
+            {"name": "Trapped", "value": "2.5s"},
             {"name": "Cooldown", "value": "10s"}
           ]
         },
@@ -1544,7 +1545,7 @@
           "iconUrl": "sombra/Passive.png",
           "description": "Sombra deals more damage to hacked targets and detects critically injured enemies through walls. ",
           "stats": [
-            {"name": "Dmg. Boost", "value": "+40%"},
+            {"name": "Dmg. Boost", "value": "+25%"},
             {"name": "Wall Hack", "value": "<50% HP"}
           ]
         },
@@ -1564,12 +1565,12 @@
           "name": "Hack",
           "key": "Right Click",
           "iconUrl": "sombra/2.png",
-          "description": "Hacking an enemy will interrupt any channeled effects (including ultimates) and prevent the activation of abilities, including a Hero's Passive. Hacked enemies also have their health bar and ultimate status revealed for a longer duration.\nHacked health packs respawn much faster (small health packs in 2.5 seconds, large health packs in 3.5 seconds), and can't be picked up by enemies.",
+          "description": "Hacking an enemy will interrupt any channeled effects (including ultimates) and prevent the activation of abilities, including a Hero's Passive. Hacked enemies also have their health bar and ultimate status revealed for a longer duration.\nHacked health packs respawn much faster (small health packs in 2.5 seconds, large health packs in 3.75 seconds), and can't be picked up by enemies.",
           "stats": [
             {"name": "Cast Time", "value": "0.85s\n(interruptible)"},
-            {"name": "Cooldown", "value": "4s"},
-            {"name": "Silence", "value": "1.75s"},
-            {"name": "Hack Duration", "value": "Hero: 10s\nHealth Packs: 30s\nTurrets: 10s"}
+            {"name": "Silence", "value": "1.5s"},
+            {"name": "Hack Duration", "value": "Hero: 8s\nHealth Packs: 30s\nTurrets: 10s"},
+            {"name": "Cooldown", "value": "4s"}
           ]
         },
         {
@@ -2064,12 +2065,11 @@
           "name": "Shield Bash",
           "key": "Left Click (with shield)",
           "iconUrl": "brigitte/3.png",
-          "description": "Once her Barrier Shield is deployed, Brigitte can dash forward to stun an enemy.",
+          "description": "Once her Barrier Shield is deployed, Brigitte can dash forward to knock back an enemy.",
           "stats": [
-            {"name": "Damage", "value": "5"},
-            {"name": "Range", "value": "6m"},
-            {"name": "Stun", "value": "0.75s"},
-            {"name": "Cooldown", "value": "7s"}
+            {"name": "Damage", "value": "50"},
+            {"name": "Range", "value": "12m"},
+            {"name": "Cooldown", "value": "5s"}
           ]
         },
         {
@@ -2087,7 +2087,7 @@
           "name": "Repair Pack",
           "key": "E",
           "iconUrl": "brigitte/E.png",
-          "description": "Brigitte throws a Repair Pack that can heal an ally.",
+          "description": "Brigitte throws a Repair Pack that heals an ally for a short duration.",
           "stats": [
             {"name": "Healing", "value": "55 hp/s"},
             {"name": "Duration", "value": "2s heal"},
@@ -2102,7 +2102,6 @@
           "description": "Brigitte moves faster and provides all nearby allies with overhealth.",
           "stats": [
             {"name": "Overhealth", "value": "+30 hp/s\n(up to 100)"},
-            {"name": "Area Radius", "value": "8.5m"},
             {"name": "Speed", "value": "+30%"},
             {"name": "Duration", "value": "10s speed/hp gen.\n30s total"}
           ]
@@ -2152,7 +2151,7 @@
           "description": "Teleport directly to an ally, even through walls.",
           "stats": [
             {"name": "Cast Time", "value": "~0.2s"},
-            {"name": "Duration", "value": "briefly invulnerable"},
+            {"name": "Duration", "value": "0.25s invulnerable"},
             {"name": "Cooldown", "value": "7s"}
           ]
         },

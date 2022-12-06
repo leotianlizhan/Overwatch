@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.google.firebase</groupId>
+  <artifactId>firebase-datatransport</artifactId>
+  <versioning>
+    <latest>18.1.8-SNAPSHOT</latest>
+    <versions>
+      <version>18.1.8-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20221206020537</lastUpdated>
+  </versioning>
+</metadata>
