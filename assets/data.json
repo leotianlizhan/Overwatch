@@ -109,8 +109,8 @@
           "iconUrl": "doomfist/The_best_defense.png",
           "description": "Doomfist generates temporary personal shields when he deals ability damage.",
           "stats": [
-            {"name": "Maximum", "value": "150 shield"},
-            {"name": "Shield", "value": "+ 30 / hit\n+ 75 / hit (ult)"},
+            {"name": "Maximum", "value": "200 shield"},
+            {"name": "Shield", "value": "+ 40 / hit\n+ 75 / hit (ult)"},
             {"name": "Shield Decay", "value": "-3 shield/s"}
           ]
         },
@@ -132,10 +132,10 @@
           "iconUrl": "doomfist/2.png",
           "description": "After charging up, Doomfist lunges forward and knocks an enemy back, dealing additional damage if they impact a wall.",
           "stats": [
-            {"name": "Damage", "value": "Initial Hit: 25-30\nWall: 20-40"},
-            {"name": "Charge Time", "value": "1s to full\nCan hold for 2s"},
+            {"name": "Damage", "value": "Initial hit: 25-50\nWall slam: 10-30"},
+            {"name": "Duration", "value": "1s full-charge\n0.25s stun"},
             {"name": "Cooldown", "value": "3s"},
-            {"name": "Empowered", "value": "+50% damage\n+50% speed\n1s stun"}
+            {"name": "Empowered", "value": "+50% damage\n+50% speed\n0.25-0.75s stun"}
           ]
         },
         {
@@ -152,24 +152,24 @@
           "name": "Power Block",
           "key": "Shift",
           "iconUrl": "doomfist/E.png",
-          "description": "Protect yourself from frontal attacks. Blocking heavy damage empowers Rocket Punch.",
+          "description": "Protect yourself from frontal attacks. Blocking 80 damage empowers the next Rocket Punch and immediately resets its cooldown (80 mitigated = 100 incoming = 20 hp lost).",
           "stats": [
             {"name": "Dmg. Reduction", "value": "80%"},
             {"name": "Mov. Speed", "value": "-35%"},
-            {"name": "Duration", "value": "2s"},
-            {"name": "Cooldown", "value": "8s"}
+            {"name": "Duration", "value": "2.5s"},
+            {"name": "Cooldown", "value": "7s"}
           ]
         },
         {
           "name": "Meteor Strike",
           "key": "Q",
           "iconUrl": "doomfist/Meteor_Strike.png",
-          "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage. Doomfist is invincible during his ultimate, and speeds up cooldown rate of his abilities by 100% while in the air. Deals more damage at the center, less at the rim.",
+          "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage. Doomfist is invincible during his ultimate, and speeds up cooldown rate of his abilities by 100% while in the air. Empowers Rocket Punch on landing.",
           "stats": [
             {"name": "Damage", "value": "Inner ring: 300\nOuter ring: 15-100"},
             {"name": "Cast Time", "value": "0.5s\n1s landing"},
             {"name": "Duration", "value": "4s"},
-            {"name": "Slow Enemies", "value": "-50% for 2s"}
+            {"name": "Slow Enemies", "value": "-50% for 3s"}
           ]
         }
       ]
@@ -182,8 +182,10 @@
           "name": "Adrenaline Rush",
           "key": "Passive",
           "iconUrl": "junkerqueen/Passive.png",
-          "description": "All wound damage that Junker Queen does causes her to heal herself.",
-          "stats": []
+          "description": "All wound damage that Junker Queen does causes her to heal herself at an increased rate.",
+          "stats": [
+            {"name": "Healing (wounds)", "value": "+25%"}
+          ]
         },
         {
           "name": "Scattergun",
@@ -217,7 +219,7 @@
             {"name": "Health", "value": "+200 (self)\n+50 (ally)"},
             {"name": "Speed", "value": "+30%"},
             {"name": "Duration", "value": "5s (self)\n3s (ally)"},
-            {"name": "Cooldown", "value": "15s"}
+            {"name": "Cooldown", "value": "14s"}
           ]
         },
         {
@@ -241,7 +243,7 @@
           "stats": [
             {"name": "Damage", "value": "100"},
             {"name": "Healing", "value": "100"},
-            {"name": "Duration", "value": "5s"}
+            {"name": "Duration", "value": "4.5s"}
           ]
         }
       ]
@@ -309,6 +311,90 @@
             {"name": "Damage", "value": "15/s (charging)\n60-500 (surge)"},
             {"name": "Slow", "value": "-30%"},
             {"name": "Cast Time", "value": "1-4s (charging)\n0.5s (unleashing)"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ramattra", "class": "Tank", 
+      "hpTotal": "450", "hpNormal": "450", "hpArmor": "150 (Nemesis)", "hpShield": "0", "speed": "5.5m/s",
+      "abilities": [
+        {
+          "name": "Void Accelerator",
+          "key": "Left Click (Omnic form)",
+          "iconUrl": "ramattra/1.webp",
+          "description": "Fire a stream of projectiles in a fixed pattern.",
+          "stats": [
+            {"name": "Damage", "value": "4.5"},
+            {"name": "Fire Rate", "value": "25 rps"},
+            {"name": "Ammo", "value": "100"},
+            {"name": "Reload", "value": "1s"}
+          ]
+        },
+        {
+          "name": "Void Barrier",
+          "key": "Right Click (Omnic form)",
+          "iconUrl": "ramattra/2.webp",
+          "description": "Create a barrier at the targeted location.",
+          "stats": [
+            {"name": "Shield HP", "value": "1000"},
+            {"name": "Duration", "value": "4s"},
+            {"name": "Cooldown", "value": "15s"}
+          ]
+        },
+        {
+          "name": "Nemesis Form",
+          "key": "Shift",
+          "iconUrl": "ramattra/S.webp",
+          "description": "Transform into Nemesis Form, changing your attacks and gaining bonus armor.",
+          "stats": [
+            {"name": "Armor", "value": "+150"},
+            {"name": "Duration", "value": "8s"},
+            {"name": "Cooldown", "value": "8s"}
+          ]
+        },
+        {
+          "name": "Pummel",
+          "key": "Left Click (Nemesis form)",
+          "iconUrl": "ramattra/3.webp",
+          "description": "Punch forward, creating a wave of energy that pierces all enemies and barriers in its path.",
+          "stats": [
+            {"name": "Damage", "value": "60"},
+            {"name": "Fire Rate", "value": "1.67 rps"},
+            {"name": "Ammo", "value": "∞"}
+          ]
+        },
+        {
+          "name": "Block",
+          "key": "Right Click (Nemesis form)",
+          "iconUrl": "ramattra/4.webp",
+          "description": "Significantly reduces damage taken from the front and reduces movement speed.",
+          "stats": [
+            {"name": "Dmg. reduction", "value": "75%"},
+            {"name": "Mov. speed", "value": "-50%"}
+          ]
+        },
+        {
+          "name": "Ravenous Vortex",
+          "key": "E",
+          "iconUrl": "ramattra/E.webp",
+          "description": "Fire a nano ball, which explodes when it hits the ground, spreading a damaging field. Affected enemies are slowed and pulled downward.",
+          "stats": [
+            {"name": "Damage", "value": "15 per second"},
+            {"name": "Mov. speed", "value": "-40%"},
+            {"name": "Gravity", "value": "+100%"},
+            {"name": "Duration", "value": "3s"},
+            {"name": "Cooldown", "value": "12s"}
+          ]
+        },
+        {
+          "name": "Annihilation",
+          "key": "Q",
+          "iconUrl": "ramattra/Q.webp",
+          "description": "Enter Nemesis Form and create an energy swarm surrounding yourself. This swarm will lash out towards nearby enemies, dealing damage and pausing the duration when damage is dealt.",
+          "stats": [
+            {"name": "Damage", "value": "30 per second"},
+            {"name": "Duration", "value": "3s when not damaging"}
           ]
         }
       ]
@@ -851,7 +937,7 @@
           "description": "Bastion transforms between its two primary combat modes to adapt to changing battlefield conditions.",
           "stats": [
             {"name": "Cast Time", "value": "1s (into assault)\n0.5s (into recon)"},
-            {"name": "Speed", "value": "0%"}
+            {"name": "Cooldown", "value": "10s"}
           ]
         },
         {
@@ -860,7 +946,7 @@
           "iconUrl": "bastion/Q.png",
           "description": "Become immobile and fire up to 3 powerful artillery shells.",
           "stats": [
-            {"name": "Damage", "value": "200-600"},
+            {"name": "Damage", "value": "Center: 500\nInner ring: 200-250\nOuter ring: 30-200"},
             {"name": "Ammo", "value": "3"},
             {"name": "Duration", "value": "8s"}
           ]
@@ -1421,7 +1507,7 @@
           "iconUrl": "sojourn/1.png",
           "description": "Rapid firing projectiles that generate energy on hit. Headshots generate double energy.",
           "stats": [
-            {"name": "Damage", "value": "9"},
+            {"name": "Damage", "value": "10"},
             {"name": "Fire Rate", "value": "14 rps"},
             {"name": "Ammo", "value": "45"},
             {"name": "Reload", "value": "1.2s"},
@@ -1434,9 +1520,9 @@
           "iconUrl": "sojourn/1.png",
           "description": "High impact shot that consumes stored energy.",
           "stats": [
-            {"name": "Damage", "value": "30-130"},
+            {"name": "Damage", "value": "30-130\n1.5x headshot"},
             {"name": "Type", "value": "Hitscan"},
-            {"name": "Energy Decay", "value": "After 6s"}
+            {"name": "Energy Decay", "value": "after 5s"}
           ]
         },
         {
@@ -1467,7 +1553,7 @@
           "iconUrl": "sojourn/Q.png",
           "description": "Railgun energy auto-charges for a short duration and charged shots pierce enemies.",
           "stats": [
-            {"name": "Full Charge Time", "value": "1.2 seconds"},
+            {"name": "Full Charge Time", "value": "1 second"},
             {"name": "Duration", "value": "9s"}
           ]
         }
@@ -1620,9 +1706,9 @@
           "iconUrl": "symmetra/1.png",
           "description": "Symmetra’s weapon emits a ranged beam. It deals continuous damage that increases the longer it is connected. Cannot headshot.",
           "stats": [
-            {"name": "DPS", "value": "60/120/180\n1.33s per level"},
+            {"name": "DPS", "value": "60/120/180\n1s per level"},
             {"name": "Range", "value": "12m"},
-            {"name": "Ammo", "value": "100\n(-7 per second)"},
+            {"name": "Ammo", "value": "100\n(-10 per second)\n+10/s from shields"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -1771,7 +1857,7 @@
           "iconUrl": "tracer/1.png",
           "description": "Tracer rapid-fires both of her pistols.",
           "stats": [
-            {"name": "Damage", "value": "1.5-5"},
+            {"name": "Damage", "value": "1.5-6"},
             {"name": "Fire Rate (rps)", "value": "40"},
             {"name": "Ammo", "value": "40"},
             {"name": "Reload", "value": "1s"}
@@ -1916,7 +2002,7 @@
             {"name": "Damage", "value": "5"},
             {"name": "Delay", "value": "0.3s"},
             {"name": "Sleep Duration", "value": "5s"},
-            {"name": "Cooldown", "value": "15s"}
+            {"name": "Cooldown", "value": "14s"}
           ]
         },
         {
@@ -2140,7 +2226,7 @@
             {"name": "Bodyshot", "value": "40"},
             {"name": "Headshot", "value": "120"},
             {"name": "Fire Rate", "value": "1.82 rps"},
-            {"name": "Ammo", "value": "12"},
+            {"name": "Ammo", "value": "15"},
             {"name": "Reload", "value": "1s"}
           ]
         },
@@ -2162,6 +2248,7 @@
           "description": "Throw a protective charm to make allies become briefly invulnerable and cleansed of most negative effects.",
           "stats": [
             {"name": "Heal", "value": "50"},
+            {"name": "Cast Time", "value": "0.1s"},
             {"name": "Duration", "value": "1s"},
             {"name": "Cooldown", "value": "14s"}
           ]
@@ -2172,10 +2259,10 @@
           "iconUrl": "kiriko/Q.png",
           "description": "Summon a fox spirit that rushes forward, accelerating the movement, attack speed, and cooldowns of allies that follow in its path.",
           "stats": [
-            {"name": "Mov. Speed", "value": "+50%"},
+            {"name": "Mov. Speed", "value": "+30%"},
             {"name": "Fire Rate", "value": "+50%"},
             {"name": "Reload Speed", "value": "+50%"},
-            {"name": "Cooldown", "value": "-67%"},
+            {"name": "Cooldown", "value": "-50%"},
             {"name": "Duration", "value": "10.5s"}
           ]
         }
@@ -2300,7 +2387,7 @@
           "stats": [
             {"name": "Damage", "value": "20"},
             {"name": "Fire Rate", "value": "5 rps"},
-            {"name": "Ammo", "value": "20"},
+            {"name": "Ammo", "value": "25"},
             {"name": "Reload", "value": "1.4s"}
           ]
         },
