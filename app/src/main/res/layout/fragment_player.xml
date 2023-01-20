@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/search_player_container"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="15dp"
         android:layout_marginLeft="5dp"
         android:id="@+id/lbl_favorites"
         android:textColor="@color/text_title"
@@ -19,6 +19,7 @@
         android:textSize="20sp" />
     <androidx.recyclerview.widget.RecyclerView
         android:paddingTop="10dp"
+        android:paddingHorizontal="15dp"
         android:clipToPadding="false"
         android:id="@+id/recycler_view_players"
         android:scrollbars="vertical"

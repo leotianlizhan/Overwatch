@@ -5,12 +5,10 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,6 +19,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -36,9 +38,9 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private int y = 0;
     private WebView webView;
     private MenuItem favButton;
-    private static final Pattern p = Pattern.compile("^https://playoverwatch\\.com/(?:.+/)?career/(.+)/(.+)/$");
+    private static final Pattern p = Pattern.compile("^https://overwatch\\.blizzard\\.com/(?:.+/)?career/(.+)/$");
     private Matcher m = p.matcher("");
-    String currentUrl = "https://playoverwatch.com/search/";
+    String currentUrl = "https://overwatch.blizzard.com/search/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         query = getIntent().getStringExtra(SearchManager.QUERY).trim();
         region = getIntent().getStringExtra("region");
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
-        isFavorited = favorites != null && favorites.contains(query + ";" + region);
+        isFavorited = favorites != null && favorites.contains(query);
         //progDialog = new ProgressDialog(this);
         //progDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //progDialog.show();
@@ -71,12 +73,13 @@ public class InfoPlayerActivity extends AppCompatActivity {
         // Battlenet allows alphanumeric, foreign words, but NO symbols like hyphen
         // Blizzard's search is bugged for "-" currently. revert this change after they fix it.
         if (isFavorited) {
-            currentUrl = "https://playoverwatch.com/career/" + region + "/" + query;
+            currentUrl = "https://overwatch.blizzard.com/career/" + query;
         } else if (!query.isEmpty()) {
-            currentUrl = "https://playoverwatch.com/search?q=" + query;
+            currentUrl = "https://overwatch.blizzard.com/search?q=" + query;
         }
 
         webView = (WebView)findViewById(R.id.webview_player);
+        webView.setBackgroundColor(Color.TRANSPARENT);
         // required to make blizzard's website work
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -96,8 +99,8 @@ public class InfoPlayerActivity extends AppCompatActivity {
 
             private void removeFooter(WebView view) {
                 view.loadUrl("javascript:(function() { " +
-                        "document.getElementsByClassName('Navbar-container')[0].style.display = 'none'; " +
-                        "document.getElementById('footer').style.display = 'none'; " +
+                        "document.getElementsByTagName('blz-nav')[0].style.display = 'none'; " +
+                        "document.getElementsByTagName('blz-social-section')[0].style.display = 'none'; " +
                         //"document.getElementsByClassName('bootstrap-footer')[0].style.display = 'none'; " +
                         "document.getElementById('Page-footer').style.display = 'none'; " +
                         "})()");
@@ -113,6 +116,9 @@ public class InfoPlayerActivity extends AppCompatActivity {
                     Toast t = Toast.makeText(getApplicationContext(), "Player found. Redirecting...", Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.CENTER,0,0);
                     t.show();
+
+                    isFavorited = favorites != null && favorites.contains(m.group(1));
+                    favButton.setIcon(getFavoriteIcon(isFavorited));
                     favButton.setVisible(true);
                 } else {
                     favButton.setVisible(false);
@@ -123,7 +129,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
             public void onPageCommitVisible(WebView view, String url) {
                 //deletes top blizzard bar
                 view.loadUrl("javascript:(function() { " +
-                        "document.getElementsByClassName('Navbar-container')[0].style.display = 'none'; " +
+                        "document.getElementsByTagName('blz-nav')[0].style.display = 'none'; " +
                         "})()");
                 view.requestFocus();
                 super.onPageCommitVisible(view, url);
@@ -171,11 +177,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
         favButton = menu.findItem(R.id.action_favorite);
         // must be put after this because the webView will use favButton
         webView.loadUrl(currentUrl);
-        if(isFavorited) {
-            favButton.setIcon(getResources().getDrawable(R.drawable.ic_star_on_86dp));
-        } else {
-            favButton.setIcon(getResources().getDrawable(R.drawable.ic_star_off_86dp));
-        }
+        favButton.setIcon(getFavoriteIcon(isFavorited));
         return true;
     }
 
@@ -183,10 +185,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_favorite) {
-            if(favorite(query, region))
-                item.setIcon(getResources().getDrawable(R.drawable.ic_star_on_86dp));
-            else
-                item.setIcon(getResources().getDrawable(R.drawable.ic_star_off_86dp));
+            item.setIcon(getFavoriteIcon(favorite(query, region)));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -204,6 +203,16 @@ public class InfoPlayerActivity extends AppCompatActivity {
         webView.restoreState(savedInstanceState);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (webView.copyBackForwardList().getCurrentIndex() > 0) {
+            webView.goBack();
+        } else {
+            // Your exit alert code, or alternatively line below to finish
+            super.onBackPressed(); // finishes activity
+        }
+    }
+
     Toast favoriteToast;
     private void favoriteToast(String text) {
         if(favoriteToast != null) {
@@ -217,29 +226,29 @@ public class InfoPlayerActivity extends AppCompatActivity {
     public void saveInfo(String v){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPref.edit();
-        String result = "";
+        StringBuilder result = new StringBuilder();
         if (favorites == null)
             favorites = new ArrayList<>();
         favorites.add(v);
         for(int i=0; i<favorites.size(); i++){
-            result = result + "," + favorites.get(i);
+            result.append(",").append(favorites.get(i));
         }
-        result = result.substring(1);
-        editor.putString("favorites", result);
+        result = new StringBuilder(result.substring(1));
+        editor.putString("favorites", result.toString());
         editor.commit();
         favoriteToast("Favorited");
     }
     public void removeInfo(String v){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sharedPref.edit();
-        String result = "";
+        StringBuilder result = new StringBuilder();
         favorites.remove(v);
         for(int i=0; i<favorites.size(); i++){
-            result = result + "," + favorites.get(i);
+            result.append(",").append(favorites.get(i));
         }
-        if(!result.equals(""))
-            result = result.substring(1);
-        editor.putString("favorites", result);
+        if(!result.toString().equals(""))
+            result = new StringBuilder(result.substring(1));
+        editor.putString("favorites", result.toString());
         editor.commit();
         favoriteToast("Unfavorited");
     }
@@ -251,13 +260,16 @@ public class InfoPlayerActivity extends AppCompatActivity {
             favoriteToast("Favorite failed");
             return isFavorited;
         }
-        String v = m.group(2) + ";" + m.group(1);
+        String v = m.group(1);
         if(isFavorited)
             removeInfo(v);
         else
             saveInfo(v);
-        Log.d("AAAAA", m.group(2) + ";" + m.group(1));
         isFavorited = !isFavorited;
         return isFavorited;
+    }
+
+    private Drawable getFavoriteIcon(boolean isFavorited) {
+        return isFavorited ? getResources().getDrawable(R.drawable.ic_star_on_86dp) : getResources().getDrawable(R.drawable.ic_star_off_86dp);
     }
 }

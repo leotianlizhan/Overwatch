@@ -78,7 +78,7 @@ public class PlayerFragment extends Fragment {
         lbl_fav = (TextView)v.findViewById(R.id.lbl_favorites);
 //        searchButton = v.findViewById(R.id.search_player_button);
         RadioGroup radioGroup = v.findViewById(R.id.radio_group_platform);
-        getRegion();
+//        getRegion();
         if(region.equals("PC")) radioGroup.check(R.id.radio_button_pc);
         else radioGroup.check(R.id.radio_button_console);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -205,6 +205,13 @@ public class PlayerFragment extends Fragment {
     private void getFavorites(){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String raw = sharedPref.getString("favorites", "-1;-1");
+        // Clear incompatible old format
+        if (raw.contains(";")) {
+            raw = "";
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("favorites", raw);
+            editor.commit();
+        }
         if(raw.equals("")||raw.equals("-1;-1"))
             favorites = null;
         else

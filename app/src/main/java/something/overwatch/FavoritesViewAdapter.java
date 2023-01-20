@@ -37,12 +37,12 @@ public class FavoritesViewAdapter extends RecyclerView.Adapter<FavoritesViewAdap
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    String queries[] = _list.get(position).split(";");
-                    String id = queries[0];
-                    String region = queries[1];
+                    String id = _list.get(position);
+//                    String id = queries[0];
+//                    String region = queries[1];
                     Intent intent = new Intent(ctx, InfoPlayerActivity.class);
                     intent.putExtra("query", id);
-                    intent.putExtra("region", region);
+//                    intent.putExtra("region", region);
                     intent.putExtra("favoriteslist", new ArrayList<String>(_list));
                     ctx.startActivity(intent);
                 }
@@ -110,10 +110,10 @@ public class FavoritesViewAdapter extends RecyclerView.Adapter<FavoritesViewAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final int cardPosition = holder.getAdapterPosition();
         String str = _list.get(position);
-        String name = str.split(";")[0];
-        String platform = str.split(";")[1];
-        holder.name.setText(URLDecoder.decode(name));
-        holder.platform.setText(platform.toUpperCase());
+//        String name = str.split(";")[0];
+//        String platform = str.split(";")[1];
+        holder.name.setText(URLDecoder.decode(str));
+//        holder.platform.setText(platform.toUpperCase());
 //        holder.card.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

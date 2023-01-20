@@ -6,33 +6,41 @@
     card_view:cardBackgroundColor="@color/colorRectAlpha"
     style="@style/CardViewPlayerStyle"
     android:layout_marginBottom="2dp">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="7dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/lbl_player_name_card"
-            android:layout_centerVertical="true"
-            android:textColor="@color/text_card"
-            android:text="SOMETHING"
-            android:textSize="17sp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/lbl_player_platform_card"
-            android:textColor="@color/text_card"
-            android:text="platform"
-            android:textSize="12sp"/>
-
-
+            android:padding="7dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/lbl_player_name_card"
+                android:layout_centerVertical="true"
+                android:textColor="@color/text_card"
+                android:text="SOMETHING"
+                android:textSize="17sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/lbl_player_platform_card"
+                android:textColor="@color/text_card"
+                android:text="platform"
+                android:textSize="12sp"
+                android:visibility="gone"/>
     </RelativeLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

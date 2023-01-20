@@ -110,7 +110,7 @@
           "description": "Doomfist generates temporary personal shields when he deals ability damage.",
           "stats": [
             {"name": "Maximum", "value": "200 shield"},
-            {"name": "Shield", "value": "+ 40 / hit\n+ 75 / hit (ult)"},
+            {"name": "Shield", "value": "+ 35 / hit\n+ 75 / hit (ult)"},
             {"name": "Shield Decay", "value": "-3 shield/s"}
           ]
         },
@@ -134,7 +134,7 @@
           "stats": [
             {"name": "Damage", "value": "Initial hit: 25-50\nWall slam: 10-30"},
             {"name": "Duration", "value": "1s full-charge\n0.25s stun"},
-            {"name": "Cooldown", "value": "3s"},
+            {"name": "Cooldown", "value": "4s"},
             {"name": "Empowered", "value": "+50% damage\n+50% speed\n0.25-0.75s stun"}
           ]
         },
@@ -152,7 +152,7 @@
           "name": "Power Block",
           "key": "Shift",
           "iconUrl": "doomfist/E.png",
-          "description": "Protect yourself from frontal attacks. Blocking 80 damage empowers the next Rocket Punch and immediately resets its cooldown (80 mitigated = 100 incoming = 20 hp lost).",
+          "description": "Protect yourself from frontal attacks. Taking 25 damage empowers the next Rocket Punch and immediately resets its cooldown (100 mitigated = 125 incoming = 25 hp lost).",
           "stats": [
             {"name": "Dmg. Reduction", "value": "80%"},
             {"name": "Mov. Speed", "value": "-35%"},
@@ -182,9 +182,9 @@
           "name": "Adrenaline Rush",
           "key": "Passive",
           "iconUrl": "junkerqueen/Passive.png",
-          "description": "All wound damage that Junker Queen does causes her to heal herself at an increased rate.",
+          "description": "All wound damage that Junker Queen does causes her to heal herself at an increased rate. Adrenaline Rush instantly heals for the remaining wound damage when an enemy dies with wounds on them.",
           "stats": [
-            {"name": "Healing (wounds)", "value": "+25%"}
+            {"name": "Healing", "value": "125% of wound damage"}
           ]
         },
         {
@@ -205,8 +205,8 @@
           "iconUrl": "junkerqueen/2.png",
           "description": "Active: Throws a blade in an arc. Re-activate ability to recall. If it sticks to an enemy, the enemy will be pulled back when the blade returns. Damages enemies in both directions.\nPassive: Quick Melee wounds enemies, dealing damage over time ",
           "stats": [
-            {"name": "Damage", "value": "Impact: 80\nWound: 15 over 3s"},
-            {"name": "Healing", "value": "15 over 3s"},
+            {"name": "Impact dmg.", "value": "50"},
+            {"name": "Wound dmg.", "value": "Thrown: 30 over 3s\nReturn & Melee: 15 over 3s"},
             {"name": "Cooldown", "value": "6s"}
           ]
         },
@@ -229,9 +229,8 @@
           "description": "Swing your axe to wound all enemies in front of you, dealing damage over time.",
           "stats": [
             {"name": "Damage", "value": "Impact: 90\nWound: 40 over 3s"},
-            {"name": "Healing", "value": "40 over 3s"},
             {"name": "Cast Time", "value": "1s"},
-            {"name": "Cooldown", "value": "8s"}
+            {"name": "Cooldown", "value": "8s\n-2s per hit"}
           ]
         },
         {
@@ -241,9 +240,7 @@
           "iconUrl": "junkerqueen/Q.png",
           "description": "Charge forward. Wounds enemies, dealing damage over time and preventing them from being healed.",
           "stats": [
-            {"name": "Damage", "value": "100"},
-            {"name": "Healing", "value": "100"},
-            {"name": "Duration", "value": "4.5s"}
+            {"name": "Wound dmg.", "value": "100 over 4.5s"}
           ]
         }
       ]
@@ -317,7 +314,7 @@
     },
     {
       "name": "Ramattra", "class": "Tank", 
-      "hpTotal": "450", "hpNormal": "450", "hpArmor": "150 (Nemesis)", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "450", "hpNormal": "450", "hpArmor": "225 (Nemesis)", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Void Accelerator",
@@ -339,7 +336,7 @@
           "stats": [
             {"name": "Shield HP", "value": "1000"},
             {"name": "Duration", "value": "4s"},
-            {"name": "Cooldown", "value": "15s"}
+            {"name": "Cooldown", "value": "13s"}
           ]
         },
         {
@@ -348,7 +345,8 @@
           "iconUrl": "ramattra/S.webp",
           "description": "Transform into Nemesis Form, changing your attacks and gaining bonus armor.",
           "stats": [
-            {"name": "Armor", "value": "+150"},
+            {"name": "Armor", "value": "+225"},
+            {"name": "Movespeed", "value": "+20%"},
             {"name": "Duration", "value": "8s"},
             {"name": "Cooldown", "value": "8s"}
           ]
@@ -751,7 +749,7 @@
           "description": "Damage blocked increases Particle Cannon damage.",
           "stats": [
             {"name": "Maximum", "value": "100 charges"},
-            {"name": "Decay", "value": "-1.8 charge/s"},
+            {"name": "Decay", "value": "-2 charge/s after 2s"},
             {"name": "Gain", "value": "+1 charge per\n5 dmg. absorbed"}
           ]
         },
@@ -1531,7 +1529,7 @@
           "iconUrl": "sojourn/Shift.png",
           "description": "Ground slide that can cancel into a high jump.",
           "stats": [
-            {"name": "Cooldown", "value": "6s"},
+            {"name": "Cooldown", "value": "7s"},
             {"name": "Duration", "value": "1s"},
             {"name": "Speed", "value": "260%"}
           ]
@@ -1540,7 +1538,7 @@
           "name": "Disruptor Shot",
           "key": "E",
           "iconUrl": "sojourn/E.png",
-          "description": "Launch an energy burst that slows and deals damage to enemies within it.",
+          "description": "Launch an energy burst that deals damage to enemies within it.",
           "stats": [
             {"name": "Damage", "value": "52.5 per second"},
             {"name": "Duration", "value": "4s"},
@@ -1857,7 +1855,7 @@
           "iconUrl": "tracer/1.png",
           "description": "Tracer rapid-fires both of her pistols.",
           "stats": [
-            {"name": "Damage", "value": "1.5-6"},
+            {"name": "Damage", "value": "1.5-5.5"},
             {"name": "Fire Rate (rps)", "value": "40"},
             {"name": "Ammo", "value": "40"},
             {"name": "Reload", "value": "1s"}
@@ -1974,8 +1972,8 @@
           "iconUrl": "ana/1.webp",
           "description": "The Biotic Rifle shoots darts that will heal allied heroes or apply 0.9 second damage-over-time (DOT) to enemy units. The dart is a fast moving projectile if fired from the hip, and a hitscan shot if firing while scoped. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "70"},
-            {"name": "Heal", "value": "70"},
+            {"name": "Damage", "value": "75"},
+            {"name": "Heal", "value": "75"},
             {"name": "Duration", "value": "0.58s"},
             {"name": "Fire Rate", "value": "1.25 rps"},
             {"name": "Ammo", "value": "12"},
@@ -2013,7 +2011,7 @@
           "stats": [
             {"name": "Enemies", "value": "60 damage\nblock healing"},
             {"name": "Allies", "value": "+100 hp\n+50% healing"},
-            {"name": "Duration", "value": "3s"},
+            {"name": "Duration", "value": "4s"},
             {"name": "Cooldown", "value": "10s"}
           ]
         },
@@ -2141,7 +2139,7 @@
           "iconUrl": "brigitte/2.png",
           "description": "Brigitte deploys a frontal energy barrier to absorb a limited amount of damage.",
           "stats": [
-            {"name": "Barrier", "value": "250 hp"},
+            {"name": "Barrier", "value": "300 hp"},
             {"name": "Barrier Regen.", "value": "85/s after 2s not in use"},
             {"name": "Speed", "value": "-30%"},
             {"name": "Cooldown", "value": "5s if broken"}
@@ -2249,7 +2247,7 @@
           "stats": [
             {"name": "Heal", "value": "50"},
             {"name": "Cast Time", "value": "0.1s"},
-            {"name": "Duration", "value": "1s"},
+            {"name": "Duration", "value": "0.85s"},
             {"name": "Cooldown", "value": "14s"}
           ]
         },
@@ -2470,7 +2468,7 @@
           "name": "Biotic Orb",
           "key": "E",
           "iconUrl": "moira/E.png",
-          "description": "Moira launches a rebounding biotic sphere; she can choose between a regeneration effect that heals the allies it passes through, or a decay effect that deals damage to enemies. Cannot headshot.",
+          "description": "Moira launches a rebounding biotic sphere; she can choose between a regeneration effect that heals the allies it passes through, or a decay effect that deals damage to enemies. Dealing damage with Biotic Orb restores a small amount of Biotic Energy. Cannot headshot.",
           "stats": [
             {"name": "Enemies", "value": "50 damage/s\n(up to 200)"},
             {"name": "Allies", "value": "+65 hp/s\n(up to 300)"},

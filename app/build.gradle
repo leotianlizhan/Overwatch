@@ -9,8 +9,8 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 19
         targetSdkVersion 32
-        versionCode 70
-        versionName "1.19.3"
+        versionCode 71
+        versionName "1.19.4"
         multiDexEnabled true
     }
     buildTypes {
@@ -34,11 +34,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     implementation "androidx.multidex:multidex:2.0.1"
-//    implementation platform('com.google.firebase:firebase-bom:31.0.1')
-    implementation 'com.google.firebase:firebase-common:20.2.1-SNAPSHOT'
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
-    implementation 'com.google.firebase:firebase-perf:20.3.1-SNAPSHOT'
-    implementation 'com.google.firebase:firebase-crashlytics:18.3.2'
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+//    implementation 'com.google.firebase:firebase-common:20.2.1-SNAPSHOT'
+    implementation 'com.google.firebase:firebase-analytics'
+//    implementation 'com.google.firebase:firebase-perf:20.3.1-SNAPSHOT'
+    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-crashlytics'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'

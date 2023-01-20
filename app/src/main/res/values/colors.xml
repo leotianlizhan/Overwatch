@@ -15,6 +15,7 @@
     <color name="colorWhiteAlpha">#50FFFFFF</color>
     <color name="colorControlHighlight">@color/colorRectAlpha</color>
     <color name="colorSearch">#dfcea0</color>
+    <color name="colorBackgroundWebView">#22293b</color>
 
     <!-- Overwatch 2 -->
     <color name="colorOrangeLogo">#f06414</color>

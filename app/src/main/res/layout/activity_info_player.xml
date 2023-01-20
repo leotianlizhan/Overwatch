@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="something.overwatch.InfoPlayerActivity">
+    tools:context="something.overwatch.InfoPlayerActivity"
+    android:background="@color/colorBackgroundWebView">
     <!-- Necessary to wrap with NestedScrollView, for layout_behaviour and layout_scrollFlags to work -->
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
