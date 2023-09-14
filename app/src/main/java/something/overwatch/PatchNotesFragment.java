@@ -69,6 +69,7 @@ public class PatchNotesFragment extends Fragment {
         bar.getIndeterminateDrawable().setColorFilter(getResources()
                 .getColor(R.color.text_secondary), PorterDuff.Mode.SRC_IN);
         webview.getSettings().setDefaultFontSize(13);
+        webview.getSettings().setJavaScriptEnabled(false);
         webview.setBackgroundColor(Color.TRANSPARENT);
         RequestTask task = new RequestTask(bar, lblFail, webview);
         task.execute();
@@ -112,41 +113,28 @@ public class PatchNotesFragment extends Fragment {
                 result = sb.toString();
                 if(result.equals("")) return "";
 
-
-                String htmlString = "";
+                StringBuilder htmlString = new StringBuilder();
 
                 if (result.contains("<div class=\"PatchNotes-body\">") && result.contains("<div class=\"PatchNotesTop\">")){
+                    String htmlHead = result.substring(result.indexOf("<head"), result.indexOf("</head>"));
 
                     result = result.substring(result.indexOf("<div class=\"PatchNotes-body\">"), result.indexOf("<div class=\"PatchNotesTop\">"));
 
-
-                    htmlString = "<html><head>"
-                            + "<style type=\"text/css\">"
-                            + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
-                            + "body h1{color: #b7b9bc !important;}"
-                            + "body h2{color: #c98318 !important;}"
-                            + "body h4{color: #c98318 !important;}"
-                            + "body strong{color: #0f97c9 !important;}"
-                            + "</style></head>"
-                            + "<body link=\"orange\">" + result + "</body></html>";
-
-
-                    //Alternative styling
-//                String htmlString = "<html><head>"
-//                        + "<style type=\"text/css\">"
-//                        + "body{color: #b7b9bc !important; background-color: #1a1a1a !important;}"
-//                        + "body h1{color: #b7b9bc !important;}"
-//                        + "body h2{color: #c98318 !important;}"
-//                        + "body h3{color: #c98318 !important;}"
-//                        + "body h4{color: #b7b9bc !important;}"
-//                        + "body strong{color: #0f97c9 !important;}"
-//                        + "</style></head>"
-//                        + "<body link=\"orange\">" + result + "</body></html>";
-
+                    htmlString.append("<html>")
+                            .append(htmlHead)
+                            .append("<style type=\"text/css\">")
+                            .append("body{color: #b7b9bc !important; background-color: #1a1a1a !important;}")
+                            .append("body h1{color: #b7b9bc !important;}")
+                            .append("body h2{color: #c98318 !important;}")
+                            .append("body h4{color: #c98318 !important;}")
+                            .append("body strong{color: #0f97c9 !important;}")
+                            .append("</style></head>")
+                            .append("<body link=\"orange\">")
+                            .append(result)
+                            .append("</body></html>");
                 }
 
-
-                return htmlString;
+                return htmlString.toString();
             } catch (Exception e){
                 e.printStackTrace();
                 result = "";
