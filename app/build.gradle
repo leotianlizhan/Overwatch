@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.google.firebase.crashlytics'
 
@@ -9,15 +10,18 @@ android {
         applicationId "something.overwatch"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 74
-        versionName "1.19.7"
+        versionCode 76
+        versionName "1.19.8"
         multiDexEnabled true
     }
     buildTypes {
         release {
             manifestPlaceholders = [crashlyticsEnabled: true]
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
         debug {
             manifestPlaceholders = [crashlyticsEnabled: false]

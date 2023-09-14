@@ -6,6 +6,8 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,11 @@ import com.bumptech.glide.Glide;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> implements Filterable{
-    private ArrayList<String> _list;
+    private Map[] _list;
     private ArrayList<Integer> _indices;
     private ArrayList<Integer> _indicesFiltered;
-    private ArrayList<String> _classes;
     private RecyclerItemClickListener listener;
     private final Fragment fragment;
     private final String PACKAGE_NAME;
@@ -48,15 +47,14 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
         }
     }
 
-    public MapsAdapter(ArrayList<String> list, ArrayList<String> classes, Fragment f, String pName, RecyclerItemClickListener listener){
+    public MapsAdapter(Map[] list, Fragment f, String pName, RecyclerItemClickListener listener){
         this._list = list;
-        this._classes = classes;
         this.fragment = f;
         this.PACKAGE_NAME = pName;
         this.listener = listener;
         // Hacky solution to filtered-onclick problem
         this._indices = new ArrayList<>();
-        for(int i=0; i<list.size(); i++) _indices.add(i);
+        for(int i=0; i<list.length; i++) _indices.add(i);
         this._indicesFiltered = _indices;
     }
 
@@ -70,8 +68,8 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final int realPosition = _indicesFiltered.get(holder.getAdapterPosition());
-        holder.name.setText(_list.get(realPosition));
-        String type = _classes.get(realPosition).toLowerCase();
+        holder.name.setText(_list[realPosition].getName());
+        String type = _list[realPosition].getType().getValue();
         int resId = fragment.getResources().getIdentifier("maptype_" + type, "drawable", PACKAGE_NAME);
         // 2CP maps are removed in OW2
         if (type.equals("assault")) {
@@ -95,8 +93,8 @@ public class MapsAdapter extends RecyclerView.Adapter<MapsAdapter.MyViewHolder> 
                 } else {
                     qString = qString.toLowerCase();
                     ArrayList<Integer> indices = new ArrayList<>();
-                    for(int i=0; i<_list.size(); i++)
-                        if (_list.get(i).toLowerCase().contains(qString) || _classes.get(i).toLowerCase().contains(qString))
+                    for(int i=0; i<_list.length; i++)
+                        if (_list[i].getName().toLowerCase().contains(qString) || _list[i].getType().toString().toLowerCase().contains(qString))
                             indices.add(_indices.get(i));
                     _indicesFiltered = indices;
                 }

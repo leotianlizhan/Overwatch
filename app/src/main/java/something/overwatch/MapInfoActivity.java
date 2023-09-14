@@ -117,7 +117,7 @@ public class MapInfoActivity extends AppCompatActivity {
 
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         int position = getIntent().getIntExtra("position", 0);
-        String mapName = MainActivity.mapNames.get(position);
+        String mapName = Constants.MAPS[position].getName();
         setTitle(mapName);
         String resStr = mapName.toLowerCase().replace(" ", "").replace(":", "").replace("'", "");
         int resId = getResources().getIdentifier("map_" + resStr, "drawable", getPackageName());

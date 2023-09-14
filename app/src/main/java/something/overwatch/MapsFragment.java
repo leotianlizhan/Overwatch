@@ -56,7 +56,7 @@ public class MapsFragment extends Fragment implements RecyclerItemClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        recyclerAdapter = new MapsAdapter(MainActivity.mapNames, MainActivity.mapTypes, this, getActivity().getPackageName(), this);
+        recyclerAdapter = new MapsAdapter(Constants.MAPS, this, getActivity().getPackageName(), this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

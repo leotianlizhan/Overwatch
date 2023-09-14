@@ -49,14 +49,10 @@ import hotchemi.android.rate.AppRate;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    public static final String remoteUrl = "http://s1.retort.ganks.me/";
     private ArrayList<String> heroNames = new ArrayList<>(Arrays.asList("Doomfist", "Genji", "Cassidy", "Pharah", "Reaper", "Soldier 76", "Sombra", "Tracer", "Bastion", "Hanzo", "Junkrat", "Mei", "Torbjorn", "Widowmaker", "D.va", "Orisa", "Reinhardt",
             "Roadhog", "Winston", "Zarya", "Ana", "Brigitte", "Lucio", "Mercy", "Moira", "Symmetra", "Zenyatta"));
     private ArrayList<String> heroClasses = new ArrayList<>(Arrays.asList("Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Damage", "Tank", "Tank", "Tank",
             "Tank", "Tank", "Tank", "Support", "Support", "Support", "Support", "Support", "Support", "Support"));
-    public static final ArrayList<String> mapNames = new ArrayList<>(Arrays.asList("Blizzard World", "Busan", "Dorado", "Eichenwalde", "Hollywood", "Ilios", "Junkertown", "King's Row", "Lijiang Tower", "Nepal", "Numbani", "Oasis", "Rialto", "Route 66", "Watchpoint: Gibraltar", "Hanamura", "Horizon Lunar Colony", "Paris", "Temple of Anubis", "Volskaya Industries"));
-    public static final ArrayList<String> mapTypes = new ArrayList<>(Arrays.asList("Hybrid", "Control", "Escort", "Hybrid", "Hybrid", "Control", "Escort", "Hybrid", "Control", "Control", "Hybrid", "Control", "Escort", "Escort", "Escort", "Assault", "Assault", "Assault", "Assault", "Assault"));
     private JSONArray heroesJson = null;
 //    private Bundle heroesBundle = new Bundle();
     private Bundle mapsBundle = new Bundle();
@@ -336,10 +332,10 @@ public class MainActivity extends AppCompatActivity
             return new JSONObject(sb.toString());
         }
         private JSONObject getRemoteVersion() throws JSONException, IOException{
-            return getJson(MainActivity.remoteUrl + "version.json");
+            return getJson(Constants.REMOTE_URL + "version.json");
         }
         private JSONArray getHeroesList() throws JSONException, IOException{
-            JSONObject json = getJson(MainActivity.remoteUrl + "data_min.json");
+            JSONObject json = getJson(Constants.REMOTE_URL + "data_min.json");
             return json.getJSONArray("list");
         }
 

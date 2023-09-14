@@ -39,7 +39,7 @@ public class Ability extends TableLayout {
         this.setName(name);
         this.setKey(key);
         this.setDescription(description);
-        this.iconUrl = MainActivity.remoteUrl + "images/" + iconUrl;
+        this.iconUrl = Constants.REMOTE_URL + "images/" + iconUrl;
         ImageView v = (ImageView) this.findViewById(R.id.ability_icon);
         v.setVisibility(View.VISIBLE);
     }
