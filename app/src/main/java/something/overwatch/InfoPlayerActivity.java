@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -33,7 +32,6 @@ public class InfoPlayerActivity extends AppCompatActivity {
     private ProgressDialog progDialog;
     private ArrayList<String> favorites = null;
     private String query = "";
-    private String region = "";
     private Boolean isFavorited = false;
     private int y = 0;
     private WebView webView;
@@ -59,8 +57,8 @@ public class InfoPlayerActivity extends AppCompatActivity {
         handleIntent(getIntent());
 
         //get stuff from intent
-        query = getIntent().getStringExtra(SearchManager.QUERY).trim();
-        region = getIntent().getStringExtra("region");
+        query = getIntent().getStringExtra(SearchManager.QUERY);
+        query = query == null ? null : query.trim();
         favorites = getIntent().getStringArrayListExtra("favoriteslist");
         isFavorited = favorites != null && favorites.contains(query);
         //progDialog = new ProgressDialog(this);
@@ -185,7 +183,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_favorite) {
-            item.setIcon(getFavoriteIcon(favorite(query, region)));
+            item.setIcon(getFavoriteIcon(favorite()));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -254,7 +252,7 @@ public class InfoPlayerActivity extends AppCompatActivity {
     }
 
     // Favorites/Unfavorite current player the current player
-    private boolean favorite(String query, String region){
+    private boolean favorite(){
         m.reset(webView.getUrl());
         if (!m.matches()) {
             favoriteToast("Favorite failed");
