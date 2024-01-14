@@ -4,14 +4,14 @@ apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "something.overwatch"
-        minSdkVersion 19
-        targetSdkVersion 33
-        versionCode 76
-        versionName "1.19.8"
+        minSdk 19
+        targetSdk 34
+        versionCode 77
+        versionName "1.19.9"
         multiDexEnabled true
     }
     buildTypes {

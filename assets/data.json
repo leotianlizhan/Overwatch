@@ -24,7 +24,7 @@
             {"name": "Damage", "value": "0.6-2"},
             {"name": "Fire Rate", "value": "6.67 rps\n(11 pellets/shot)"},
             {"name": "Ammo", "value": "∞"},
-            {"name": "Speed", "value": "-40%"}
+            {"name": "Speed", "value": "-30%"}
           ]
         },
         {
@@ -134,9 +134,9 @@
           "description": "After charging up, Doomfist lunges forward and knocks an enemy back, dealing additional damage if they impact a wall.",
           "stats": [
             {"name": "Damage", "value": "Initial hit: 25-50\nWall slam: 10-30"},
-            {"name": "Duration", "value": "1s full-charge\n0.25s stun"},
+            {"name": "Duration", "value": "1s full-charge\n0.15s stun"},
             {"name": "Cooldown", "value": "4s"},
-            {"name": "Empowered", "value": "+50% damage\n+50% speed\n0.25-0.75s stun"}
+            {"name": "Empowered", "value": "+50% damage\n+50% speed\n0.15-0.6s stun"}
           ]
         },
         {
@@ -168,6 +168,7 @@
           "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage. Doomfist is invincible during his ultimate, and speeds up cooldown rate of his abilities by 100% while in the air. Empowers Rocket Punch on landing.",
           "stats": [
             {"name": "Damage", "value": "Inner ring: 300\nOuter ring: 15-100"},
+            {"name": "HP", "value": "+75/s"},
             {"name": "Cast Time", "value": "0.5s\n1s landing"},
             {"name": "Duration", "value": "4s"},
             {"name": "Slow Enemies", "value": "-50% for 3s"}
@@ -248,6 +249,85 @@
       ]
     },
     {
+      "name": "Mauga", "class": "Tank", 
+      "hpTotal": "650", "hpNormal": "450", "hpArmor": "200", "hpShield": "0", "speed": "5.5m/s",
+      "abilities": [
+        {
+          "name": "Berserker",
+          "key": "Passive",
+          "iconUrl": "mauga/P.webp",
+          "description": "Gain temporary health when dealing critical damage.",
+          "stats": [
+            {"name": "Overhealth", "value": "50% of critical damage"},
+            {"name": "Maximum", "value": "150 hp"},
+            {"name": "Decay", "value": "-5/s after 2s"}
+          ]
+        },
+        {
+          "name": "Incendiary Chaingun",
+          "key": "Left Click",
+          "iconUrl": "mauga/1.webp",
+          "description": "Automatic weapon that ignites enemies on repeated impacts. Can headshot.",
+          "stats": [
+            {"name": "Damage", "value": "1.2 - 4 (direct)\n45 over 3s (burn)"},
+            {"name": "Fire Rate", "value": "18 rps"},
+            {"name": "Ammo", "value": "300"},
+            {"name": "Reload", "value": "2.2s"},
+            {"name": "Speed", "value": "-15%"}
+          ]
+        },
+        {
+          "name": "Volatile Chaingun",
+          "key": "Right Click",
+          "iconUrl": "mauga/2.webp",
+          "description": "Automatic weapon that deals critical damage to burning enemies. Can headshot.",
+          "stats": [
+            {"name": "Damage", "value": "1.2 - 4"},
+            {"name": "Fire Rate", "value": "18 rps"},
+            {"name": "Ammo", "value": "300"},
+            {"name": "Reload", "value": "2.2s"},
+            {"name": "Speed", "value": "-15%"}
+          ]
+        },
+        {
+          "name": "Overrun",
+          "key": "Shift",
+          "iconUrl": "mauga/S.webp",
+          "description": "Charge forward to stomp an launch enemies. You are unstoppable while charging.",
+          "stats": [
+            {"name": "Damage", "value": "25 (bump)\n45 (outside)\n90 (center)"},
+            {"name": "Dmg. Reduction", "value": "50%"},
+            {"name": "Duration", "value": "2s charge\n0.5s CC"},
+            {"name": "Speed", "value": "+250%"},
+            {"name": "Cooldown", "value": "6s"}
+          ]
+        },
+        {
+          "name": "Cardiac Overdrive",
+          "key": "E",
+          "iconUrl": "mauga/E.webp",
+          "description": "Mauga and nearby allies take reduced damage and heal by dealing damage.",
+          "stats": [
+            {"name": "Healing", "value": "60% of damage"},
+            {"name": "Dmg. Reduction", "value": "30%"},
+            {"name": "Duration", "value": "5s"},
+            {"name": "Cooldown", "value": "12s"}
+          ]
+        },
+        {
+          "name": "Cage Fight",
+          "key": "Q",
+          "iconUrl": "mauga/Q.webp",
+          "description": "Deploy a barrier that traps yourself and enemies. Automatically reloads Mauga's Chainguns at the start of the ultimate.",
+          "stats": [
+            {"name": "HP", "value": "1500"},
+            {"name": "Ammo", "value": "Refilled"},
+            {"name": "Duration", "value": "8s"}
+          ]
+        }
+      ]
+    },
+    {
       "name": "Orisa", "class": "Tank", 
       "hpTotal": "550", "hpNormal": "275", "hpArmor": "275", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
@@ -257,7 +337,7 @@
           "iconUrl": "orisa/1.png",
           "description": "Automatic heat-based weapon. Deals more damage at closer range. ",
           "stats": [
-            {"name": "Damage", "value": "6.5-13"},
+            {"name": "Damage", "value": "13"},
             {"name": "Fire Rate", "value": "10 rps"},
             {"name": "Ammo", "value": "∞"},
             {"name": "Heat", "value": "2.5s overheat\n2s recharge"}
@@ -279,10 +359,10 @@
           "name": "Fortify",
           "key": "Shift",
           "iconUrl": "orisa/Shift.png",
-          "description": "Gain temporary health, reducing all damage taken and becoming immune to headshots as well as movement-imparing effects. While active, heat generated by your weapon is reduced.",
+          "description": "Gain temporary health, reducing all damage taken and becoming immune to critical damage like headshots as well as movement-imparing effects. While active, heat generated by your weapon is reduced.",
           "stats": [
             {"name": "Bonus HP", "value": "100"},
-            {"name": "Dmg. Reduction", "value": "50%"},
+            {"name": "Dmg. Reduction", "value": "45%"},
             {"name": "Heat", "value": "50%"},
             {"name": "Duration", "value": "4.5s"},
             {"name": "Cooldown", "value": "16.5s"}
@@ -316,7 +396,7 @@
     },
     {
       "name": "Ramattra", "class": "Tank", 
-      "hpTotal": "450", "hpNormal": "450", "hpArmor": "225 (Nemesis)", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "450", "hpNormal": "350", "hpArmor": "100 / 225 during Nemesis", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Void Accelerator",
@@ -324,7 +404,7 @@
           "iconUrl": "ramattra/1.webp",
           "description": "Fire a stream of projectiles in a fixed pattern.",
           "stats": [
-            {"name": "Damage", "value": "4.5"},
+            {"name": "Damage", "value": "5"},
             {"name": "Fire Rate", "value": "25 rps"},
             {"name": "Ammo", "value": "100"},
             {"name": "Reload", "value": "1s"}
@@ -350,7 +430,7 @@
             {"name": "Armor", "value": "+225"},
             {"name": "Movespeed", "value": "+20%"},
             {"name": "Duration", "value": "8s"},
-            {"name": "Cooldown", "value": "8s"}
+            {"name": "Cooldown", "value": "7s"}
           ]
         },
         {
@@ -473,24 +553,25 @@
           "name": "Scrap Gun",
           "key": "Left Click",
           "iconUrl": "roadhog/1.png",
-          "description": "Roadhog's Scrap Gun fires short-range blasts of shrapnel with a wide spread. Can headshot.",
+          "description": "Roadhog's Scrap Gun fires short-range blasts of pellets with a wide spread, and a shrapnel volley in the center with a smaller spread. Can headshot.",
           "stats": [
-            {"name": "Damage", "value": "1.98-6 per pellet\n49.5-150 total"},
-            {"name": "Fire Rate", "value": "1.25 rps\n(25 pellets/shot)"},
+            {"name": "Damage", "value": "1.88-6.25 per pellet\n4.5-15 per shrapnel\n48-160 total"},
+            {"name": "Fire Rate", "value": "1.25 rps\n(16 pellets/shot)\n(4 shrapnel/shot)"},
             {"name": "Ammo", "value": "6"},
             {"name": "Reload", "value": "1.75s"}
           ]
         },
         {
-          "name": "Shrapnel Ball (Alt Fire)",
-          "key": "Right Click",
-          "iconUrl": "roadhog/1.png",
-          "description": "Alternatively, it can launch a shrapnel ball (projectile) that detonates farther away, scattering metal fragments from the point of impact. Can headshot. If the shrapnel ball hits before scattering, it will only deal 50 damage and cannot headshot.",
+          "name": "Take a Breather",
+          "key": "Right Click (Hold)",
+          "iconUrl": "roadhog/2.webp",
+          "description": "Roadhog heals himself and reduces damage taken.",
           "stats": [
-            {"name": "Damage", "value": "Ball: 50\nPellet: 1.98-6"},
-            {"name": "Fire Rate", "value": "1.25 rps\n(25 pellets/shot)"},
-            {"name": "Ammo", "value": "6"},
-            {"name": "Reload", "value": "1.75s"}
+            {"name": "Dmg. Reduction", "value": "40%"},
+            {"name": "Heal", "value": "180 hp/s"},
+            {"name": "Duration", "value": "0.5-2.5s"},
+            {"name": "Recharge", "value": "10s"},
+            {"name": "Cooldown", "value": "1.5s"}
           ]
         },
         {
@@ -506,16 +587,16 @@
           ]
         },
         {
-          "name": "Take a Breather",
+          "name": "Pig Pen",
           "key": "E",
-          "iconUrl": "roadhog/E.png",
-          "description": "Roadhog restores a chunk of his health over a brief period of time. Amplifies healing received for a short duration if Take a Breather finishes successfully.",
+          "iconUrl": "roadhog/E.webp",
+          "description": "Launch a trap that slows and damages nearby enemies.",
           "stats": [
-            {"name": "Dmg. Reduction", "value": "50%"},
-            {"name": "Heal", "value": "350 hp\n+50% for 2.5s"},
-            {"name": "Cast Time", "value": "0.5s"},
-            {"name": "Duration", "value": "1.5s"},
-            {"name": "Cooldown", "value": "8s"}
+            {"name": "Damage", "value": "60 initial\n30 per second"},
+            {"name": "Slow", "value": "-40%"},
+            {"name": "HP", "value": "100"},
+            {"name": "Duration", "value": "1s (delay)\n3s (triggered)"},
+            {"name": "Cooldown", "value": "12s"}
           ]
         },
         {
@@ -556,7 +637,7 @@
           "description": "Sigma propels a floating barrier to a location of his choosing. He can dismiss the barrier at any time.",
           "stats": [
             {"name": "Barrier", "value": "700 hp"},
-            {"name": "Regen", "value": "100 hp/s after\n2s not in use"},
+            {"name": "Regen", "value": "85 hp/s after\n2s not in use"},
             {"name": "Cooldown", "value": "2s (recall)\n5s (destroyed)"}
           ]
         },
@@ -607,7 +688,7 @@
           "name": "Tesla Cannon",
           "key": "Left Click",
           "iconUrl": "winston/1.png",
-          "description": "Winston’s weapon fires a short-range electric barrage for as long as he holds down the trigger. Cannot headshot.",
+          "description": "Winston’s weapon fires a short-range electric barrage for as long as he holds down the trigger. Ignores armor damage reduction. Cannot headshot.",
           "stats": [
             {"name": "Damage", "value": "3"},
             {"name": "Fire Rate", "value": "20 rps"},
@@ -619,7 +700,7 @@
           "name": "Tesla Cannon (Alt Fire)",
           "key": "Right Click (Hold)",
           "iconUrl": "winston/1.png",
-          "description": "Winston's weapon charges up then fires a medium-range electric beam. Cannot headshot.",
+          "description": "Winston's weapon charges up then fires a medium-range electric beam. Ignores armor damage reduction. Cannot headshot.",
           "stats": [
             {"name": "Damage", "value": "15 - 50"},
             {"name": "Charge Time", "value": "1s to full"},
@@ -799,7 +880,7 @@
           "iconUrl": "zarya/E.png",
           "description": "Zarya surrounds one of her teammates with an energy barrier that simultaneously absorbs fire and boosts the power of her Particle Cannon. Functions identical to Particle Barrier.",
           "stats": [
-            {"name": "Barrier", "value": "225 hp"},
+            {"name": "Barrier", "value": "200 hp"},
             {"name": "Duration", "value": "2s"},
             {"name": "Cooldown", "value": "8s"},
             {"name": "Charges", "value": "2 (shared)"}
@@ -939,9 +1020,8 @@
           "iconUrl": "bastion/Shift.png",
           "description": "Bastion transforms between its two primary combat modes to adapt to changing battlefield conditions.",
           "stats": [
-            {"name": "Healing", "value": "50 armor (into assault)"},
             {"name": "Cast Time", "value": "1s (into assault)\n0.5s (into recon)"},
-            {"name": "Cooldown", "value": "10s"}
+            {"name": "Cooldown", "value": "12s"}
           ]
         },
         {
@@ -991,7 +1071,7 @@
           "iconUrl": "mccree/Shift.png",
           "description": "Cassidy dives in the direction he’s moving, effortlessly reloading his Peacekeeper in the process.",
           "stats": [
-            {"name": "Dmg. reduction", "value": "50%"},
+            {"name": "Dmg. reduction", "value": "75%"},
             {"name": "Duration", "value": "0.4s"},
             {"name": "Cooldown", "value": "6s"}
             
@@ -1006,7 +1086,7 @@
             {"name": "Damage", "value": "80 (stickied)\n18-70 (only splash)"},
             {"name": "Slow", "value": "-25%"},
             {"name": "Duration", "value": "1.25s stick"},
-            {"name": "Cooldown", "value": "10s"}
+            {"name": "Cooldown", "value": "12s"}
             
           ]
         },
@@ -1314,27 +1394,16 @@
       "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
-          "name": "Deep Chill",
-          "key": "Passive",
-          "iconUrl": "passive_default.png",
-          "description": "Deal continuous damage with primary fire to significantly slow an enemy. Secondary fire or quick melee deals additional damage to affected enemies.",
-          "stats": [
-            {"name": "Damage", "value": "40"},
-            {"name": "Duration", "value": "1.5s"},
-            {"name": "Slow", "value": "-65%"}
-          ]
-        },
-        {
           "name": "Endothermic Blaster",
           "key": "Left Click",
           "iconUrl": "mei/1.png",
           "description": "Mei’s blaster unleashes a concentrated, short-range stream of frost that damages and slows enemies.",
           "stats": [
-            {"name": "DPS", "value": "70"},
+            {"name": "DPS", "value": "100"},
             {"name": "Fire Rate", "value": "20 rps"},
-            {"name": "Ammo", "value": "150"},
+            {"name": "Ammo", "value": "120"},
             {"name": "Reload", "value": "1.5s"},
-            {"name": "Slow", "value": "-30% to -40%\n0.6s duration"}
+            {"name": "Slow", "value": "-30%\n0.6s duration"}
           ]
         },
         {
@@ -1346,7 +1415,7 @@
             {"name": "Damage", "value": "75"},
             {"name": "Delay", "value": "0.4s"},
             {"name": "Fire Rate", "value": "1.25 rps"},
-            {"name": "Ammo", "value": "150\n-10/shot"},
+            {"name": "Ammo", "value": "120\n-10/shot"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -1538,7 +1607,7 @@
           "stats": [
             {"name": "Damage", "value": "30-130\n1.5x headshot"},
             {"name": "Type", "value": "Hitscan"},
-            {"name": "Energy Decay", "value": "after 5s"}
+            {"name": "Energy Decay", "value": "after 5s\nminimum 25"}
           ]
         },
         {
@@ -1621,7 +1690,7 @@
             {"name": "Heal Rate", "value": "40 hp/s"},
             {"name": "Cast Time", "value": "0.54s"},
             {"name": "Duration", "value": "5s"},
-            {"name": "Cooldown", "value": "15s"}
+            {"name": "Cooldown", "value": "18s"}
           ]
         },
         {
@@ -1642,13 +1711,14 @@
       "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
-          "name": "Opportunist",
+          "name": "Stealth",
           "key": "Passive",
-          "iconUrl": "sombra/Passive.png",
-          "description": "Sombra deals more damage to hacked targets and detects critically injured enemies through walls. ",
+          "iconUrl": "sombra/Passive.webp",
+          "description": "When out of combat, Sombra becomes invisible and move faster. Attacking, using offensive abilities, or taking damage disables her camouflage. Sombra will also be detected by nearby enemies and abilities such as Sonic Arrow and Infra-Sight. Sombra cannot capture objectives while invisible. ",
           "stats": [
-            {"name": "Dmg. Boost", "value": "+25%"},
-            {"name": "Wall Hack", "value": "<50% HP"}
+            {"name": "Cast Time", "value": "0.25s fade out\n0.375s fade in"},
+            {"name": "Speed", "value": "+45%"},
+            {"name": "Cooldown", "value": "3.5s out of combat"}
           ]
         },
         {
@@ -1657,10 +1727,10 @@
           "iconUrl": "sombra/1.png",
           "description": "Sombra’s fully-automatic machine pistol fires in a short-range spread.",
           "stats": [
-            {"name": "Damage", "value": "2.25-7.5"},
+            {"name": "Damage", "value": "2.4-8"},
             {"name": "Fire Rate (rps)", "value": "20"},
             {"name": "Ammo", "value": "60"},
-            {"name": "Reload", "value": "1.5s"}
+            {"name": "Reload", "value": "1.2s"}
           ]
         },
         {
@@ -1669,21 +1739,20 @@
           "iconUrl": "sombra/2.png",
           "description": "Hacking an enemy will interrupt any channeled effects (including ultimates) and prevent the activation of abilities, including a Hero's Passive. Hacked enemies also have their health bar and ultimate status revealed for a longer duration.\nHacked health packs respawn much faster (small health packs in 2.5 seconds, large health packs in 3.75 seconds), and can't be picked up by enemies.",
           "stats": [
-            {"name": "Cast Time", "value": "0.85s\n(interruptible)"},
+            {"name": "Cast Time", "value": "0.65s\n(interruptible)"},
             {"name": "Silence", "value": "1.5s"},
             {"name": "Hack Duration", "value": "Hero: 8s\nHealth Packs: 45s\nTurrets: 10s"},
-            {"name": "Cooldown", "value": "4s"}
+            {"name": "Cooldown", "value": "6s\n3s (interrupted)"}
           ]
         },
         {
-          "name": "Stealth",
+          "name": "Virus",
           "key": "Shift",
-          "iconUrl": "sombra/Shift.png",
-          "description": "Sombra becomes invisible, during which her speed is boosted considerably. Attacking, using offensive abilities, or taking damage disables her camouflage. Sombra will also be detected by nearby enemies and abilities such as Sonic Arrow and Infra-Sight. Sombra cannot capture objectives while invisible. ",
+          "iconUrl": "sombra/Shift.webp",
+          "description": "Infect enemies with a projectile that deals damage over time. Virus damages hacked targets at a faster rate. ",
           "stats": [
-            {"name": "Cast Time", "value": "0.75s fade out\n0.375s fade in"},
-            {"name": "Speed", "value": "+60%"},
-            {"name": "Duration", "value": "∞"},
+            {"name": "Impact dmg.", "value": "10\n20 (hacked)"},
+            {"name": "DoT", "value": "100 over 4s\n100 over 2s (hacked)"},
             {"name": "Cooldown", "value": "6s"}
           ]
         },
@@ -1691,11 +1760,11 @@
           "name": "Translocator",
           "key": "E",
           "iconUrl": "sombra/E.png",
-          "description": "Sombra tosses out a translocator beacon. She can instantly return to the beacon’s location while it is active (including when it’s in mid-flight).",
+          "description": "Sombra tosses out a translocator beacon and teleport to it. Stealth cooldown is reduced after teleporting.",
           "stats": [
-            {"name": "HP", "value": "5"},
-            {"name": "Duration", "value": "∞"},
-            {"name": "Cooldown", "value": "6s"}
+            {"name": "Teleport Delay", "value": "0.25s"},
+            {"name": "Invulnerability", "value": "0.4s"},
+            {"name": "Cooldown", "value": "5s"}
           ]
         },
         {
@@ -1705,7 +1774,8 @@
           "iconUrl": "sombra/Q.png",
           "description": "Sombra discharges electromagnetic energy in a wide radius, destroying enemy barriers and shields and hacking all opponents caught in the blast.",
           "stats": [
-            {"name": "Damage", "value": "40% current health\n100% of barriers"},
+            {"name": "Damage", "value": "25% current health\n100% of barriers"},
+            {"name": "Silence", "value": "3s"},
             {"name": "Cast Time", "value": "0.35s"},
             {"name": "Duration", "value": "Same as Hack"}
           ]
@@ -1714,7 +1784,7 @@
     },
     {
       "name": "Symmetra", "class": "Damage", 
-      "hpTotal": "225", "hpNormal": "100", "hpArmor": "0", "hpShield": "125", "speed": "5.5m/s",
+      "hpTotal": "200", "hpNormal": "100", "hpArmor": "0", "hpShield": "100", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Photon Projector",
@@ -1795,7 +1865,7 @@
           "description": "Torbjörn fires a single arcing rivet. Turret targets enemy hit by primary fire. Can headshot.",
           "stats": [
             {"name": "Damage", "value": "70"},
-            {"name": "Fire Rate (rps)", "value": "2.1"},
+            {"name": "Fire Rate (rps)", "value": "1.96"},
             {"name": "Ammo", "value": "18"},
             {"name": "Reload", "value": "2s"}
           ]
@@ -1875,7 +1945,7 @@
           "iconUrl": "tracer/1.png",
           "description": "Tracer rapid-fires both of her pistols.",
           "stats": [
-            {"name": "Damage", "value": "1.5-5.5"},
+            {"name": "Damage", "value": "1.8-6"},
             {"name": "Fire Rate (rps)", "value": "40"},
             {"name": "Ammo", "value": "40"},
             {"name": "Reload", "value": "1s"}
@@ -2031,8 +2101,8 @@
           "stats": [
             {"name": "Enemies", "value": "60 damage\nblock healing"},
             {"name": "Allies", "value": "+60 hp\n+50% healing"},
-            {"name": "Duration", "value": "3.5s"},
-            {"name": "Cooldown", "value": "10s"}
+            {"name": "Duration", "value": "3s"},
+            {"name": "Cooldown", "value": "12s"}
           ]
         },
         {
@@ -2071,7 +2141,7 @@
           "stats": [
             {"name": "Damage", "value": "7.2-24 / round"},
             {"name": "Fire Rate", "value": "3 rounds / 0.6s"},
-            {"name": "Ammo", "value": "45"},
+            {"name": "Ammo", "value": "36"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -2107,10 +2177,10 @@
           "iconUrl": "baptiste/E.webp",
           "description": "Baptiste uses a device to create a field that prevents allies from dying (any ally inside the field become immune to death, and their health cannot fall below a certain amount). The generator can be destroyed.",
           "stats": [
-            {"name": "Health", "value": "150"},
+            {"name": "Health", "value": "125"},
             {"name": "Minimum HP", "value": "25%"},
             {"name": "Duration", "value": "5s"},
-            {"name": "Cooldown", "value": "23s"}
+            {"name": "Cooldown", "value": "25s"}
           ]
         },
         {
@@ -2225,7 +2295,7 @@
           "stats": [
             {"name": "Damage", "value": "22.5-75 (max charge)\n7.5-25 (min charge)"},
             {"name": "Fire Rate", "value": "1 (max charge)\n1.7 (min charge)"},
-            {"name": "Ammo", "value": "14"},
+            {"name": "Ammo", "value": "16"},
             {"name": "Reload", "value": "2s"}
           ]
         },
@@ -2235,7 +2305,7 @@
           "iconUrl": "illari/1.webp",
           "description": "Medium range healing beam that consumes solar energy.",
           "stats": [
-            {"name": "Heal Rate", "value": "120 hp/s"},
+            {"name": "Heal Rate", "value": "105 hp/s"},
             {"name": "Recharge", "value": "2.9s to full"},
             {"name": "Cooldown", "value": "3.36s when depleted"}
           ]
@@ -2257,10 +2327,10 @@
           "iconUrl": "illari/E.webp",
           "description": "Deploy a pylon that heals allies.",
           "stats": [
-            {"name": "HP", "value": "75 health\n50 shields"},
+            {"name": "HP", "value": "50 health\n50 shields"},
             {"name": "Heal", "value": "30 over 0.45s"},
             {"name": "Fire Rate", "value": "1.25"},
-            {"name": "Cooldown", "value": "8s\n12s under attack"}
+            {"name": "Cooldown", "value": "8s\n15s under attack"}
           ]
         },
         {
@@ -2270,6 +2340,7 @@
           "description": "Fire an explosive ball of solar energy. Enemies hit are slowed and explode after taking significant damage.",
           "stats": [
             {"name": "Movespeed", "value": "-40% slow"},
+            {"name": "Secondary Ammo", "value": "Refilled"},
             {"name": "Damage", "value": "5 (impact)\n50 (splash)\n120 (sunstruck)"},
             {"name": "Duration", "value": "6s"}
           ]
@@ -2329,10 +2400,10 @@
           "iconUrl": "kiriko/E.png",
           "description": "Throw a protective charm to make allies become briefly invulnerable and cleansed of most negative effects.",
           "stats": [
-            {"name": "Heal", "value": "40 (no cleanse)\n70 (cleanse)"},
+            {"name": "Heal", "value": "80 (no cleanse)\n110 (cleanse)"},
             {"name": "Cast Time", "value": "0.1s"},
-            {"name": "Duration", "value": "0.85s"},
-            {"name": "Cooldown", "value": "14s"}
+            {"name": "Duration", "value": "0.65s"},
+            {"name": "Cooldown", "value": "15s"}
           ]
         },
         {
@@ -2370,10 +2441,10 @@
           "iconUrl": "lifeweaver/1.webp",
           "description": "Hold to charge a healing burst. Release to heal a targeted ally. Automatically reload after a 2.5 seconds when inactive.",
           "stats": [
-            {"name": "Heal", "value": "10-75"},
+            {"name": "Heal", "value": "10-70"},
             {"name": "Movespeed", "value": "-25% after 1s"},
             {"name": "Fire Rate", "value": "1s charge\n0.3s recovery"},
-            {"name": "Ammo", "value": "20"},
+            {"name": "Ammo", "value": "16"},
             {"name": "Reload", "value": "1.5s"}
           ]
         },
@@ -2407,7 +2478,7 @@
           "description": "Pull an ally to your location, protecting them as they travel.",
           "stats": [
             {"name": "Heal", "value": "50"},
-            {"name": "Cooldown", "value": "16s"}
+            {"name": "Cooldown", "value": "19s"}
           ]
         },
         {
@@ -2650,7 +2721,7 @@
     },
     {
       "name": "Zenyatta", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "50", "hpArmor": "0", "hpShield": "150", "speed": "5.5m/s",
+      "hpTotal": "225", "hpNormal": "75", "hpArmor": "0", "hpShield": "150", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Snap Kick",
@@ -2693,9 +2764,8 @@
           "description": "Zenyatta casts an orb over the shoulder of a targeted ally. So long as Zenyatta maintains line of sight, the orb slowly restores health to his ally. Only one ally can receive the orb's benefit at a time.",
           "stats": [
             {"name": "Healing", "value": "30 hp/s"},
-            {"name": "Range", "value": "40m"},
             {"name": "Ammo", "value": "One active"},
-            {"name": "Duration", "value": "3s (out of sight)"}
+            {"name": "Duration", "value": "5s (out of sight)"}
           ]
         },
         {
@@ -2705,9 +2775,9 @@
           "description": "Attaching the orb of discord to an opponent amplifies the amount of damage they receive for as long as Zenyatta maintains line of sight. Only one opponent can suffer the orb's effects at a time.",
           "stats": [
             {"name": "Damage", "value": "+25%"},
-            {"name": "Range", "value": "30m"},
             {"name": "Ammo", "value": "One active"},
-            {"name": "Duration", "value": "1.5s (out of sight)"}
+            {"name": "Duration", "value": "1.5s (out of sight)"},
+            {"name": "Cooldown", "value": "7s (same target)"}
           ]
         },
         {
