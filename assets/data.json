@@ -2,7 +2,7 @@
   "list": [
     {
       "name": "D.va", "class": "Tank", 
-      "hpTotal": "650 + 150 (Pilot)", "hpNormal": "350", "hpArmor": "300", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "725 + 175 (Pilot)", "hpNormal": "350", "hpArmor": "375", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Eject",
@@ -33,7 +33,7 @@
           "iconUrl": "dva/2.png",
           "description": "D.Va can activate this forward-facing targeting array to shoot incoming projectiles out of the air. Uses a resource meter that recharges automatically when not in use.",
           "stats": [
-            {"name": "Duration", "value": "up to 3s"},
+            {"name": "Duration", "value": "up to 3.5s"},
             {"name": "Recharge", "value": "16%/s\n0.75s delay"},
             {"name": "Cooldown", "value": "1s"},
             {"name": "Range", "value": "10m"}
@@ -45,7 +45,7 @@
           "iconUrl": "dva/Shift.png",
           "description": "D.Va’s mech launches into the air, her momentum carrying her forward. She can turn and change directions or barrel through her enemies, knocking them back.",
           "stats": [
-            {"name": "Damage", "value": "15"},
+            {"name": "Damage", "value": "25"},
             {"name": "Speed", "value": "+118%"},
             {"name": "Duration", "value": "2s"},
             {"name": "Cooldown", "value": "3.5s"}
@@ -57,7 +57,7 @@
           "iconUrl": "dva/E.png",
           "description": "D.Va fires a barrage of small rockets that detonate on impact, dealing splash damage to both herself and her enemies in a limited radius around each explosion",
           "stats": [
-            {"name": "Damage", "value": "2-7 (direct)\n1-4 (splash)"},
+            {"name": "Damage", "value": "8.5 (direct)\n1-5.5 (splash)"},
             {"name": "# of Missles", "value": "18"},
             {"name": "Duration", "value": "0.256s"},
             {"name": "Cooldown", "value": "7s"}
@@ -68,9 +68,9 @@
           "key": "Q",
           "ultcharge": "1375",
           "iconUrl": "dva/Q.png",
-          "description": "D.Va ejects from her mech and sets its reactor to explode, dealing massive damage to nearby opponents.",
+          "description": "D.Va ejects from her mech and sets its reactor to explode, dealing massive damage to nearby opponents. Damage falls off the further you are from the center.",
           "stats": [
-            {"name": "Area Radius", "value": "20m"},
+            {"name": "Area Radius", "value": "max. dmg. 6m\ntotal 20m"},
             {"name": "Damage", "value": "1000"},
             {"name": "Cast Time", "value": "3s"}
           ]
@@ -102,7 +102,7 @@
     },
     {
       "name": "Doomfist", "class": "Tank", 
-      "hpTotal": "450", "hpNormal": "450", "hpArmor": "0", "hpShield": "150 (max)", "speed": "5.5m/s",
+      "hpTotal": "525", "hpNormal": "525", "hpArmor": "0", "hpShield": "150 (max)", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "The Best Defense...",
@@ -111,8 +111,8 @@
           "description": "Doomfist generates temporary personal shields when he deals ability damage.",
           "stats": [
             {"name": "Maximum", "value": "200 shield"},
-            {"name": "Shield", "value": "+ 35 / hit\n+ 75 / hit (ult)"},
-            {"name": "Shield Decay", "value": "-3 shield/s"}
+            {"name": "Shield", "value": "+ 40 / hit\n+ 75 / hit (ult)"},
+            {"name": "Shield Decay", "value": "-3 shield/s\nafter 3s"}
           ]
         },
         {
@@ -133,7 +133,7 @@
           "iconUrl": "doomfist/2.png",
           "description": "After charging up, Doomfist lunges forward and knocks an enemy back, dealing additional damage if they impact a wall.",
           "stats": [
-            {"name": "Damage", "value": "Initial hit: 25-50\nWall slam: 10-30"},
+            {"name": "Damage", "value": "Initial hit: 25-75\nWall slam: 10-40"},
             {"name": "Duration", "value": "1s full-charge\n0.15s stun"},
             {"name": "Cooldown", "value": "4s"},
             {"name": "Empowered", "value": "+50% damage\n+50% speed\n0.15-0.6s stun"}
@@ -167,7 +167,7 @@
           "iconUrl": "doomfist/Meteor_Strike.png",
           "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage. Doomfist is invincible during his ultimate, and speeds up cooldown rate of his abilities by 100% while in the air. Empowers Rocket Punch on landing.",
           "stats": [
-            {"name": "Damage", "value": "Inner ring: 300\nOuter ring: 15-100"},
+            {"name": "Damage", "value": "Inner ring: 300\nOuter ring: 50-100"},
             {"name": "HP", "value": "+75/s"},
             {"name": "Cast Time", "value": "0.5s\n1s landing"},
             {"name": "Duration", "value": "4s"},
@@ -178,7 +178,7 @@
     },
     {
       "name": "Junker Queen", "class": "Tank", 
-      "hpTotal": "450", "hpNormal": "450", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "525", "hpNormal": "525", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Adrenaline Rush",
@@ -186,7 +186,7 @@
           "iconUrl": "junkerqueen/Passive.png",
           "description": "All wound damage that Junker Queen does causes her to heal herself at an increased rate. Adrenaline Rush instantly heals for the remaining wound damage when an enemy dies with wounds on them.",
           "stats": [
-            {"name": "Healing", "value": "200% of wound damage"}
+            {"name": "Healing", "value": "250% of wound damage"}
           ]
         },
         {
@@ -218,10 +218,10 @@
           "iconUrl": "junkerqueen/Shift.png",
           "description": "Grants temporary health and movement speed to yourself and nearby allies.",
           "stats": [
-            {"name": "Health", "value": "+150 (self)\n+50 (ally)"},
+            {"name": "Health", "value": "+175 (self)\n+50 (ally)"},
             {"name": "Speed", "value": "+30%"},
             {"name": "Duration", "value": "5s (self)\n3s (ally)"},
-            {"name": "Cooldown", "value": "14s"}
+            {"name": "Cooldown", "value": "12s"}
           ]
         },
         {
@@ -230,7 +230,7 @@
           "iconUrl": "junkerqueen/E.png",
           "description": "Swing your axe to wound all enemies in front of you, dealing damage over time.",
           "stats": [
-            {"name": "Damage", "value": "Impact: 90\nWound: 40 over 3s"},
+            {"name": "Damage", "value": "Impact: 105\nWound: 40 over 3s"},
             {"name": "Cast Time", "value": "1s"},
             {"name": "Cooldown", "value": "8s\n-2s per hit"}
           ]
@@ -243,14 +243,15 @@
           "description": "Charge forward. Wounds enemies, dealing damage over time and preventing them from being healed.",
           "stats": [
             {"name": "Impact dmg.", "value": "40"},
-            {"name": "Wound dmg.", "value": "60 over 4.5s"}
+            {"name": "Wound dmg.", "value": "90 over 4.5s"},
+            {"name": "Cast time", "value": "0.5s"}
           ]
         }
       ]
     },
     {
       "name": "Mauga", "class": "Tank", 
-      "hpTotal": "650", "hpNormal": "450", "hpArmor": "200", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "725", "hpNormal": "525", "hpArmor": "200", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Berserker",
@@ -295,7 +296,7 @@
           "iconUrl": "mauga/S.webp",
           "description": "Charge forward to stomp an launch enemies. You are unstoppable while charging.",
           "stats": [
-            {"name": "Damage", "value": "25 (bump)\n45 (outside)\n90 (center)"},
+            {"name": "Damage", "value": "30 (bump)\n75 (outside)\n150 (center)"},
             {"name": "Dmg. Reduction", "value": "50%"},
             {"name": "Duration", "value": "2s charge\n0.5s CC"},
             {"name": "Speed", "value": "+250%"},
@@ -306,11 +307,11 @@
           "name": "Cardiac Overdrive",
           "key": "E",
           "iconUrl": "mauga/E.webp",
-          "description": "Mauga and nearby allies take reduced damage and heal by dealing damage.",
+          "description": "Mauga and nearby allies take reduced damage and heal by dealing damage. Allies receive only half the effect.",
           "stats": [
-            {"name": "Healing", "value": "60% of damage"},
-            {"name": "Dmg. Reduction", "value": "30%"},
-            {"name": "Duration", "value": "5s"},
+            {"name": "Healing", "value": "100% of damage"},
+            {"name": "Dmg. Reduction", "value": "40%"},
+            {"name": "Duration", "value": "3s"},
             {"name": "Cooldown", "value": "12s"}
           ]
         },
@@ -329,7 +330,7 @@
     },
     {
       "name": "Orisa", "class": "Tank", 
-      "hpTotal": "550", "hpNormal": "275", "hpArmor": "275", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "625", "hpNormal": "275", "hpArmor": "350", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Fusion Driver",
@@ -361,10 +362,10 @@
           "iconUrl": "orisa/Shift.png",
           "description": "Gain temporary health, reducing all damage taken and becoming immune to critical damage like headshots as well as movement-imparing effects. While active, heat generated by your weapon is reduced.",
           "stats": [
-            {"name": "Bonus HP", "value": "100"},
-            {"name": "Dmg. Reduction", "value": "45%"},
+            {"name": "Defense", "value": "100 bonus hp\n45% dmg. reduction"},
             {"name": "Heat", "value": "50%"},
-            {"name": "Duration", "value": "4.5s"},
+            {"name": "Duration", "value": "4s"},
+            {"name": "Speed", "value": "-20%"},
             {"name": "Cooldown", "value": "16.5s"}
           ]
         },
@@ -377,7 +378,7 @@
             {"name": "Damage", "value": "100"},
             {"name": "Mov. Speed", "value": "+50% during spin\n+20% for 2s after"},
             {"name": "Duration", "value": "1.75s"},
-            {"name": "Cooldown", "value": "7s"}
+            {"name": "Cooldown", "value": "8s"}
           ]
         },
         {
@@ -386,17 +387,17 @@
           "iconUrl": "orisa/Q.png",
           "description": "Sweep in enemies and anchor down, gaining the effects of Fortify and charging up a surge of damage. Press again to unleash the surge early.",
           "stats": [
-            {"name": "Bonus HP", "value": "125"},
-            {"name": "Damage", "value": "15/s (charging)\n60-500 (surge)"},
+            {"name": "Bonus HP", "value": "100"},
+            {"name": "Damage", "value": "19.5/s (charging)\n72-500 (surge)"},
             {"name": "Slow", "value": "-30%"},
-            {"name": "Cast Time", "value": "1-4s (charging)\n0.5s (unleashing)"}
+            {"name": "Cast Time", "value": "0.75-4s (charging)\n0.5s (unleashing)"}
           ]
         }
       ]
     },
     {
       "name": "Ramattra", "class": "Tank", 
-      "hpTotal": "450", "hpNormal": "350", "hpArmor": "100 / 225 during Nemesis", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "475", "hpNormal": "400", "hpArmor": "75 / 300 during Nemesis", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Void Accelerator",
@@ -427,10 +428,10 @@
           "iconUrl": "ramattra/S.webp",
           "description": "Transform into Nemesis Form, changing your attacks and gaining bonus armor.",
           "stats": [
-            {"name": "Armor", "value": "+225"},
+            {"name": "Armor", "value": "+300"},
             {"name": "Movespeed", "value": "+20%"},
             {"name": "Duration", "value": "8s"},
-            {"name": "Cooldown", "value": "7s"}
+            {"name": "Cooldown", "value": "8s"}
           ]
         },
         {
@@ -439,7 +440,7 @@
           "iconUrl": "ramattra/3.webp",
           "description": "Punch forward, creating a wave of energy that pierces all enemies and barriers in its path.",
           "stats": [
-            {"name": "Damage", "value": "60"},
+            {"name": "Damage", "value": "65"},
             {"name": "Fire Rate", "value": "1.67 rps"},
             {"name": "Ammo", "value": "∞"}
           ]
@@ -460,11 +461,11 @@
           "iconUrl": "ramattra/E.webp",
           "description": "Fire a nano ball, which explodes when it hits the ground, spreading a damaging field. Affected enemies are slowed and pulled downward.",
           "stats": [
-            {"name": "Damage", "value": "15 per second"},
+            {"name": "Damage", "value": "23.3 per second"},
             {"name": "Mov. speed", "value": "-40%"},
             {"name": "Gravity", "value": "+100%"},
             {"name": "Duration", "value": "3s"},
-            {"name": "Cooldown", "value": "12s"}
+            {"name": "Cooldown", "value": "11s"}
           ]
         },
         {
@@ -481,7 +482,7 @@
     },
     {
       "name": "Reinhardt", "class": "Tank", 
-      "hpTotal": "600", "hpNormal": "350", "hpArmor": "250", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "700", "hpNormal": "400", "hpArmor": "300", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Rocket Hammer",
@@ -489,7 +490,7 @@
           "iconUrl": "reinhardt/1.png",
           "description": "Reinhardt’s Rocket Hammer is an exemplary melee weapon, able to deal punishing damage in a wide arc with every swing. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "85"},
+            {"name": "Damage", "value": "100"},
             {"name": "Fire Rate", "value": "1.11 swing/s"},
             {"name": "Range", "value": "5m"}
           ]
@@ -500,8 +501,8 @@
           "iconUrl": "reinhardt/2.png",
           "description": "Reinhardt projects a broad, forward-facing energy shield, which can absorb substantial damage before it is destroyed. Though Reinhardt can protect himself and his companions behind the shield, he cannot attack while sustaining it.",
           "stats": [
-            {"name": "Shield HP", "value": "1400"},
-            {"name": "Shield Regen", "value": "144 hp/s after\n2s not in use"},
+            {"name": "Shield HP", "value": "1600"},
+            {"name": "Shield Regen", "value": "160 hp/s after\n2s not in use"},
             {"name": "Speed", "value": "70%"},
             {"name": "Cooldown", "value": "5s if broken"}
           ]
@@ -512,7 +513,7 @@
           "iconUrl": "reinhardt/Shift.png",
           "description": "Reinhardt propels himself forwards at significant speed but with reduced ability to turn. Charge ends after a period of time or when Reinhardt collides with a solid surface. The first enemy Reinhardt collides with during his charge is \"pinned\" to Reinhardt, and is dealt heavy damage if Reinhardt then impacts a solid surface. All other enemies are knocked away from him.",
           "stats": [
-            {"name": "Damage", "value": "Bump: 50\nPinned: 225\nPin runs out: 0"},
+            {"name": "Damage", "value": "Bump: 50\nPinned: 300\nPin runs out: 0"},
             {"name": "Speed", "value": "300%\n(16.66m/s)"},
             {"name": "Cast Time", "value": "0.6s"},
             {"name": "Duration", "value": "3s"},
@@ -525,7 +526,7 @@
           "iconUrl": "reinhardt/E.png",
           "description": "By whipping his Rocket Hammer forward, Reinhardt slings a flaming projectile which pierces and damages any enemies it touches.",
           "stats": [
-            {"name": "Damage", "value": "100"},
+            {"name": "Damage", "value": "120"},
             {"name": "Cast Time", "value": "0.5s"},
             {"name": "Charges", "value": "2"},
             {"name": "Cooldown", "value": "6s"}
@@ -538,16 +539,16 @@
           "description": "Reinhardt forcefully slams his rocket hammer into the ground, knocking down and damaging all enemies in front of him.",
           "stats": [
             {"name": "Damage", "value": "50\n+120 when <1.75m"},
-            {"name": "Stun", "value": "2.75s"},
+            {"name": "Stun", "value": "3s"},
             {"name": "Cast Time", "value": "0.45s"},
-            {"name": "Range", "value": "20m"}
+            {"name": "Range", "value": "25m"}
           ]
         }
       ]
     },
     {
       "name": "Roadhog", "class": "Tank", 
-      "hpTotal": "700", "hpNormal": "700", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "750", "hpNormal": "750", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Scrap Gun",
@@ -568,10 +569,10 @@
           "description": "Roadhog heals himself and reduces damage taken.",
           "stats": [
             {"name": "Dmg. Reduction", "value": "40%"},
-            {"name": "Heal", "value": "180 hp/s"},
+            {"name": "Heal", "value": "160 hp/s"},
             {"name": "Duration", "value": "0.5-2.5s"},
-            {"name": "Recharge", "value": "10s"},
-            {"name": "Cooldown", "value": "1.5s"}
+            {"name": "Recharge", "value": "12.5s"},
+            {"name": "Cooldown", "value": "1.25s"}
           ]
         },
         {
@@ -592,7 +593,7 @@
           "iconUrl": "roadhog/E.webp",
           "description": "Launch a trap that slows and damages nearby enemies.",
           "stats": [
-            {"name": "Damage", "value": "60 initial\n30 per second"},
+            {"name": "Damage", "value": "60 initial\n45 per second"},
             {"name": "Slow", "value": "-40%"},
             {"name": "HP", "value": "100"},
             {"name": "Duration", "value": "1s (delay)\n3s (triggered)"},
@@ -605,7 +606,7 @@
           "iconUrl": "roadhog/Q.png",
           "description": "After cramming a top-loader onto his Scrap Gun, Roadhog pours in ammo. For a short time, he can crank out a stream of shrapnel that knocks back enemies. Can headshot.",
           "stats": [
-            {"name": "Damage", "value": "6720 total"},
+            {"name": "Damage", "value": "5760 total"},
             {"name": "Cast Time", "value": "0.5s"},
             {"name": "Duration", "value": "8s"},
             {"name": "Speed", "value": "-25%"}
@@ -615,7 +616,7 @@
     },
     {
       "name": "Sigma", "class": "Tank", 
-      "hpTotal": "550", "hpNormal": "350", "hpArmor": "0", "hpShield": "200", "speed": "5.5m/s",
+      "hpTotal": "625", "hpNormal": "350", "hpArmor": "0", "hpShield": "275", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Hyperspheres",
@@ -659,7 +660,7 @@
           "iconUrl": "sigma/E.png",
           "description": "Sigma gathers a mass of debris and flings it at an enemy to knock them down.",
           "stats": [
-            {"name": "Damage", "value": "direct: 80\nsplash: 40\nself: 20"},
+            {"name": "Damage", "value": "direct: 120\nsplash: 40\nself: 20"},
             {"name": "Knockback", "value": "4m\n2m\n2m"},
             {"name": "Cast", "value": "0.64s"},
             {"name": "Duration", "value": "1.1s\n(knockdown)"},
@@ -682,7 +683,7 @@
     },
     {
       "name": "Winston", "class": "Tank", 
-      "hpTotal": "550", "hpNormal": "350", "hpArmor": "200", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "625", "hpNormal": "375", "hpArmor": "250", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Tesla Cannon",
@@ -690,7 +691,7 @@
           "iconUrl": "winston/1.png",
           "description": "Winston’s weapon fires a short-range electric barrage for as long as he holds down the trigger. Ignores armor damage reduction. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "3"},
+            {"name": "Damage", "value": "3.75"},
             {"name": "Fire Rate", "value": "20 rps"},
             {"name": "Ammo", "value": "100"},
             {"name": "Reload", "value": "1.7s"}
@@ -703,7 +704,7 @@
           "description": "Winston's weapon charges up then fires a medium-range electric beam. Ignores armor damage reduction. Cannot headshot.",
           "stats": [
             {"name": "Damage", "value": "15 - 50"},
-            {"name": "Charge Time", "value": "1s to full"},
+            {"name": "Charge Time", "value": "0.85s to full"},
             {"name": "Recovery", "value": "0.75s"},
             {"name": "Ammo Usage", "value": "12"}
           ]
@@ -737,8 +738,8 @@
           "iconUrl": "winston/Q.png",
           "description": "Winston embraces his animal nature, significantly boosting his health and making him very difficult to kill, strengthening his melee attack, and allowing him to use his Jump Pack ability more frequently. While raging, Winston can only make melee and Jump Pack attacks.",
           "stats": [
-            {"name": "Health", "value": "850 health\n150 armor"},
-            {"name": "Damage", "value": "40"},
+            {"name": "Health", "value": "+700 max hp\n100% heal"},
+            {"name": "Damage", "value": "50"},
             {"name": "Fire Rate", "value": "1.5 swing/s"},
             {"name": "Duration", "value": "10s"},
             {"name": "Speed", "value": "130%"}
@@ -748,7 +749,7 @@
     },
     {
       "name": "Wrecking Ball", "class": "Tank", 
-      "hpTotal": "700", "hpNormal": "450", "hpArmor": "100", "hpShield": "150", "speed": "5.5m/s",
+      "hpTotal": "775", "hpNormal": "450", "hpArmor": "175", "hpShield": "150", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Quad Cannons",
@@ -766,12 +767,12 @@
           "name": "Grappling Claw",
           "key": "Right Click",
           "iconUrl": "wreckingball/2.png",
-          "description": "Launch a grappling claw to rapidly swing around the area. Enables high speed collisions to damage and knockback enemies.",
+          "description": "Launch a grappling claw to rapidly swing around the area or pull yourself towards the anchor point. Enables high speed collisions to damage and knockback enemies.",
           "stats": [
-            {"name": "Damage", "value": "50"},
+            {"name": "Damage", "value": "60"},
             {"name": "Speed", "value": "+100%"},
             {"name": "Duration", "value": "6s"},
-            {"name": "Cooldown", "value": "5s"}
+            {"name": "Cooldown", "value": "5s\n1s if cancelled"}
           ]
         },
         {
@@ -781,7 +782,7 @@
           "description": "Transform into a ball and increase maximum movement speed. Automatically reloads Quad Cannons after a short time in this form.",
           "stats": [
             {"name": "Speed", "value": "+50%"},
-            {"name": "Auto. Reload", "value": "2s"},
+            {"name": "Auto. Reload", "value": "1.6s"},
             {"name": "Duration", "value": "∞"}
           ]
         },
@@ -789,9 +790,10 @@
           "name": "Adaptive Shield",
           "key": "E",
           "iconUrl": "wreckingball/e.png",
-          "description": "Create temporary personal shields. Amount increases with more enemies nearby.",
+          "description": "Create temporary personal shields. Amount increases with more enemies nearby. Reactivate to redistribute overhealth to nearby allies.",
           "stats": [
             {"name": "Overhealth", "value": "100 (base)\n+100/enemy nearby"},
+            {"name": "Ally Overhealth", "value": "+75 (ally)\n-50 (self)"},
             {"name": "Duration", "value": "7s"},
             {"name": "Cooldown", "value": "15s"}
           ]
@@ -803,7 +805,7 @@
           "description": "Slam into the ground to damage and launch enemies upward.",
           "stats": [
             {"name": "Damage", "value": "20-100"},
-            {"name": "Radius", "value": "8m"},
+            {"name": "Knock up", "value": "0.75s"},
             {"name": "Cast Time", "value": "1s"},
             {"name": "Cooldown", "value": "8s"}
           ]
@@ -815,8 +817,8 @@
           "description": "Deploy a massive field of proximity mines",
           "stats": [
             {"name": "# of mines", "value": "12"},
-            {"name": "Damage", "value": "130"},
-            {"name": "Mine HP", "value": "50"},
+            {"name": "Damage", "value": "165"},
+            {"name": "Mine HP", "value": "60"},
             {"name": "Activation", "value": "1.25s"},
             {"name": "Duration", "value": "20s"}
           ]
@@ -825,7 +827,7 @@
     },
     {
       "name": "Zarya", "class": "Tank", 
-      "hpTotal": "475", "hpNormal": "250", "hpArmor": "0", "hpShield": "225", "speed": "5.5m/s",
+      "hpTotal": "550", "hpNormal": "325", "hpArmor": "0", "hpShield": "225", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Energy",
@@ -844,7 +846,7 @@
           "iconUrl": "zarya/1.png",
           "description": "Zarya’s mighty Particle Cannon unleashes a short-range beam of destructive energy. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "85 dps\n+1%/energy"},
+            {"name": "Damage", "value": "95 dps\n+1%/energy"},
             {"name": "Max Damage", "value": "170 dps"},
             {"name": "Ammo", "value": "100 (20 rps)"},
             {"name": "Reload", "value": "1.5s"}
@@ -868,9 +870,9 @@
           "iconUrl": "zarya/Shift.png",
           "description": "The Particle Cannon can emit a personal barrier that shields Zarya against incoming damage and debuffs, redirecting their energy to enhance her weapon’s damage and the width of its beam. The barrier, although only has 200 hit points, will absorb all of one burst damage even if it's higher than 200. For example, Tracer's ult will be completely absorbed even if it does 400 damage.",
           "stats": [
-            {"name": "Barrier", "value": "200 hp"},
-            {"name": "Duration", "value": "2s"},
-            {"name": "Cooldown", "value": "10s"},
+            {"name": "Barrier", "value": "225 hp"},
+            {"name": "Duration", "value": "2.25s"},
+            {"name": "Cooldown", "value": "11s"},
             {"name": "Charges", "value": "2 (shared)"}
           ]
         },
@@ -880,9 +882,9 @@
           "iconUrl": "zarya/E.png",
           "description": "Zarya surrounds one of her teammates with an energy barrier that simultaneously absorbs fire and boosts the power of her Particle Cannon. Functions identical to Particle Barrier.",
           "stats": [
-            {"name": "Barrier", "value": "200 hp"},
-            {"name": "Duration", "value": "2s"},
-            {"name": "Cooldown", "value": "8s"},
+            {"name": "Barrier", "value": "225 hp"},
+            {"name": "Duration", "value": "2.25s"},
+            {"name": "Cooldown", "value": "11s"},
             {"name": "Charges", "value": "2 (shared)"}
           ]
         },
@@ -901,7 +903,7 @@
     },
     {
       "name": "Ashe", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "The Viper",
@@ -955,9 +957,9 @@
           "name": "B.O.B.",
           "key": "Q",
           "iconUrl": "ashe/Q.webp",
-          "description": "Ashe summons her trusted omnic sidekick, Bob, who charges forward and knocks enemies into the air, then lays down suppressing fire with his arm cannons. Prioritizes enemy targets that Ashe damages with her rifle.",
+          "description": "Ashe summons her trusted omnic sidekick, Bob, who charges forward and knocks enemies into the air, then lays down suppressing fire with his arm cannons. Prioritizes enemy targets that Ashe damages with her rifle. Bob has the Tank role passive.",
           "stats": [
-            {"name": "Damage", "value": "120 (initial hit)\n14 per bullet (hand cannon)"},
+            {"name": "Damage", "value": "120 (initial hit)\n17 per bullet (hand cannon)"},
             {"name": "Fire Rate", "value": "8 rps"},
             {"name": "Health", "value": "1000"},
             {"name": "Duration", "value": "10s"}
@@ -967,7 +969,7 @@
     },
     {
       "name": "Bastion", "class": "Damage", 
-      "hpTotal": "300", "hpNormal": "200", "hpArmor": "100", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "350", "hpNormal": "250", "hpArmor": "100", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Ironclad",
@@ -1039,7 +1041,7 @@
     },
     {
       "name": "Cassidy", "class": "Damage",
-      "hpTotal": "225", "hpNormal": "225", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "275", "hpNormal": "275", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Peacekeeper",
@@ -1059,7 +1061,7 @@
           "iconUrl": "mccree/1.png",
           "description": "He can fan the Peacekeeper’s hammer to swiftly unload the entire cylinder.",
           "stats": [
-            {"name": "Damage", "value": "15-50"},
+            {"name": "Damage", "value": "15-45"},
             {"name": "Fire Rate (rps)", "value": "7.8"},
             {"name": "Ammo", "value": "6"},
             {"name": "Reload", "value": "1.5s"}
@@ -1071,21 +1073,21 @@
           "iconUrl": "mccree/Shift.png",
           "description": "Cassidy dives in the direction he’s moving, effortlessly reloading his Peacekeeper in the process.",
           "stats": [
-            {"name": "Dmg. reduction", "value": "75%"},
+            {"name": "Dmg. reduction", "value": "50%"},
             {"name": "Duration", "value": "0.4s"},
             {"name": "Cooldown", "value": "6s"}
             
           ]
         },
         {
-          "name": "Magnetic Grenade",
+          "name": "Flashbang",
           "key": "E",
           "iconUrl": "mccree/E.png",
-          "description": "Throw a homing grenade that sticks to enemies, slowing them and preventing them from using movement abilities.",
+          "description": "Hinder enemies in front of you, slowing them and preventing them from using movement abilities.",
           "stats": [
-            {"name": "Damage", "value": "80 (stickied)\n18-70 (only splash)"},
-            {"name": "Slow", "value": "-25%"},
-            {"name": "Duration", "value": "1.25s stick"},
+            {"name": "Damage", "value": "45"},
+            {"name": "Slow", "value": "-50%"},
+            {"name": "Duration", "value": "1.25s hinder"},
             {"name": "Cooldown", "value": "12s"}
             
           ]
@@ -1096,17 +1098,17 @@
           "iconUrl": "mccree/Q.png",
           "description": "Cassidy takes a few precious moments to aim; when he’s ready to fire, he shoots every enemy in his line of sight. The weaker his targets are, the faster he’ll line up a killshot. Deadeye replenishes Peacekeeper's ammo afterwards.",
           "stats": [
-            {"name": "Dmg. ramp-up", "value": "0 - 2s: 130/s\n2s+: 260/s"},
-            {"name": "Dmg. reduction", "value": "-40%"},
+            {"name": "Dmg. ramp-up", "value": "0 - 2s: 150/s\n2s+: 300/s"},
+            {"name": "Dmg. reduction", "value": "-40% to 0%"},
             {"name": "Duration", "value": "7s max.\n0.5s to cancel"},
-            {"name": "Speed", "value": "-70%"}
+            {"name": "Speed", "value": "-70% to -35%"}
           ]
         }
       ]
     },
     {
       "name": "Echo", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Glide",
@@ -1170,8 +1172,8 @@
           "iconUrl": "echo/Duplicate.png",
           "description": "Echo duplicates a targeted enemy hero and gains use of their abilities.\n - Echo's HP instantly becomes the full base HP of her target.\n - While duplicating, Echo charges her ultimate ability faster.\n - When the duration ends, or if Echo's HP is reduced to 1, Echo reverts back to normal and her HP returns to the HP she had prior to activating the ability.\n - Reverting back to Echo interrupts whatever ability she was using.",
           "stats": [
-            {"name": "HP", "value": "Duplicate: 300 max.\nRevert: 100 min."},
-            {"name": "Ult Charge Speed", "value": "5x faster"},
+            {"name": "HP", "value": "Duplicate: 350 max.\nRevert: 100 min."},
+            {"name": "Ult Charge Speed", "value": "5.5x faster"},
             {"name": "Duration", "value": "15s"}
           ]
         }
@@ -1179,7 +1181,7 @@
     },
     {
       "name": "Genji", "class": "Damage",
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "6m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "6m/s",
       "abilities": [
         {
           "name": "Cyber-Agility",
@@ -1241,7 +1243,7 @@
           "description": "Genji brandishes his katana for a brief period of time. Until he sheathes his sword, Genji can deliver killing strikes to any targets within his reach.",
           "stats": [
             {"name": "Damage", "value": "110"},
-            {"name": "Fire Rate", "value": "1.11 rps"},
+            {"name": "Fire Rate", "value": "1.44 rps"},
             {"name": "Cast Time", "value": "1s"},
             {"name": "Movespeed", "value": "+30%"},
             {"name": "Duration", "value": "6s"}
@@ -1251,7 +1253,7 @@
     },
     {
       "name": "Hanzo", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Wall Climb",
@@ -1301,11 +1303,11 @@
           "iconUrl": "hanzo/E.png",
           "description": "Hanzo’s next several arrows fire instantly, and can richochet once, but at reduced damage. Can headshot.",
           "stats": [
-            {"name": "Damage", "value": "65"},
+            {"name": "Damage", "value": "75"},
             {"name": "Fire Rate", "value": "4.16 rps"},
             {"name": "Ammo", "value": "5"},
             {"name": "Duration", "value": "5s"},
-            {"name": "Cooldown", "value": "10s"}
+            {"name": "Cooldown", "value": "8s"}
           ]
         },
         {
@@ -1323,7 +1325,7 @@
     },
     {
       "name": "Junkrat", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Total Mayhem",
@@ -1342,7 +1344,7 @@
           "iconUrl": "junkrat/1.png",
           "description": "Junkrat's Frag Launcher lobs grenades a significant distance. They bounce to reach their destination, and blow up when they strike an enemy. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "120 (direct hit)\n10-80 (splash)"},
+            {"name": "Damage", "value": "125 (direct hit)\n10-80 (splash)"},
             {"name": "Fire Rate", "value": "1.56 rps"},
             {"name": "Ammo", "value": "5"},
             {"name": "Reload", "value": "1.5s"},
@@ -1355,10 +1357,10 @@
           "iconUrl": "junkrat/Shift.png",
           "description": "After placing one of his homemade Concussion Mines, Junkrat can trigger it to damage enemies and send them flying... or propel himself through the air.",
           "stats": [
-            {"name": "Damage", "value": "30-110"},
+            {"name": "Damage", "value": "55-120"},
             {"name": "HP", "value": "25"},
             {"name": "Ammo", "value": "2 charges"},
-            {"name": "Cooldown", "value": "8s per charge"}
+            {"name": "Cooldown", "value": "7s per charge"}
           ]
         },
         {
@@ -1391,7 +1393,7 @@
     },
     {
       "name": "Mei", "class": "Damage", 
-      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "300", "hpNormal": "300", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Endothermic Blaster",
@@ -1401,7 +1403,7 @@
           "stats": [
             {"name": "DPS", "value": "100"},
             {"name": "Fire Rate", "value": "20 rps"},
-            {"name": "Ammo", "value": "120"},
+            {"name": "Ammo", "value": "140"},
             {"name": "Reload", "value": "1.5s"},
             {"name": "Slow", "value": "-30%\n0.6s duration"}
           ]
@@ -1412,7 +1414,7 @@
           "iconUrl": "mei/1.png",
           "description": "Mei can also use her blaster to shoot icicle-like projectiles at medium range.",
           "stats": [
-            {"name": "Damage", "value": "75"},
+            {"name": "Damage", "value": "85"},
             {"name": "Delay", "value": "0.4s"},
             {"name": "Fire Rate", "value": "1.25 rps"},
             {"name": "Ammo", "value": "120\n-10/shot"},
@@ -1425,7 +1427,7 @@
           "iconUrl": "mei/Shift.png",
           "description": "Mei instantly surrounds herself with a block of thick ice. She heals, restores ammo, and ignores damage while encased, but cannot move or use abilities.",
           "stats": [
-            {"name": "Heal Rate", "value": "50 hp/s"},
+            {"name": "Heal Rate", "value": "62.5 hp/s"},
             {"name": "Ammo Restore", "value": "15/s"},
             {"name": "Speed", "value": "0%"},
             {"name": "Duration", "value": "4s"},
@@ -1459,15 +1461,15 @@
     },
     {
       "name": "Pharah", "class": "Damage",
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "225", "hpNormal": "225", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Hover Jets",
           "key": "Left Click",
           "iconUrl": "pharah/icon.png",
-          "description": "Hold to hover. Uses a resource meter that recharges automatically when not in use.",
+          "description": "Hold to hover. Uses a resource meter that recharges automatically while landed. Can be activated without fuel to slow your descent.",
           "stats": [
-            {"name": "Movement Speed", "value": "+20%"},
+            {"name": "Movement Speed", "value": "+40%"},
             {"name": "Duration", "value": "Up to 2s"},
             {"name": "Recharge", "value": "43%/s"}
           ]
@@ -1485,14 +1487,26 @@
           ]
         },
         {
+          "name": "Jet Dash",
+          "key": "Right Click",
+          "iconUrl": "pharah/2.png",
+          "description": "Provides a quick horizontal boost in the direction Pharah is moving. If Pharah is stationary, she will be boosted in the direction she is facing.",
+          "stats": [
+            {"name": "Duration", "value": "0.85s"},
+            {"name": "Speed", "value": "19m/s"},
+            {"name": "Cooldown", "value": "8s"}
+          ]
+        },
+        {
           "name": "Jump Jet",
           "key": "Shift",
           "iconUrl": "pharah/Shift.png",
-          "description": "Propelled by her suit’s thrusters, Pharah soars high into the air.",
+          "description": "Propelled by her suit’s thrusters, Pharah soars high into the air. Restores Hover Jets fuel and can briefly overfill the maximum fuel amount",
           "stats": [
-            {"name": "Height", "value": "+25m"},
+            {"name": "Height", "value": "+20m"},
+            {"name": "Fuel", "value": "+50%"},
             {"name": "Speed", "value": "20m/s"},
-            {"name": "Cooldown", "value": "10s"}
+            {"name": "Cooldown", "value": "14s"}
           ]
         },
         {
@@ -1503,14 +1517,14 @@
           "stats": [
             {"name": "Damage", "value": "30 (direct hit)"},
             {"name": "Knockback", "value": "8m radius"},
-            {"name": "Cooldown", "value": "9s"}
+            {"name": "Cooldown", "value": "7s"}
           ]
         },
         {
           "name": "Barrage",
           "key": "Q",
           "iconUrl": "pharah/Q.png",
-          "description": "The rockets cover a large area in the direction of the player's crosshair. The player must remain stationary while the ability is active.",
+          "description": "The rockets cover a large area in the direction of the player's crosshair. The player must remain stationary while the ability is active. Instantly refills Hover Jets fuel.",
           "stats": [
             {"name": "Damage", "value": "40"},
             {"name": "Fire Rate (rps)", "value": "31"},
@@ -1521,7 +1535,7 @@
     },
     {
       "name": "Reaper", "class": "Damage",
-      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "300", "hpNormal": "300", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "The Reaping",
@@ -1565,7 +1579,7 @@
           "stats": [
             {"name": "Range", "value": "35m"},
             {"name": "Cooldown", "value": "10s"},
-            {"name": "Duration", "value": "1.0s entering\n1.0s invulnerable"}
+            {"name": "Duration", "value": "1.2s entering\n1.0s invulnerable"}
           ]
         },
         {
@@ -1574,7 +1588,7 @@
           "iconUrl": "reaper/Q.png",
           "description": "In a blur of motion, Reaper empties both hellfire shotguns at breakneck speed, dealing massive damage to all nearby enemies.",
           "stats": [
-            {"name": "Damage", "value": "170 per second"},
+            {"name": "Damage", "value": "185 per second"},
             {"name": "Ammo", "value": "Refilled"},
             {"name": "Duration", "value": "3s"},
             {"name": "Speed", "value": "-50%"}
@@ -1584,7 +1598,7 @@
     },
     {
       "name": "Sojourn", "class": "Damage",
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Railgun",
@@ -1593,7 +1607,7 @@
           "description": "Rapid firing projectiles that generate energy on hit. ",
           "stats": [
             {"name": "Damage", "value": "9"},
-            {"name": "Fire Rate", "value": "14 rps"},
+            {"name": "Fire Rate", "value": "16 rps"},
             {"name": "Ammo", "value": "45"},
             {"name": "Reload", "value": "1.2s"},
             {"name": "Energy / Shot", "value": "5"}
@@ -1603,9 +1617,9 @@
           "name": "Railgun (Alt Fire)",
           "key": "Right Click",
           "iconUrl": "sojourn/1.png",
-          "description": "High impact shot that consumes stored energy.",
+          "description": "High impact shot that consumes stored energy and pierces enemies.",
           "stats": [
-            {"name": "Damage", "value": "30-130\n1.5x headshot"},
+            {"name": "Damage", "value": "1-100\n1.5x headshot"},
             {"name": "Type", "value": "Hitscan"},
             {"name": "Energy Decay", "value": "after 5s\nminimum 25"}
           ]
@@ -1636,9 +1650,9 @@
           "name": "Overclock",
           "key": "Q",
           "iconUrl": "sojourn/Q.png",
-          "description": "Railgun energy auto-charges for a short duration and charged shots pierce enemies.",
+          "description": "Railgun energy auto-charges for a short duration.",
           "stats": [
-            {"name": "Full Charge Time", "value": "1 second"},
+            {"name": "Full Charge Time", "value": "0.83 second"},
             {"name": "Duration", "value": "9s"}
           ]
         }
@@ -1646,7 +1660,7 @@
     },
     {
       "name": "Soldier 76", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Heavy Pulse Rifle",
@@ -1708,7 +1722,7 @@
     },
     {
       "name": "Sombra", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Stealth",
@@ -1751,8 +1765,8 @@
           "iconUrl": "sombra/Shift.webp",
           "description": "Infect enemies with a projectile that deals damage over time. Virus damages hacked targets at a faster rate. ",
           "stats": [
-            {"name": "Impact dmg.", "value": "10\n20 (hacked)"},
-            {"name": "DoT", "value": "100 over 4s\n100 over 2s (hacked)"},
+            {"name": "Impact dmg.", "value": "25\n50 (hacked)"},
+            {"name": "DoT", "value": "90 over 4s\n90 over 2s (hacked)"},
             {"name": "Cooldown", "value": "6s"}
           ]
         },
@@ -1760,7 +1774,7 @@
           "name": "Translocator",
           "key": "E",
           "iconUrl": "sombra/E.png",
-          "description": "Sombra tosses out a translocator beacon and teleport to it. Stealth cooldown is reduced after teleporting.",
+          "description": "Sombra tosses out a translocator beacon and teleport to it. Stealth cooldown is reduced after teleporting. Translocator destroys breakables, such as fences, while in flight and does not activate upon hitting them.",
           "stats": [
             {"name": "Teleport Delay", "value": "0.25s"},
             {"name": "Invulnerability", "value": "0.4s"},
@@ -1784,7 +1798,7 @@
     },
     {
       "name": "Symmetra", "class": "Damage", 
-      "hpTotal": "200", "hpNormal": "100", "hpArmor": "0", "hpShield": "100", "speed": "5.5m/s",
+      "hpTotal": "275", "hpNormal": "125", "hpArmor": "0", "hpShield": "150", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Photon Projector",
@@ -1793,8 +1807,7 @@
           "description": "Symmetra’s weapon emits a ranged beam. It deals continuous damage that increases the longer it is connected, and constantly supply Symmetra with ammo/shields when damaging a barrier or shield health. Cannot headshot.",
           "stats": [
             {"name": "DPS", "value": "60/120/180\n1s per level"},
-            {"name": "Range", "value": "12m"},
-            {"name": "Shield", "value": "+30 hp/s\n+10 ammo/s"},
+            {"name": "Shield", "value": "+10/20/30 hp/s\n+10 ammo/s"},
             {"name": "Ammo", "value": "100\n(-10/s)"},
             {"name": "Reload", "value": "1.5s"}
           ]
@@ -1818,8 +1831,8 @@
           "iconUrl": "symmetra/Shift.png",
           "description": "Symmetra launches a small turret that automatically fires speed-reducing blasts at the nearest enemy within range, revealing them to allies. Up to 3 turrets can be built on the battlefield at once. Cannot headshot.",
           "stats": [
-            {"name": "HP", "value": "30"},
-            {"name": "DPS", "value": "25"},
+            {"name": "HP", "value": "40"},
+            {"name": "DPS", "value": "30"},
             {"name": "Slow", "value": "-15%"},
             {"name": "Reveal", "value": "1s"},
             {"name": "Casting", "value": "0.2s cast\n1s deploy"},
@@ -1833,7 +1846,7 @@
           "iconUrl": "symmetra/Q1.png",
           "description": "Symmetra places a temporary teleporter exit pad at a distance and connects it to a teleporter entry pad at her current location. Allies (and some of their abilities, such as Junkrat’s RIP-Tire) can travel from the entry pad to the exit pad instantly.",
           "stats": [
-            {"name": "HP", "value": "50 hp\n150 shield"},
+            {"name": "HP", "value": "100 hp\n200 shield"},
             {"name": "Cast Time", "value": "1s to deploy"},
             {"name": "Range", "value": "30m"},
             {"name": "Duration", "value": "10s"},
@@ -1856,7 +1869,7 @@
     },
     {
       "name": "Torbjorn", "class": "Damage", 
-      "hpTotal": "250", "hpNormal": "200", "hpArmor": "50", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "300", "hpNormal": "250", "hpArmor": "50", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Rivet Gun",
@@ -1902,7 +1915,7 @@
           "stats": [
             {"name": "Deploy Time", "value": "3s"},
             {"name": "Health", "value": "225"},
-            {"name": "Damage", "value": "11"},
+            {"name": "Damage", "value": "13"},
             {"name": "Fire Rate", "value": "4 rps"},
             {"name": "Cooldown", "value": "5s\n12s if destroyed"}
           ]
@@ -1937,7 +1950,7 @@
     },
     {
       "name": "Tracer", "class": "Damage", 
-      "hpTotal": "150", "hpNormal": "150", "hpArmor": "0", "hpShield": "0", "speed": "6m/s",
+      "hpTotal": "175", "hpNormal": "175", "hpArmor": "0", "hpShield": "0", "speed": "6m/s",
       "abilities": [
         {
           "name": "Pulse Pistols",
@@ -1971,7 +1984,7 @@
             {"name": "Heal", "value": "highest HP in past 3s"},
             {"name": "Ammo", "value": "Refilled"},
             {"name": "Duration", "value": "1.25s"},
-            {"name": "Cooldown", "value": "12s"}
+            {"name": "Cooldown", "value": "13s"}
           ]
         },
         {
@@ -1989,7 +2002,7 @@
     },
     {
       "name": "Widowmaker", "class": "Damage", 
-      "hpTotal": "175", "hpNormal": "175", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Widow's Kiss: Sniper",
@@ -2054,7 +2067,7 @@
     },
     {
       "name": "Ana", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Biotic Rifle",
@@ -2089,7 +2102,7 @@
           "stats": [
             {"name": "Damage", "value": "5"},
             {"name": "Delay", "value": "0.3s"},
-            {"name": "Sleep Duration", "value": "5s\n3.5 on tanks"},
+            {"name": "Sleep Duration", "value": "5s\n3 on tanks"},
             {"name": "Cooldown", "value": "14s"}
           ]
         },
@@ -2099,8 +2112,8 @@
           "iconUrl": "ana/E.webp",
           "description": "Ana tosses a biotic bomb that deals damage to enemies and heals allies in a small area of effect. Affected allies briefly receive increased healing from all sources, while enemies caught in the blast cannot be healed for a few moments.",
           "stats": [
-            {"name": "Enemies", "value": "60 damage\nblock healing"},
-            {"name": "Allies", "value": "+60 hp\n+50% healing"},
+            {"name": "Enemies", "value": "90 damage\nblock healing"},
+            {"name": "Allies", "value": "+90 hp\n+50% healing"},
             {"name": "Duration", "value": "3s"},
             {"name": "Cooldown", "value": "12s"}
           ]
@@ -2121,7 +2134,7 @@
     },
     {
       "name": "Baptiste", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Exo Boots",
@@ -2178,7 +2191,7 @@
           "description": "Baptiste uses a device to create a field that prevents allies from dying (any ally inside the field become immune to death, and their health cannot fall below a certain amount). The generator can be destroyed.",
           "stats": [
             {"name": "Health", "value": "125"},
-            {"name": "Minimum HP", "value": "25%"},
+            {"name": "Minimum HP", "value": "20%"},
             {"name": "Duration", "value": "5s"},
             {"name": "Cooldown", "value": "25s"}
           ]
@@ -2198,7 +2211,7 @@
     },
     {
       "name": "Brigitte", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "150", "hpArmor": "50", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "200", "hpArmor": "50", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Inspire",
@@ -2218,7 +2231,7 @@
           "iconUrl": "brigitte/1.png",
           "description": "Brigitte's melee weapon has an extended range, enabling her to strike multiple enemies with a single swing. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "35"},
+            {"name": "Damage", "value": "45"},
             {"name": "Fire Rate", "value": "1.67 rps"},
             {"name": "Range", "value": "6m"}
           ]
@@ -2266,7 +2279,7 @@
           "stats": [
             {"name": "Healing", "value": "+25hp instantly\n50 hp/s"},
             {"name": "Duration", "value": "2s heal"},
-            {"name": "Cooldown", "value": "6s"},
+            {"name": "Cooldown", "value": "5s"},
             {"name": "Charges", "value": "3"}
           ]
         },
@@ -2274,7 +2287,7 @@
           "name": "Rally",
           "key": "Q",
           "iconUrl": "brigitte/Q.png",
-          "description": "Brigitte moves faster and provides all nearby allies with overhealth. During Rally, Brigitte's basic abilities are enhanced.",
+          "description": "Brigitte moves faster and provides all nearby allies with overhealth. During Rally, Brigitte's basic abilities are enhanced. On activation, reset Shield Bash cooldown.",
           "stats": [
             {"name": "Overhealth", "value": "+30 hp/s (up to 100)\n+100 armor (self)"},
             {"name": "Speed", "value": "+15%"},
@@ -2285,7 +2298,7 @@
     },
     {
       "name": "Illari", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Solar Rifle",
@@ -2294,7 +2307,7 @@
           "description": "Long-range auto charging rifle.",
           "stats": [
             {"name": "Damage", "value": "22.5-75 (max charge)\n7.5-25 (min charge)"},
-            {"name": "Fire Rate", "value": "1 (max charge)\n1.7 (min charge)"},
+            {"name": "Fire Rate", "value": "1.11 (max charge)\n2 (min charge)"},
             {"name": "Ammo", "value": "16"},
             {"name": "Reload", "value": "2s"}
           ]
@@ -2305,7 +2318,7 @@
           "iconUrl": "illari/1.webp",
           "description": "Medium range healing beam that consumes solar energy.",
           "stats": [
-            {"name": "Heal Rate", "value": "105 hp/s"},
+            {"name": "Heal Rate", "value": "115 hp/s"},
             {"name": "Recharge", "value": "2.9s to full"},
             {"name": "Cooldown", "value": "3.36s when depleted"}
           ]
@@ -2316,7 +2329,7 @@
           "iconUrl": "illari/Shift.webp",
           "description": "Launches you in the direction you are moving. Knocking back enemies. Hold jump to go higher.",
           "stats": [
-            {"name": "Damage", "value": "10"},
+            {"name": "Damage", "value": "25"},
             {"name": "Cast Time", "value": "0.2s"},
             {"name": "Cooldown", "value": "7s"}
           ]
@@ -2327,10 +2340,10 @@
           "iconUrl": "illari/E.webp",
           "description": "Deploy a pylon that heals allies.",
           "stats": [
-            {"name": "HP", "value": "50 health\n50 shields"},
-            {"name": "Heal", "value": "30 over 0.45s"},
+            {"name": "HP", "value": "75 health\n50 shields"},
+            {"name": "Heal", "value": "40 over 0.45s\n50% on self"},
             {"name": "Fire Rate", "value": "1.25"},
-            {"name": "Cooldown", "value": "8s\n15s under attack"}
+            {"name": "Cooldown", "value": "6s\n14s under attack"}
           ]
         },
         {
@@ -2341,7 +2354,7 @@
           "stats": [
             {"name": "Movespeed", "value": "-40% slow"},
             {"name": "Secondary Ammo", "value": "Refilled"},
-            {"name": "Damage", "value": "5 (impact)\n50 (splash)\n120 (sunstruck)"},
+            {"name": "Damage", "value": "5 (impact)\n50 (splash)\n120-160 (sunstruck)"},
             {"name": "Duration", "value": "6s"}
           ]
         }
@@ -2349,7 +2362,7 @@
     },
     {
       "name": "Kiriko", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Wall Climb",
@@ -2391,7 +2404,7 @@
           "stats": [
             {"name": "Cast Time", "value": "~0.2s"},
             {"name": "Duration", "value": "0.25s invulnerable"},
-            {"name": "Cooldown", "value": "7s"}
+            {"name": "Cooldown", "value": "8s"}
           ]
         },
         {
@@ -2423,7 +2436,7 @@
     },
     {
       "name": "Lifeweaver", "class": "Support", 
-      "hpTotal": "225", "hpNormal": "175", "hpArmor": "0", "hpShield": "50", "speed": "5.5m/s",
+      "hpTotal": "275", "hpNormal": "225", "hpArmor": "0", "hpShield": "50", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Rejuvenating Dash",
@@ -2431,7 +2444,7 @@
           "iconUrl": "lifeweaver/Passive.webp",
           "description": "Dash towards your traveling direction and lightly heal yourself.",
           "stats": [
-            {"name": "Heal", "value": "50"},
+            {"name": "Heal", "value": "60"},
             {"name": "Cooldown", "value": "5s"}
           ]
         },
@@ -2441,9 +2454,9 @@
           "iconUrl": "lifeweaver/1.webp",
           "description": "Hold to charge a healing burst. Release to heal a targeted ally. Automatically reload after a 2.5 seconds when inactive.",
           "stats": [
-            {"name": "Heal", "value": "10-70"},
+            {"name": "Heal", "value": "10-80"},
             {"name": "Movespeed", "value": "-25% after 1s"},
-            {"name": "Fire Rate", "value": "1s charge\n0.3s recovery"},
+            {"name": "Fire Rate", "value": "1.15s charge\n0.3s recovery"},
             {"name": "Ammo", "value": "16"},
             {"name": "Reload", "value": "1.5s"}
           ]
@@ -2488,7 +2501,7 @@
           "description": "Place a tree that instantly heals allies upon sprouting and continues healing periodically as it lives.",
           "stats": [
             {"name": "Health", "value": "1200 tree hp\n100 overhealth"},
-            {"name": "Healing", "value": "150 (instant)\n75 hp/pulse\n50% as overhealth"},
+            {"name": "Healing", "value": "150 (instant)\n90 hp/pulse\n50% as overhealth"},
             {"name": "Pulse Rate", "value": "1 pulse every 1.75s"},
             {"name": "Duration", "value": "15s"}
           ]
@@ -2497,7 +2510,7 @@
     },
     {
       "name": "Lucio", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Wall Ride",
@@ -2516,7 +2529,7 @@
           "iconUrl": "lucio/1.png",
           "description": "Sonic projectile launcher. Can headshot.",
           "stats": [
-            {"name": "Damage", "value": "20"},
+            {"name": "Damage", "value": "18"},
             {"name": "Fire Rate", "value": "4.44 rps"},
             {"name": "Ammo", "value": "20"},
             {"name": "Reload", "value": "1.5s"}
@@ -2528,7 +2541,7 @@
           "iconUrl": "lucio/2.png",
           "description": "Lúcio creates a short-range blast wave knock enemies away. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "25"},
+            {"name": "Damage", "value": "45"},
             {"name": "Range", "value": "8m"},
             {"name": "Cooldown", "value": "4s"}
           ]
@@ -2574,7 +2587,7 @@
     },
     {
       "name": "Mercy", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Sympathetic Recovery",
@@ -2582,7 +2595,7 @@
           "iconUrl": "mercy/icon.png",
           "description": "Healing allies with Caduceus Staff heals you. ",
           "stats": [
-            {"name": "Healing", "value": "25% of Caduceus Staff"}
+            {"name": "Healing", "value": "40% of Caduceus Staff"}
           ]
         },
         {
@@ -2655,7 +2668,7 @@
     },
     {
       "name": "Moira", "class": "Support", 
-      "hpTotal": "200", "hpNormal": "200", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "250", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Biotic Grasp: Renegeration",
@@ -2675,7 +2688,7 @@
           "iconUrl": "moira/1.png",
           "description": "Her right hand fires a long-range beam weapon that saps enemies’ health, healing Moira and replenishing her biotic energy. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "50 per second"},
+            {"name": "Damage", "value": "60 per second"},
             {"name": "Self Heal", "value": "24 hp/s"},
             {"name": "Energy", "value": "+20/s"},
             {"name": "Range", "value": "20m"}
@@ -2711,7 +2724,7 @@
           "description": "Moira channels a long-range beam that both heals allies and bypasses barriers to damage her enemies. While channeling this ability, Moira's movement speed increases greatly, but she cannot perform any other actions. Moira's resource generation for Biotic Grasp is 3 times higher while channeling Coalescence. Cannot headshot.",
           "stats": [
             {"name": "DPS", "value": "70"},
-            {"name": "Heal (hp/s)", "value": "Ally: 140\nSelf: 50"},
+            {"name": "Heal (hp/s)", "value": "Ally: 140\nSelf: 55"},
             {"name": "Cast Time", "value": "0.5s"},
             {"name": "Mov. Speed", "value": "+40%"},
             {"name": "Duration", "value": "8s"}
@@ -2721,7 +2734,7 @@
     },
     {
       "name": "Zenyatta", "class": "Support", 
-      "hpTotal": "225", "hpNormal": "75", "hpArmor": "0", "hpShield": "150", "speed": "5.5m/s",
+      "hpTotal": "250", "hpNormal": "75", "hpArmor": "0", "hpShield": "175", "speed": "5.5m/s",
       "abilities": [
         {
           "name": "Snap Kick",
@@ -2729,8 +2742,8 @@
           "iconUrl": "passive_default.png",
           "description": "Quick melee damage increased, and its knockback is significantly increased.",
           "stats": [
-            {"name": "Melee Damage", "value": "+50% (45)"},
-            {"name": "Knockback", "value": "+?%"}
+            {"name": "Melee Damage", "value": "+50%"},
+            {"name": "Knockback", "value": "8m"}
           ]
         },
         {
