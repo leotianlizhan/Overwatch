@@ -5,7 +5,7 @@ import something.overwatch.MapType.*
  * Best practice for global constants
  */
 object Constants {
-    const val REMOTE_URL: String = "http://s1.retort.ganks.me/"
+    const val REMOTE_URL: String = "http://51.222.15.220/"
 
     @JvmField
     val MAPS = arrayOf<Map>(
