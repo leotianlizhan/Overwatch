@@ -10,8 +10,8 @@ android {
         applicationId "something.overwatch"
         minSdk 19
         targetSdk 34
-        versionCode 78
-        versionName "1.19.10"
+        versionCode 79
+        versionName "1.19.11"
         multiDexEnabled true
     }
     buildTypes {
