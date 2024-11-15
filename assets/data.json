@@ -167,8 +167,8 @@
           "iconUrl": "doomfist/Meteor_Strike.png",
           "description": "Doomfist leaps into the sky, then crashes to the ground, dealing significant damage. Doomfist is invincible during his ultimate, and speeds up cooldown rate of his abilities by 100% while in the air. Empowers Rocket Punch on landing.",
           "stats": [
-            {"name": "Damage", "value": "Inner ring: 300\nOuter ring: 50-100"},
-            {"name": "HP", "value": "+75/s"},
+            {"name": "Damage", "value": "Center: 300\nEdge: 50-100"},
+            {"name": "HP", "value": "+90/s"},
             {"name": "Cast Time", "value": "0.5s\n1s landing"},
             {"name": "Duration", "value": "4s"},
             {"name": "Slow Enemies", "value": "-50% for 3s"}
@@ -186,7 +186,7 @@
           "iconUrl": "junkerqueen/Passive.png",
           "description": "All wound damage that Junker Queen does causes her to heal herself at an increased rate. Adrenaline Rush instantly heals for the remaining wound damage when an enemy dies with wounds on them.",
           "stats": [
-            {"name": "Healing", "value": "250% of wound damage"}
+            {"name": "Healing", "value": "225% of wound damage"}
           ]
         },
         {
@@ -299,8 +299,8 @@
             {"name": "Damage", "value": "30 (bump)\n75 (outside)\n150 (center)"},
             {"name": "Dmg. Reduction", "value": "50%"},
             {"name": "Duration", "value": "2s charge\n0.5s CC"},
-            {"name": "Speed", "value": "+250%"},
-            {"name": "Cooldown", "value": "6s"}
+            {"name": "Speed", "value": "+165%"},
+            {"name": "Cooldown", "value": "5s"}
           ]
         },
         {
@@ -1280,7 +1280,7 @@
           "description": "Hanzo nocks and fires an arrow at his target. Can headshot.",
           "stats": [
             {"name": "Damage", "value": "25-125"},
-            {"name": "Fire Rate (rps)", "value": "2 - 0.7"},
+            {"name": "Fire Rate (rps)", "value": "2 - 0.77"},
             {"name": "Ammo", "value": "∞"},
             {"name": "Speed", "value": "-30%"}
           ]
@@ -1359,7 +1359,7 @@
             {"name": "Damage", "value": "55-120"},
             {"name": "HP", "value": "25"},
             {"name": "Ammo", "value": "2 charges"},
-            {"name": "Cooldown", "value": "7s per charge"}
+            {"name": "Cooldown", "value": "8s per charge"}
           ]
         },
         {
@@ -1542,7 +1542,7 @@
           "iconUrl": "reaper/Passive.png",
           "description": "Regains a portion of all damage done to heroes as health",
           "stats": [
-            {"name": "Heal", "value": "35% of damage done"}
+            {"name": "Heal", "value": "30% of damage done"}
           ]
         },
         {
@@ -1984,7 +1984,7 @@
             {"name": "Heal", "value": "highest HP in past 3s"},
             {"name": "Ammo", "value": "Refilled"},
             {"name": "Duration", "value": "1.25s"},
-            {"name": "Cooldown", "value": "13s"}
+            {"name": "Cooldown", "value": "12s"}
           ]
         },
         {
@@ -2151,8 +2151,8 @@
           "iconUrl": "ana/1.webp",
           "description": "The Biotic Rifle shoots darts that will heal allied heroes or apply 0.9 second damage-over-time (DOT) to enemy units. The dart is a fast moving projectile if fired from the hip, and a hitscan shot if firing while scoped. Cannot headshot.",
           "stats": [
-            {"name": "Damage", "value": "70"},
-            {"name": "Heal", "value": "70"},
+            {"name": "Damage", "value": "75"},
+            {"name": "Heal", "value": "75"},
             {"name": "Duration", "value": "0.58s"},
             {"name": "Fire Rate", "value": "1.25 rps"},
             {"name": "Ammo", "value": "12"},
@@ -2537,7 +2537,7 @@
           "description": "Thrown projectile that deals increased critical damage.",
           "stats": [
             {"name": "Damage", "value": "60"},
-            {"name": "Fire Rate", "value": "1.82 rps"},
+            {"name": "Fire Rate", "value": "2 rps"},
             {"name": "Ammo", "value": "15"},
             {"name": "Reload", "value": "1s"}
           ]
@@ -2550,7 +2550,7 @@
           "stats": [
             {"name": "Cast Time", "value": "~0.2s"},
             {"name": "Duration", "value": "0.25s invulnerable"},
-            {"name": "Cooldown", "value": "8s"}
+            {"name": "Cooldown", "value": "7s"}
           ]
         },
         {
@@ -2562,7 +2562,7 @@
             {"name": "Heal", "value": "80 (no cleanse)\n110 (cleanse)"},
             {"name": "Cast Time", "value": "0.1s"},
             {"name": "Duration", "value": "0.65s"},
-            {"name": "Cooldown", "value": "15s"}
+            {"name": "Cooldown", "value": "14s"}
           ]
         },
         {
@@ -2635,8 +2635,8 @@
           "iconUrl": "lifeweaver/E.webp",
           "description": "Pull an ally to your location, protecting them as they travel.",
           "stats": [
-            {"name": "Heal", "value": "50"},
-            {"name": "Cooldown", "value": "19s"}
+            {"name": "Heal", "value": "75"},
+            {"name": "Cooldown", "value": "18s"}
           ]
         },
         {
@@ -2646,9 +2646,8 @@
           "description": "Place a tree that instantly heals allies upon sprouting and continues healing periodically as it lives.",
           "stats": [
             {"name": "Health", "value": "1200 tree hp\n100 overhealth"},
-            {"name": "Healing", "value": "150 (instant)\n90 hp/pulse\n50% as overhealth"},
-            {"name": "Pulse Rate", "value": "1 pulse every 1.75s"},
-            {"name": "Duration", "value": "15s"}
+            {"name": "Healing", "value": "150 (instant)\n90 hp/1.75s\n50% as overhealth"},
+            {"name": "Duration", "value": "15s\n6s overhealth"}
           ]
         }
       ]
@@ -2834,7 +2833,7 @@
           "description": "Her right hand fires a long-range beam weapon that saps enemies’ health, healing Moira and replenishing her biotic energy. Cannot headshot.",
           "stats": [
             {"name": "Damage", "value": "65 per second"},
-            {"name": "Self Heal", "value": "24 hp/s"},
+            {"name": "Self Heal", "value": "30 hp/s"},
             {"name": "Energy", "value": "+20/s"},
             {"name": "Range", "value": "20m"}
           ]
