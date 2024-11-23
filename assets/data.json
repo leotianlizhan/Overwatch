@@ -177,6 +177,76 @@
       ]
     },
     {
+      "name": "Hazard", "class": "Tank", 
+      "hpTotal": "650", "hpNormal": "425", "hpArmor": "225", "hpShield": "0", "speed": "5.5m/s",
+      "abilities": [
+        {
+          "name": "Vault",
+          "key": "Space",
+          "iconUrl": "hazard/P.webp",
+          "description": "Scale short walls and grab ledges.",
+          "stats": []
+        },
+        {
+          "name": "Bonespur",
+          "key": "Left Click",
+          "iconUrl": "hazard/1.webp",
+          "description": "Fire a burst of spikes. Can headshot.",
+          "stats": [
+            {"name": "Damage", "value": "2 - 6.75"},
+            {"name": "Fire Rate (rps)", "value": "1.75 (10 pellets/shot)"},
+            {"name": "Ammo", "value": "8"},
+            {"name": "Reload", "value": "2.3s"}
+          ]
+        },
+        {
+          "name": "Spike Guard",
+          "key": "Right Click",
+          "iconUrl": "hazard/2.webp",
+          "description": "Protect yourself, firing homing spikes at nearby enemies. While active, reduce damage taken and regenerate ammo.",
+          "stats": [
+            {"name": "Damage", "value": "12.5"},
+            {"name": "Fire Rate", "value": "6 rps"},
+            {"name": "Dmg. Reduction", "value": "-75%"},
+            {"name": "Speed", "value": "-50%"},
+            {"name": "Duration", "value": "3.5s\n5s recharge"}
+          ]
+        },
+        {
+          "name": "Violent Leap",
+          "key": "Shift",
+          "iconUrl": "hazard/S.webp",
+          "description": "Lunge forward. Activate again to slash enemies, knocking them back.",
+          "stats": [
+            {"name": "Damage", "value": "80"},
+            {"name": "Cooldown", "value": "5s"}
+          ]
+        },
+        {
+          "name": "Jagged Wall",
+          "key": "E",
+          "iconUrl": "hazard/E.webp",
+          "description": "Hazard launches a spiked wall that damages and knocks back nearby enemies. Hazard can Vault and touch it without taking damage.",
+          "stats": [
+            {"name": "Damage", "value": "40"},
+            {"name": "Duration", "value": "6s"},
+            {"name": "Cooldown", "value": "12s"}
+          ]
+        },
+        {
+          "name": "Downpour",
+          "key": "Q",
+          "ultcharge": "1900",
+          "iconUrl": "hazard/Q.webp",
+          "description": "Rain down a torrent of spikes, immobilizing enemies. Cannot headshot.",
+          "stats": [
+            {"name": "Damage", "value": "90"},
+            {"name": "Duration", "value": "2.5s"}
+          ]
+        }
+      ]
+    },
+    {
       "name": "Junker Queen", "class": "Tank", 
       "hpTotal": "525", "hpNormal": "525", "hpArmor": "0", "hpShield": "0", "speed": "5.5m/s",
       "abilities": [
